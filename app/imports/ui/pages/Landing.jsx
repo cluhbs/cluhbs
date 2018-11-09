@@ -13,7 +13,7 @@ class Landing extends React.Component {
           <Grid.Column textAlign='center'>
             <div className='landing_middle'>
               <Header as='h1' inverted>
-                <Icon size='big' name='user' inverted />
+                <Icon size='big' name='user' inverted/>
                 <Header.Content>
                   Create an Account
                   <Header.Subheader>
@@ -23,7 +23,7 @@ class Landing extends React.Component {
                 </Header.Content>
               </Header>
               <Header as='h1' inverted>
-                <Icon size='big' name='search' inverted />
+                <Icon size='big' name='search' inverted/>
                 <Header.Content>
                   Discover Clubs
                   <Header.Subheader>
@@ -34,7 +34,7 @@ class Landing extends React.Component {
                 </Header.Content>
               </Header>
               <Header as='h1' inverted>
-                <Icon size='big' name='users' inverted />
+                <Icon size='big' name='users' inverted/>
                 <Header.Content>
                   Don't See Your Club on the List?
                   <Header.Subheader>
@@ -49,10 +49,10 @@ class Landing extends React.Component {
 
           <Grid.Column textAlign="center" verticalAlign='middle'>
             <Header as="h1">
-              What are you waiting for? Log in or Register now!
+              What are you waiting for? <br/> Log in or Register now!
             </Header>
             <Button size="big" as={NavLink} exact to="/signin">Log in</Button>
-            <Button size="big"as={NavLink} exact to="/signup">Register</Button>
+            <Button size="big" as={NavLink} exact to="/signup">Register</Button>
           </Grid.Column>
 
         </Grid>
