@@ -14,10 +14,7 @@ const ClubSchema = new SimpleSchema({
   meetTime: String,
   location: String,
   contact: String,
-  interest: {
-    type: String,
-    allowedValues: ['Sport', 'Art', 'Language', 'Culture', 'Ethics'],
-  },
+  interest: String,
   owner: String,
 }, { tracker: Tracker });
 
