@@ -4,10 +4,10 @@ import { Container, Header, Loader, Card, Input } from 'semantic-ui-react';
 import { Clubs } from '/imports/api/club/club';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import Club from '/imports/ui/components/Club';
+import ClubItemSuperAdmin from '/imports/ui/components/ClubItemSuperAdmin';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
-class ListClubs extends React.Component {
+class ClubDirectorySuperAdmin extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -19,10 +19,10 @@ class ListClubs extends React.Component {
     const searchBar = { padding: '30px 0px 30px 0px' };
     return (
         <Container>
-          <Header as="h2" textAlign="center">List Clubs</Header>
+          <Header as="h2" dividing textAlign="center">Club Directory</Header>
           <Input style={searchBar} fluid icon='search' placeholder='Search...' />
           <Card.Group itemsPerRow={3}>
-            {this.props.clubs.map((club, index) => <Club key={index} club={club} />)}
+            {this.props.clubs.map((club, index) => <ClubItemSuperAdmin key={index} club={club} />)}
           </Card.Group>
         </Container>
     );
@@ -30,7 +30,7 @@ class ListClubs extends React.Component {
 }
 
 /** Require an array of Stuff documents in the props. */
-ListClubs.propTypes = {
+ClubDirectorySuperAdmin.propTypes = {
   clubs: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
@@ -43,4 +43,4 @@ export default withTracker(() => {
     clubs: Clubs.find({}).fetch(),
     ready: subscription.ready(),
   };
-})(ListClubs);
+})(ClubDirectorySuperAdmin);

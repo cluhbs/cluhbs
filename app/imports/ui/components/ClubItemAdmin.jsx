@@ -1,10 +1,10 @@
 import React from 'react';
-import { Card, Image, Label } from 'semantic-ui-react';
+import { Card, Image, Label, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-class ClubAdmin extends React.Component {
+class ClubItemSuperAdmin extends React.Component {
   render() {
     return (
         <Card href='#card-example-link-card' color='green' centered>
@@ -14,16 +14,17 @@ class ClubAdmin extends React.Component {
               {this.props.club.name}
             </Card.Header>
             <Card.Meta>
-              {this.props.club.website}
+              <a href={this.props.club.website} rel='noopener noreferrer' target='_blank'>{this.props.club.website}</a>
             </Card.Meta>
             <Card.Description>
               {this.props.club.description}
             </Card.Description>
           </Card.Content>
           <Card.Content>
-            <Card.Description>Meeting Times: {this.props.club.meetTime}</Card.Description>
-            <Card.Description>Location: {this.props.club.location}</Card.Description>
-            <Card.Description>Contact: {this.props.club.contact}</Card.Description>
+            <Card.Description><strong>Meeting Times:</strong> {this.props.club.meetTime}</Card.Description>
+            <Card.Description><strong>Location:</strong> {this.props.club.location}</Card.Description>
+            <Card.Description><strong>Contact Person:</strong> {this.props.club.contactPerson}</Card.Description>
+            <Card.Description><strong>Contact Info:</strong> {this.props.club.contact}</Card.Description>
           </Card.Content>
           <Card.Content>
             <Label.Group tag color='green'>
@@ -32,8 +33,9 @@ class ClubAdmin extends React.Component {
               </Label>
             </Label.Group>
           </Card.Content>
-          <Card.Content extra>
-            {this.props.club.owner}
+          <Card.Content>
+            <Link to={`/edit/${this.props.club._id}`}><Button>Edit</Button></Link>
+            <Button negative>Delete</Button>
           </Card.Content>
         </Card>
     );
@@ -41,9 +43,9 @@ class ClubAdmin extends React.Component {
 }
 
 /** Require a document to be passed to this component. */
-ClubAdmin.propTypes = {
+ClubItemSuperAdmin.propTypes = {
   club: PropTypes.object.isRequired,
 };
 
 /** Wrap this component in withRouter since we use the <Link> React Router element. */
-export default withRouter(ClubAdmin);
+export default withRouter(ClubItemSuperAdmin);

@@ -53,6 +53,7 @@ class AddClub extends React.Component {
                 <LongTextField name='description'/>
                 <TextField name='meetTime'/>
                 <TextField name='location'/>
+                <TextField name='contactPerson'/>
                 <TextField name='contact'/>
                 <TextField name='interest'/>
                 <SubmitField value='Submit'/>

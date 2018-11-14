@@ -1,13 +1,13 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Loader, Card, Input } from 'semantic-ui-react';
+import { Container, Header, Loader, Card } from 'semantic-ui-react';
 import { Clubs } from '/imports/api/club/club';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import ClubAdmin from '/imports/ui/components/ClubAdmin';
+import ClubItemAdmin from '/imports/ui/components/ClubItemAdmin';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
-class ListClubsAdmin extends React.Component {
+class ClubDirectory extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -16,13 +16,11 @@ class ListClubsAdmin extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const searchBar = { padding: '30px 0px 30px 0px' };
     return (
         <Container>
-          <Header as="h2" textAlign="center">List Clubs</Header>
-          <Input style={searchBar} fluid icon='search' placeholder='Search...' />
+          <Header as="h2" dividing textAlign="center">Manage Club</Header>
           <Card.Group itemsPerRow={3}>
-            {this.props.clubs.map((club, index) => <ClubAdmin key={index} club={club} />)}
+            {this.props.clubs.map((club, index) => <ClubItemAdmin key={index} club={club} />)}
           </Card.Group>
         </Container>
     );
@@ -30,7 +28,7 @@ class ListClubsAdmin extends React.Component {
 }
 
 /** Require an array of Stuff documents in the props. */
-ListClubsAdmin.propTypes = {
+ClubDirectory.propTypes = {
   clubs: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
@@ -38,9 +36,9 @@ ListClubsAdmin.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to Stuff documents.
-  const subscription = Meteor.subscribe('ClubsAdmin');
+  const subscription = Meteor.subscribe('ClubAdmin');
   return {
     clubs: Clubs.find({}).fetch(),
     ready: subscription.ready(),
   };
-})(ListClubsAdmin);
+})(ClubDirectory);

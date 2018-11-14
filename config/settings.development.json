@@ -1,37 +1,33 @@
 {
   "defaultAccounts": [
     { "email": "admin@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "clubAdmin@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "john@foo.com", "password": "changeme" }
-  ],
-
-  "defaultData": [
-    { "name": "Basket", "quantity": 3, "owner": "john@foo.com", "condition": "excellent" },
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
   ],
 
   "defaultClubs": [
     {
       "image": "http://static1.squarespace.com/static/57e48324579fb35bcfcd4bd6/t/57e4a2f615d5db083266d200/1541540054230/?format=1500w",
       "name": "American Institute of Architecture Students",
-      "website": "aiashawaii.com",
+      "website": "http://www.aiashawaii.com/",
       "description": "AIAS Hawaii is a student-run, non-profit organization whose mission is to promote excellence in architectural education, training, and practice; to foster an appreciation of architecture and related disciplines; to enrich communities in a spirit of collaboration; and to organize students and combine efforts to advance the art and science of architecture.",
       "meetTime": "Tues 5-7pm",
       "location": "Honolulu, Hi 96822",
+      "contactPerson": "Branden Annino",
       "contact": "1(808)293-1830",
-      "owner": "john@foo.com",
+      "owner": "clubAdmin@foo.com",
       "interest": "Academic"
     },
     {
       "image": "https://ckiuhm.weebly.com/uploads/8/6/7/3/86734930/11994145-1125200664174836-55470367-o_orig.jpg",
       "name": "Circle K International at the University of Hawaii at Manoa",
-      "website": "ckiuhm.weebly.com",
+      "website": "https://ckiuhm.weebly.com/",
       "description": "Circle K International (CKI) at the University of Hawai`i at Manoa was founded in 1978. We are a premier collegiate community service club, leadership development, and friendship organization in the world.",
       "meetTime": "MWF 1:30-4pm",
       "location": "2500 Campus Rd",
+      "contactPerson": "Branden Annino",
       "contact": "1(808)123-4567",
-      "owner": "john@foo.com",
+      "owner": "admin@foo.com",
       "interest": "Service"
     },
     {
@@ -41,6 +37,7 @@
       "description": "Timpuyog (“togetherness”) is the organization of students enrolled in various courses offered by the Ilokano Language and Literature Program (ILLP) at UH Mānoa.",
       "meetTime": "All weekdays 2-5pm",
       "location": "Queen Liliuokalani Center",
+      "contactPerson": "Branden Annino",
       "contact": "1(808)231-5768",
       "owner": "admin@foo.com",
       "interest": "Cultural"
