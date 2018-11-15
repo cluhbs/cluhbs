@@ -2,6 +2,9 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
+import { Profiles } from '/imports/api/profile/profile';
+import { Meteor } from 'meteor/meteor';
+import PropTypes from 'prop-types';
 
 /**
  * Signup component is similar to signin component, but we attempt to create a new user instead.
@@ -17,6 +20,13 @@ export default class Signup extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  createProfile() {
+    const owner = Meteor.users.findOne().username;
+    Profiles.insert({ owner });
+    // const { firstName, lastName, contactEmail } = '';
+    // Profiles.update(owner, { $set: { firstName, lastName, contactEmail } });
+  }
+
   /** Update the form controls each time the user interacts with them. */
   handleChange(e, { name, value }) {
     this.setState({ [name]: value });
@@ -30,6 +40,7 @@ export default class Signup extends React.Component {
         this.setState({ error: err.reason });
       } else {
         // browserHistory.push('/login');
+        this.createProfile();
         this.setState({ error: '', redirectToReferer: true });
       }
     });
@@ -91,3 +102,8 @@ export default class Signup extends React.Component {
     );
   }
 }
+
+/** Require the presence of a Profile document in the props object. Uniforms adds 'model' to the props, which we use. */
+Signup.propTypes = {
+  location: PropTypes.object,
+};

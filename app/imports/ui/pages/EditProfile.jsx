@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Loader, Header, Input, Button, Icon, List } from 'semantic-ui-react';
+import { Grid, Loader, Header, Input, Button, List } from 'semantic-ui-react';
 import { Profiles, ProfileSchema, defaultInterests } from '/imports/api/profile/profile';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AutoForm from 'uniforms-semantic/AutoForm';
@@ -9,12 +9,9 @@ import TextField from 'uniforms-semantic/TextField';
 // import ListAddField from 'uniforms-semantic/ListAddField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
-import HiddenField from 'uniforms-semantic/HiddenField';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-
-// import InterestItem from '/imports/ui/components/InterestItem';
 
 /** Renders the Page for editing a single document. */
 class EditProfile extends React.Component {
@@ -22,25 +19,20 @@ class EditProfile extends React.Component {
   state = {
     disabledAdd: true,
     clear: false,
-    delete: false,
     interest: '',
-    addedInterest: [],
-    deletedInterest: [],
-    doc: null,
+    addedInterest: '',
+    deletedInterest: '',
   };
 
   /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
   constructor(props) {
     super(props);
     this.submit = this.submit.bind(this);
-    this.updateCallback = this.updateCallback.bind(this);
-    this.createProfile = this.createProfile.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onClickAddInterest = this.onClickAddInterest.bind(this);
     this.onClickDeleteInterest = this.onClickDeleteInterest.bind(this);
     this.onClickClearInterest = this.onClickClearInterest.bind(this);
-    // console.log(Meteor.user().username);
   }
 
   /** Notify the user of the results of the submit. */
@@ -52,55 +44,24 @@ class EditProfile extends React.Component {
     }
   }
 
-  createProfile(data) {
-    const {
-      firstName,
-      lastName,
-      image,
-      phoneNumber,
-      contactEmail,
-      // interests,
-    } = data;
-    const owner = Meteor.user().username;
-    let interests = this.props.doc.interests.concat(this.state.addedInterest);
-    if (this.state.clear) {
-      interests = [];
-    }
-    Profiles.insert({
-      firstName,
-      lastName,
-      image,
-      phoneNumber,
-      contactEmail,
-      interests,
-      owner,
-    }, this.updateCallback(this.error));
-  }
-
   updateProfile(data) {
     const {
-      firstName,
-      lastName,
-      image,
-      phoneNumber,
-      contactEmail,
-      // interests,
-      _id,
+      firstName, lastName, image, phoneNumber, contactEmail, _id,
     } = data;
-    let interests = this.props.doc.interests.concat(this.state.addedInterest);
+    let interests = this.props.doc.interests.filter((x) => (x !== this.state.deletedInterest));
     if (this.state.clear) {
       interests = [];
     }
-    if (this.state.delete) {
-      interests = this.props.doc.interests.splice(interests.indexOf(this.state.deletedInterest), 1);
+    if (!this.state.disabledAdd) {
+      interests = this.props.doc.interests.concat(this.state.addedInterest);
     }
     Profiles.update(_id, {
       $set: {
         firstName,
         lastName,
         image,
-        phoneNumber,
         contactEmail,
+        phoneNumber,
         interests,
       },
     }, this.updateCallback(this.error));
@@ -108,15 +69,10 @@ class EditProfile extends React.Component {
 
   /** On successful submit, insert the data. */
   submit(data) {
-    // if (Profiles.find().count() === 0) {
-    if (this.props.doc == null) {
-      this.createProfile(data);
-    } else {
-      this.updateProfile(data);
-    }
+    this.updateProfile(data);
     this.setState({ disabledAdd: true });
     this.setState({ clear: false });
-    this.setState({ delete: false });
+    // this.setState({ deletedInterest: '' });
   }
 
   handleChange(event) {
@@ -134,26 +90,12 @@ class EditProfile extends React.Component {
     this.setState({ interest: '' });
   }
 
-  onClickDeleteInterest(e) {
-    e.preventDefault();
-    this.componentWillMount();
-    this.setState({ delete: true });
-    this.setState({ deletedInterest: e.target.value });
-    // this.setState({ deletedInterest: interest});
-    // console.log(interest, interest.target.value);
-    console.log(e.target);
-    console.log(this.state.deletedInterest);
-    console.log(e.target._id);
-    console.log(this.state.doc);
-    this.updateCallback(this.error);
+  onClickDeleteInterest(event) {
+    this.setState({ deletedInterest: event.target.value });
   }
 
   onClickClearInterest() {
     this.setState({ clear: true });
-  }
-
-  componentWillMount() {
-    this.setState({ doc: this.props.doc });
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -227,20 +169,24 @@ class EditProfile extends React.Component {
                         <Header as='h3'>Your Interests</Header>
                       </Grid.Column>
                       {/* {console.log(this.props.doc)} */}
-                      <Grid.Column floated='right'>
-                        <Button content='Clear All' onClick={this.onClickClearInterest}/>
+                      <Grid.Column>
+                        <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
                       </Grid.Column>
+                      {/* <Grid.Column>
+                        <Header as='h3'>Your Interests</Header>
+                        <Button content='Clear All' floated='right' onClick={this.onClickClearInterest}/>
+                      </Grid.Column> */}
                     </Grid.Row>
-
-                    <List>
-                      {this.props.doc.interests.map((item) => <List.Item key={item}>
-                        <Icon link name='minus circle' color='red' value={item}
-                              onClick={this.onClickDeleteInterest}
-                        />
-                        {item}
-                      </List.Item>)}
-                    </List>
-
+                    <Grid.Row>
+                      <List>
+                        {this.props.doc.interests.map((item) => <List.Item key={item.toString()}>
+                          {/* <Icon link name='minus circle' color='red' value={item} */}
+                          {/* onClick={this.onClickDeleteInterest}/> {item} */}
+                          <Button inverted compact circular color='red' size='mini' content='X' value={item.toString()}
+                                  onClick={this.onClickDeleteInterest}/> {item}
+                        </List.Item>)}
+                      </List>
+                    </Grid.Row>
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns={1}>
@@ -249,7 +195,6 @@ class EditProfile extends React.Component {
                   </Grid.Column>
                 </Grid.Row>
                 <ErrorsField/>
-                <HiddenField name='owner' value='fakeuser@foo.com'/>
               </Grid>
             </AutoForm>
           </Grid.Column>

@@ -3,18 +3,16 @@ import { Roles } from 'meteor/alanning:roles';
 import { Profiles } from '../../api/profile/profile.js';
 
 /** Initialize the database with a default data document. */
-function addData(data) {
+/* function addData(data) {
   console.log(`  Adding: ${data.name} (${data.owner})`);
   Profiles.insert(data);
-}
+} */
 
 /** Initialize the collection if empty. */
-/*if (Profiles.find().count() === 0) {
-  if (Meteor.settings.defaultData) {
-    console.log('Creating default profiles.');
-    Meteor.settings.defaultData.map(data => addData(data));
-  }
-}*/
+// if (Profiles.find().count() === 0) {
+//   const owner = Meteor.users.findOne(this.userId).username;
+//   Profiles.insert({ owner });
+// }
 
 /** This subscription publishes only the documents associated with the logged in user */
 Meteor.publish('Profiles', function publish() {
@@ -22,9 +20,9 @@ Meteor.publish('Profiles', function publish() {
     const username = Meteor.users.findOne(this.userId).username;
     return Profiles.find({ owner: username });
   }
-  /*if (this.userId) {
+  /* if (this.userId) {
     return Profiles.find();
-  }*/
+  } */
   return this.ready();
 });
 
