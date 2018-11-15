@@ -4,7 +4,7 @@ import { Tracker } from 'meteor/tracker';
 
 /** Create a Meteor collection. */
 const Profiles = new Mongo.Collection('Profiles');
-const interests = ['Art', 'Academic', 'Music'];
+const defaultInterests = ['Art', 'Academic', 'Music'];
 
 /** Create a schema to constrain the structure of documents associated with this collection. */
 const ProfileSchema = new SimpleSchema({
@@ -22,4 +22,4 @@ const ProfileSchema = new SimpleSchema({
 Profiles.attachSchema(ProfileSchema);
 
 /** Make the collection and schema available to other code. */
-export { Profiles, ProfileSchema, interests };
+export { Profiles, ProfileSchema, defaultInterests };

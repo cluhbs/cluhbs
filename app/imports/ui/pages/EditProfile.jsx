@@ -1,12 +1,12 @@
 import React from 'react';
-import { Grid, Loader, Header, Input, Button, Icon, List, Dropdown, Image } from 'semantic-ui-react';
-import { Profiles, ProfileSchema, interests } from '/imports/api/profile/profile';
+import { Grid, Loader, Header, Input, Button, Icon, List } from 'semantic-ui-react';
+import { Profiles, ProfileSchema, defaultInterests } from '/imports/api/profile/profile';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
-import LongTextField from 'uniforms-semantic/LongTextField';
-import BoolField from 'uniforms-semantic/BoolField';
-import ListAddField from 'uniforms-semantic/ListAddField';
+// import LongTextField from 'uniforms-semantic/LongTextField';
+// import BoolField from 'uniforms-semantic/BoolField';
+// import ListAddField from 'uniforms-semantic/ListAddField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import HiddenField from 'uniforms-semantic/HiddenField';
@@ -27,7 +27,7 @@ class EditProfile extends React.Component {
     addedInterest: [],
     deletedInterest: [],
     doc: null,
-  }
+  };
 
   /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
   constructor(props) {
@@ -125,8 +125,7 @@ class EditProfile extends React.Component {
     this.setState({ addedInterest: event.target.value });
     if (event.target.value === '') {
       this.setState({ disabledAdd: true });
-    }
-    else {
+    } else {
       this.setState({ disabledAdd: false });
     }
   }
@@ -185,9 +184,9 @@ class EditProfile extends React.Component {
                   <Grid.Column>
                     <TextField name='image' placeholder='Paste url to image'/>
                   </Grid.Column>
-                  {/*<Grid.Column>
+                  {/* <Grid.Column>
                     <Image src={`${this.props.doc.image}`} size='large' />
-                  </Grid.Column>*/}
+                  </Grid.Column> */}
                 </Grid.Row>
 
                 <Grid.Row columns={1}>
@@ -218,9 +217,8 @@ class EditProfile extends React.Component {
                            }
                     />
                     <datalist id='interestList'>
-                      {interests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map((item) =>
-                          <option key={item} value={item}/>
-                      )}
+                      {defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map((item) => <option
+                          key={item} value={item}/>)}
                     </datalist>
                   </Grid.Column>
                   <Grid.Column>
@@ -228,24 +226,21 @@ class EditProfile extends React.Component {
                       <Grid.Column>
                         <Header as='h3'>Your Interests</Header>
                       </Grid.Column>
-                      {/*{console.log(this.props.doc)}*/}
+                      {/* {console.log(this.props.doc)} */}
                       <Grid.Column floated='right'>
                         <Button content='Clear All' onClick={this.onClickClearInterest}/>
                       </Grid.Column>
                     </Grid.Row>
 
                     <List>
-                      {this.props.doc.interests.map((item) =>
-                          <List.Item>
-                            <Icon link name='minus circle' color='red' value={item}
-                                  onClick={this.onClickDeleteInterest}
-                            />
-                            {item}
-                          </List.Item>
-                      )}
+                      {this.props.doc.interests.map((item) => <List.Item key={item}>
+                        <Icon link name='minus circle' color='red' value={item}
+                              onClick={this.onClickDeleteInterest}
+                        />
+                        {item}
+                      </List.Item>)}
                     </List>
 
-                    {/*<HiddenField name='interests' value={this.state.addedInterest}/>*/}
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns={1}>
@@ -271,9 +266,9 @@ EditProfile.propTypes = {
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(({ match }) => {
+export default withTracker(() => {
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
-  const documentId = match.params._id;
+  // const documentId = match.params._id;
   const subscription = Meteor.subscribe('Profiles');
   // const username = Meteor.user().username;
   // console.log(username);
