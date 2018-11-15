@@ -5,6 +5,11 @@
     { "email": "john@foo.com", "password": "changeme" }
   ],
 
+  "defaultProfiles": [
+    { "owner": "john@foo.com", "firstName": "John", "lastName": "Smith", "contactEmail": "john@foo.com" },
+    { "owner": "clubAdmin@foo.com", "firstName": "Eliza", "lastName": "Sinclair", "contactEmail": "clubAdmin@foo.com" }
+  ],
+
   "defaultClubs": [
     {
       "image": "http://static1.squarespace.com/static/57e48324579fb35bcfcd4bd6/t/57e4a2f615d5db083266d200/1541540054230/?format=1500w",

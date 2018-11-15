@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Icon, Header, Button } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import { Dropdown } from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -21,9 +20,7 @@ class Landing extends React.Component {
                 </Header>
               </div>
               <div className='button'>
-                <Button size='huge' color='green' floated as={NavLink} exact to="/signup">
-                  Get Started
-                </Button>
+                <Button size='huge' color='green' as={NavLink} exact to="/signup">Get Started</Button>
               </div>
             </Grid.Row>
             <Grid.Row columns={2}>
@@ -35,9 +32,9 @@ class Landing extends React.Component {
                   <hr/>
                   <Header as="h3" inverted>
                     <Icon inverted name='search'/>
-                    <Header.Content inverted>
+                    <Header.Content inverted='true'>
                       Find Clubs Easily
-                      <Header.Subheader inverted>
+                      <Header.Subheader inverted='true'>
                         Students are able to browse a well organized directory of all current student clubs with the
                         necessary information required to get involved
                       </Header.Subheader>
@@ -45,19 +42,19 @@ class Landing extends React.Component {
                   </Header>
                   <Header as="h3" inverted>
                     <Icon inverted name='edit'/>
-                    <Header.Content inverted>
+                    <Header.Content inverted='true'>
                       Manage Your Club
-                      <Header.Subheader inverted>
-                        Club admins have the ability to edit the information of their club and have it displayed onto the
-                        club directory where interested students can find a way to contact them
+                      <Header.Subheader inverted='true'>
+                        Club admins have the ability to edit the information of their club and have it displayed onto
+                        the club directory where interested students can find a way to contact them
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
                   <Header as="h3" inverted>
                     <Icon inverted name='group'/>
-                    <Header.Content inverted>
+                    <Header.Content inverted='true'>
                       Make Lasting Friendships
-                      <Header.Subheader inverted>
+                      <Header.Subheader inverted='true'>
                         clUHbs helps build a better sense of community at the University of Hawaiʻi at Mānoa by
                         introducing students to others that have common interests
                       </Header.Subheader>
@@ -81,7 +78,7 @@ class Landing extends React.Component {
                     3. Search clubs in club directory
                   </Header>
                   <Header as="h3" inverted>
-                    4. Add clubs to "your clubs"
+                    4. Add clubs to {'your clubs'}
                   </Header>
                   <Header as="h3" inverted>
                     5. Contact club admins using given contact information
