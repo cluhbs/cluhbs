@@ -4,6 +4,7 @@ import { Tracker } from 'meteor/tracker';
 
 /** Create a Meteor collection. */
 const Profiles = new Mongo.Collection('Profiles');
+const interests = ['Art', 'Academic', 'Music'];
 
 /** Create a schema to constrain the structure of documents associated with this collection. */
 const ProfileSchema = new SimpleSchema({
@@ -12,7 +13,8 @@ const ProfileSchema = new SimpleSchema({
   image: { type: String, optional: true, defaultValue: '' },
   phoneNumber: { type: String, optional: true },
   contactEmail: { type: String, defaultValue: '' },
-  interests: { type: String, optional: true },
+  interests: { type: Array, optional: true },
+  'interests.$': { type: String },
   owner: { type: String },
 }, { tracker: Tracker });
 
@@ -20,4 +22,4 @@ const ProfileSchema = new SimpleSchema({
 Profiles.attachSchema(ProfileSchema);
 
 /** Make the collection and schema available to other code. */
-export { Profiles, ProfileSchema };
+export { Profiles, ProfileSchema, interests };

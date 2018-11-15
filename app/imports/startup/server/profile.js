@@ -9,12 +9,12 @@ function addData(data) {
 }
 
 /** Initialize the collection if empty. */
-if (Profiles.find().count() === 0) {
+/*if (Profiles.find().count() === 0) {
   if (Meteor.settings.defaultData) {
     console.log('Creating default profiles.');
     Meteor.settings.defaultData.map(data => addData(data));
   }
-}
+}*/
 
 /** This subscription publishes only the documents associated with the logged in user */
 Meteor.publish('Profiles', function publish() {
