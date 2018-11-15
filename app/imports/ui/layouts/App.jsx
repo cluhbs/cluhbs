@@ -7,11 +7,12 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-import ListStuff from '../pages/ListStuff';
-import ListStuffAdmin from '../pages/ListStuffAdmin';
-import AddStuff from '../pages/AddStuff';
-import EditStuff from '../pages/EditStuff';
 import EditProfile from '../pages/EditProfile';
+import ClubDirectorySuperAdmin from '../pages/ClubDirectorySuperAdmin';
+import ManageClubAdmin from '../pages/ManageClubAdmin';
+import ClubDirectory from '../pages/ClubDirectory';
+import AddClub from '../pages/AddClub';
+import EditClub from '../pages/EditClub';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -28,11 +29,12 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
-              <ProtectedRoute path="/list" component={ListStuff}/>
-              <ProtectedRoute path="/add" component={AddStuff}/>
-              <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <ProtectedRoute path="/profile" component={EditProfile}/>
-              <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+              <ProtectedRoute path="/list" component={ClubDirectory}/>
+              <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
+              <ProtectedRoute path="/add" component={AddClub}/>
+              <ProtectedRoute path="/edit/:_id" component={EditClub}/>
+              <AdminProtectedRoute path="/admin" component={ClubDirectorySuperAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
