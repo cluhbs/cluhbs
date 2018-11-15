@@ -33,9 +33,9 @@ class AddClub extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { image, name, website, description, meetTime, location, contact, interest } = data;
+    const { image, name, website, description, meetTime, location, contact, interest, contactPerson } = data;
     const owner = Meteor.user().username;
-    Clubs.insert({ image, name, website, description, meetTime, location, contact, interest, owner },
+    Clubs.insert({ image, name, website, description, meetTime, location, contact, interest, contactPerson, owner },
         this.insertCallback);
   }
 
