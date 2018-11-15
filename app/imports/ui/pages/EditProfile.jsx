@@ -91,10 +91,9 @@ class EditProfile extends React.Component {
     if (this.state.clear) {
       interests = [];
     }
-    else
-      if (this.state.delete) {
-        interests = this.props.doc.interests.splice(interests.indexOf(this.state.delete), 1);
-      }
+    if (this.state.delete) {
+      interests = this.props.doc.interests.splice(interests.indexOf(this.state.deletedInterest), 1);
+    }
     Profiles.update(_id, {
       $set: {
         firstName,
@@ -138,12 +137,15 @@ class EditProfile extends React.Component {
 
   onClickDeleteInterest(e) {
     e.preventDefault();
+    this.componentWillMount();
     this.setState({ delete: true });
+    this.setState({ deletedInterest: e.target.value });
     // this.setState({ deletedInterest: interest});
     // console.log(interest, interest.target.value);
     console.log(e.target);
-    console.log(e.target.value);
-    // console.log(this.state.doc);
+    console.log(this.state.deletedInterest);
+    console.log(e.target._id);
+    console.log(this.state.doc);
     this.updateCallback(this.error);
   }
 
@@ -216,13 +218,13 @@ class EditProfile extends React.Component {
                            }
                     />
                     <datalist id='interestList'>
-                      {interests.map((item) =>
+                      {interests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map((item) =>
                           <option key={item} value={item}/>
                       )}
                     </datalist>
                   </Grid.Column>
                   <Grid.Column>
-                    <Grid.Row columns={2} fluid container>
+                    <Grid.Row columns={2}>
                       <Grid.Column>
                         <Header as='h3'>Your Interests</Header>
                       </Grid.Column>
@@ -234,7 +236,7 @@ class EditProfile extends React.Component {
 
                     <List>
                       {this.props.doc.interests.map((item) =>
-                          <List.Item key={item._id}>
+                          <List.Item>
                             <Icon link name='minus circle' color='red' value={item}
                                   onClick={this.onClickDeleteInterest}
                             />
