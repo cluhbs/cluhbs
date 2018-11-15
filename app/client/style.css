@@ -1,8 +1,28 @@
-.landing_middle {
-  background-color: #21BA45;
+.landing-background {
+  background: url('/images/223.jpg') no-repeat center center fixed;
   background-size: cover;
-  padding: 10px;
-  color: white;
+  max-width: 100%;
+  height: auto;
+}
+
+.landing-title {
+  padding-top: 50px;
+  font: 7em verdana, sans-serif;
+}
+
+.landing-subtitle {
+  padding-top: 15px;
+  padding-bottom: 25px;
+  font: 2em verdana, sans-serif;
+}
+
+.landing-middle {
+  padding: 12px;
+}
+
+.button {
+  padding-top: 15px;
+  padding-bottom: 50px;
 }
 
 .edit-club-background {
