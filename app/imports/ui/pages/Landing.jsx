@@ -7,7 +7,6 @@ import { Dropdown } from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropd
 class Landing extends React.Component {
   render() {
     return (
-
         <div className='landing-background'>
           <Grid container stackable centered>
             <Grid.Row>
