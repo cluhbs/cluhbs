@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Loader, Header, Input, Button, List } from 'semantic-ui-react';
-import { Profiles, ProfileSchema, defaultInterests } from '/imports/api/profile/profile';
+import { Grid, Loader, Header, Input, Button, List, Image } from 'semantic-ui-react';
+import { Profiles, ProfileSchema, defaultInterests, defaultImage } from '/imports/api/profile/profile';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
@@ -33,6 +33,7 @@ class EditProfile extends React.Component {
     this.onClickAddInterest = this.onClickAddInterest.bind(this);
     this.onClickDeleteInterest = this.onClickDeleteInterest.bind(this);
     this.onClickClearInterest = this.onClickClearInterest.bind(this);
+    this.imageVal = this.imageVal.bind(this);
   }
 
   /** Notify the user of the results of the submit. */
@@ -98,6 +99,13 @@ class EditProfile extends React.Component {
     this.setState({ clear: true });
   }
 
+  imageVal() {
+    if (this.props.doc.image === defaultImage) {
+      return '';
+    }
+    return this.props.doc.image;
+  }
+
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
@@ -122,13 +130,14 @@ class EditProfile extends React.Component {
                     <TextField name='lastName'/>
                   </Grid.Column>
                 </Grid.Row>
-                <Grid.Row columns={1}>
-                  <Grid.Column>
-                    <TextField name='image' placeholder='Paste url to image'/>
+                <Grid.Row columns='equal'>
+                  <Grid.Column width={2}>
+                    <Image src={this.props.doc.image} size='small'/>
                   </Grid.Column>
-                  {/* <Grid.Column>
-                    <Image src={`${this.props.doc.image}`} size='large' />
-                  </Grid.Column> */}
+                  <Grid.Column>
+                    <TextField name='image' placeholder='Paste url to image'
+                               value={this.imageVal()}/>
+                  </Grid.Column>
                 </Grid.Row>
 
                 <Grid.Row columns={1}>
@@ -164,19 +173,16 @@ class EditProfile extends React.Component {
                     </datalist>
                   </Grid.Column>
                   <Grid.Column>
-                    <Grid.Row columns={2}>
-                      <Grid.Column>
-                        <Header as='h3'>Your Interests</Header>
-                      </Grid.Column>
-                      {/* {console.log(this.props.doc)} */}
-                      <Grid.Column>
-                        <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
-                      </Grid.Column>
-                      {/* <Grid.Column>
-                        <Header as='h3'>Your Interests</Header>
-                        <Button content='Clear All' floated='right' onClick={this.onClickClearInterest}/>
-                      </Grid.Column> */}
-                    </Grid.Row>
+                    <Grid>
+                      <Grid.Row columns={2}>
+                        <Grid.Column>
+                          <Header as='h3'>Your Interests</Header>
+                        </Grid.Column>
+                        <Grid.Column textAlign='right'>
+                          <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
                     <Grid.Row>
                       <List>
                         {this.props.doc.interests.map((item) => <List.Item key={item.toString()}>

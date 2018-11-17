@@ -8,6 +8,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import EditProfile from '../pages/EditProfile';
+import DisplayProfile from '../pages/DisplayProfile';
 import ClubDirectorySuperAdmin from '../pages/ClubDirectorySuperAdmin';
 import ManageClubAdmin from '../pages/ManageClubAdmin';
 import ClubDirectory from '../pages/ClubDirectory';
@@ -29,7 +30,8 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
-              <ProtectedRoute path="/profile" component={EditProfile}/>
+              <ProtectedRoute path="/profile" component={DisplayProfile}/>
+              <ProtectedRoute path="/profile-edit" component={EditProfile}/>
               <ProtectedRoute path="/list" component={ClubDirectory}/>
               <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
               <ProtectedRoute path="/add" component={AddClub}/>
