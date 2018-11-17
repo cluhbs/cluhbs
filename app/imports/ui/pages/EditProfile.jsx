@@ -1,12 +1,9 @@
 import React from 'react';
 import { Grid, Loader, Header, Input, Button, List, Image } from 'semantic-ui-react';
-import { Profiles, ProfileSchema, defaultInterests, defaultImage } from '/imports/api/profile/profile';
+import { Profiles, ProfileSchema, defaultInterests } from '/imports/api/profile/profile';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
-// import LongTextField from 'uniforms-semantic/LongTextField';
-// import BoolField from 'uniforms-semantic/BoolField';
-// import ListAddField from 'uniforms-semantic/ListAddField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { Meteor } from 'meteor/meteor';
@@ -29,11 +26,10 @@ class EditProfile extends React.Component {
     super(props);
     this.submit = this.submit.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleInterestChange = this.handleInterestChange.bind(this);
     this.onClickAddInterest = this.onClickAddInterest.bind(this);
     this.onClickDeleteInterest = this.onClickDeleteInterest.bind(this);
     this.onClickClearInterest = this.onClickClearInterest.bind(this);
-    this.imageVal = this.imageVal.bind(this);
   }
 
   /** Notify the user of the results of the submit. */
@@ -76,7 +72,7 @@ class EditProfile extends React.Component {
     // this.setState({ deletedInterest: '' });
   }
 
-  handleChange(event) {
+  handleInterestChange(event) {
     event.preventDefault();
     this.setState({ interest: event.target.value });
     this.setState({ addedInterest: event.target.value });
@@ -97,13 +93,6 @@ class EditProfile extends React.Component {
 
   onClickClearInterest() {
     this.setState({ clear: true });
-  }
-
-  imageVal() {
-    if (this.props.doc.image === defaultImage) {
-      return '';
-    }
-    return this.props.doc.image;
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -132,11 +121,10 @@ class EditProfile extends React.Component {
                 </Grid.Row>
                 <Grid.Row columns='equal'>
                   <Grid.Column width={2}>
-                    <Image src={this.props.doc.image} size='small'/>
+                    <Image src={this.props.doc.image} size='small' as='a' href={this.props.doc.image} target='_blank'/>
                   </Grid.Column>
-                  <Grid.Column>
-                    <TextField name='image' placeholder='Paste url to image'
-                               value={this.imageVal()}/>
+                  <Grid.Column verticalAlign='middle'>
+                    <TextField name='image' placeholder='Paste url to image'/>
                   </Grid.Column>
                 </Grid.Row>
 
@@ -160,7 +148,7 @@ class EditProfile extends React.Component {
                     <Header as='h3'>Add Interests</Header>
                     <Input id='interestInput' list='interestList' name='interest' placeholder='Select'
                            value={this.state.interest}
-                           onChange={this.handleChange}
+                           onChange={this.handleInterestChange}
                            action={
                              <Button icon='plus' color='green' disabled={this.state.disabledAdd}
                                      onClick={this.onClickAddInterest}

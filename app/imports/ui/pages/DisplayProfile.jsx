@@ -6,8 +6,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-/** Renders the Page for editing a single document. */
-class EditProfile extends React.Component {
+/** Renders the Page for displaying a single document. */
+class DisplayProfile extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -23,7 +23,7 @@ class EditProfile extends React.Component {
               <Grid as={Segment}>
                 <Grid.Row columns='equal'>
                   <Grid.Column width={4}>
-                    <Image src={this.props.doc.image} size='small'/>
+                    <Image src={this.props.doc.image} size='medium'/>
                   </Grid.Column>
                   <Grid.Column>
                     <Grid>
@@ -43,8 +43,9 @@ class EditProfile extends React.Component {
                       </Grid.Row>
                       <Grid.Row columns={1}>
                         <Grid.Column>
-                          <Grid as={Segment} celled relaxed='true'>
-                            <Grid.Row columns={2} relaxed>
+                          <Segment>
+                          <Grid celled relaxed>
+                            <Grid.Row columns={2} relaxed='true'>
                               <Grid.Column>
                                 <Header as='h4' attached='top' textAlign='center'>Interest Areas</Header>
                                 <List bulleted>
@@ -62,6 +63,7 @@ class EditProfile extends React.Component {
                               </Grid.Column>
                             </Grid.Row>
                           </Grid>
+                          </Segment>
                         </Grid.Column>
                       </Grid.Row>
                     </Grid>
@@ -76,7 +78,7 @@ class EditProfile extends React.Component {
 }
 
 /** Require the presence of a Profile document in the props object. Uniforms adds 'model' to the props, which we use. */
-EditProfile.propTypes = {
+DisplayProfile.propTypes = {
   doc: PropTypes.object,
   model: PropTypes.object,
   ready: PropTypes.bool.isRequired,
@@ -90,4 +92,4 @@ export default withTracker(() => {
     doc: Profiles.findOne(),
     ready: subscription.ready(),
   };
-})(EditProfile);
+})(DisplayProfile);
