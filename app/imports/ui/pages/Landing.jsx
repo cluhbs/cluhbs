@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Icon, Header, Button } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Clubs } from '/imports/api/club/club';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -20,7 +21,7 @@ class Landing extends React.Component {
                 </Header>
               </div>
               <div className='button'>
-                <Button size='huge' color='green' as={NavLink} exact to="/signup">Get Started</Button>
+                <Button size='huge' color='green' as={Link} to="/signup">Get Started</Button>
               </div>
             </Grid.Row>
             <Grid.Row columns={2}>

@@ -3,7 +3,7 @@ import { Grid, Loader, Header, Image, Button, List, Segment } from 'semantic-ui-
 import { Profiles } from '/imports/api/profile/profile';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /** Renders the Page for displaying a single document. */
@@ -37,32 +37,31 @@ class DisplayProfile extends React.Component {
                           }
                         </Grid.Column>
                         <Grid.Column textAlign='right' width={4}>
-                          <Button basic color='blue' as={NavLink} icon='edit'
-                                  exact to="/profile-edit" content='Edit Profile'/>
+                          <Button basic color='blue' as={Link} icon='edit' to="/profile-edit" content='Edit Profile'/>
                         </Grid.Column>
                       </Grid.Row>
                       <Grid.Row columns={1}>
                         <Grid.Column>
                           <Segment>
-                          <Grid celled relaxed>
-                            <Grid.Row columns={2} relaxed='true'>
-                              <Grid.Column>
-                                <Header as='h4' attached='top' textAlign='center'>Interest Areas</Header>
-                                <List bulleted>
-                                  {this.props.doc.interests.map((item) => <List.Item key={item.toString()}
-                                                                                     content={item}/>)}
-                                </List>
-                              </Grid.Column>
-                              <Grid.Column>
-                                <Header as='h4' attached='top' textAlign='center'>Clubs</Header>
-                                {/* change this.props.doc.interests to this.props.doc.clubs when implemented */}
-                                <List bulleted>
-                                  {this.props.doc.interests.map((club) => <List.Item key={club.toString()}
-                                                                                     content={club}/>)}
-                                </List>
-                              </Grid.Column>
-                            </Grid.Row>
-                          </Grid>
+                            <Grid celled relaxed>
+                              <Grid.Row columns={2} relaxed='true'>
+                                <Grid.Column>
+                                  <Header as='h4' attached='top' textAlign='center'>Interest Areas</Header>
+                                  <List bulleted>
+                                    {this.props.doc.interests.map((item, index) => <List.Item key={index}
+                                                                                              content={item}/>)}
+                                  </List>
+                                </Grid.Column>
+                                <Grid.Column>
+                                  <Header as='h4' attached='top' textAlign='center'>Clubs</Header>
+                                  {/* change this.props.doc.interests to this.props.doc.clubs when implemented */}
+                                  <List bulleted>
+                                    {this.props.doc.interests.map((club, index) => <List.Item key={index}
+                                                                                              content={club}/>)}
+                                  </List>
+                                </Grid.Column>
+                              </Grid.Row>
+                            </Grid>
                           </Segment>
                         </Grid.Column>
                       </Grid.Row>

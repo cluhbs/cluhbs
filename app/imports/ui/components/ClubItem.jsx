@@ -1,36 +1,28 @@
 import React from 'react';
-import { Card, Image, Label } from 'semantic-ui-react';
+import { Card, Image, Label, Container } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class ClubItem extends React.Component {
   render() {
     return (
-        <Card href='#card-example-link-card' color='green' centered>
+        <Card as={Link} to={`/club-info/${this.props.club._id}`} color='green' centered>
           <Card.Content>
-            <Image fluid src={this.props.club.image}/>
-            <Card.Header>
-              {this.props.club.name}
-            </Card.Header>
+            <Container textAlign='center'>
+              <Image style={{ height: '190px', 'padding-bottom': '10px' }} src={this.props.club.image}/>
+            </Container>
+            <Card.Header content={this.props.club.name}/>
             <Card.Meta>
               <a href={this.props.club.website} rel='noopener noreferrer' target='_blank'>{this.props.club.website}</a>
             </Card.Meta>
             <Card.Description>
-              {this.props.club.description}
+              {this.props.club.description.substring(0, 250)}{(this.props.club.description.length > 250) ? '...' : ''}
             </Card.Description>
           </Card.Content>
           <Card.Content>
-            <Card.Description><strong>Meeting Times:</strong> {this.props.club.meetTime}</Card.Description>
-            <Card.Description><strong>Location:</strong> {this.props.club.location}</Card.Description>
-            <Card.Description><strong>Contact Person:</strong> {this.props.club.contactPerson}</Card.Description>
-            <Card.Description><strong>Contact Info:</strong> {this.props.club.contact}</Card.Description>
-          </Card.Content>
-          <Card.Content>
             <Label.Group tag color='green'>
-              <Label as='a'>
-                {this.props.club.interest}
-              </Label>
+              {this.props.club.interests.map((interest, index) => <Label key={index} content={interest}/>)}
             </Label.Group>
           </Card.Content>
         </Card>

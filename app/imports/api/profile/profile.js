@@ -20,6 +20,8 @@ const ProfileSchema = new SimpleSchema({
   contactEmail: { type: String, defaultValue: '' },
   interests: { type: Array, optional: true, defaultValue: [] },
   'interests.$': { type: String, min: 1 },
+  clubs: { type: Array, optional: true, defaultValue: [] },
+  'clubs.$': { type: String },
   owner: { type: String },
 }, { tracker: Tracker });
 

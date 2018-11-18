@@ -34,7 +34,7 @@ class ClubItemSuperAdmin extends React.Component {
             </Label.Group>
           </Card.Content>
           <Card.Content>
-            <Link to={`/edit/${this.props.club._id}`}><Button>Edit</Button></Link>
+            <Link to={`/club-edit/${this.props.club._id}`}><Button>Edit</Button></Link>
             <Button negative>Delete</Button>
           </Card.Content>
         </Card>

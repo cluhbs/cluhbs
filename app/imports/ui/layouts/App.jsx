@@ -14,6 +14,7 @@ import ManageClubAdmin from '../pages/ManageClubAdmin';
 import ClubDirectory from '../pages/ClubDirectory';
 import AddClub from '../pages/AddClub';
 import EditClub from '../pages/EditClub';
+import DisplayClub from '../pages/DisplayClub';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -35,7 +36,8 @@ class App extends React.Component {
               <ProtectedRoute path="/list" component={ClubDirectory}/>
               <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
               <ProtectedRoute path="/add" component={AddClub}/>
-              <ProtectedRoute path="/edit/:_id" component={EditClub}/>
+              <ProtectedRoute path="/club-edit/:_id" component={EditClub}/>
+              <ProtectedRoute path="/club-info/:_id" component={DisplayClub}/>
               <AdminProtectedRoute path="/admin" component={ClubDirectorySuperAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>

@@ -20,9 +20,9 @@ class ClubDirectory extends React.Component {
     return (
         <Container>
           <Header as="h2" dividing textAlign="center">Club Directory</Header>
-          <Input style={searchBar} fluid icon='search' placeholder='Search...' />
+          <Input style={searchBar} fluid icon='search' placeholder='Search...'/>
           <Card.Group itemsPerRow={3}>
-            {this.props.clubs.map((club, index) => <ClubItem key={index} club={club} />)}
+            {this.props.clubs.map((club, index) => <ClubItem key={index} club={club}/>)}
           </Card.Group>
         </Container>
     );
@@ -40,7 +40,15 @@ export default withTracker(() => {
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Clubs');
   return {
-    clubs: Clubs.find({}).fetch(),
+    clubs: Clubs.find({}).fetch().sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    }),
     ready: subscription.ready(),
   };
 })(ClubDirectory);
