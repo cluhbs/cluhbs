@@ -10,7 +10,7 @@ class ClubItem extends React.Component {
         <Card as={Link} to={`/club-info/${this.props.club._id}`} color='green' centered>
           <Card.Content>
             <Container textAlign='center'>
-              <Image style={{ height: '190px', 'padding-bottom': '10px' }} src={this.props.club.image}/>
+              <Image style={{ height: '190px', paddingBottom: '10px' }} src={this.props.club.image}/>
             </Container>
             <Card.Header content={this.props.club.name}/>
             <Card.Meta>

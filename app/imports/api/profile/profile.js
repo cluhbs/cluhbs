@@ -5,7 +5,7 @@ import { Tracker } from 'meteor/tracker';
 /** Create a Meteor collection. */
 const Profiles = new Mongo.Collection('Profiles');
 const defaultInterests =
-    ['Academic', 'Cultural', 'Health', 'Professional', 'Honorary Society', 'Student Affairs',
+    ['Academic', 'Cultural', 'Ethnic', 'Health', 'Professional', 'Honorary Society', 'Student Affairs',
       'Literary', 'Publications', 'Service', 'Spirit', 'Sports', 'Recreation', 'Leisure', 'Music',
       'Art', 'Culinary', 'Digital Art', 'Dance', 'Drama/Theatre', 'Fine Arts', 'Performing Arts', 'Visual Art',
       'Civil', 'Religious/Spiritual', 'Fraternity/Sorority', 'Leadership', 'Political'].sort();
