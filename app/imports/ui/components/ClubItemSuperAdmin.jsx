@@ -2,9 +2,31 @@ import React from 'react';
 import { Card, Image, Label, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
+import { Bert } from 'meteor/themeteorchef:bert';
+import { Clubs } from '/imports/api/club/club';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class ClubItemSuperAdmin extends React.Component {
+  constructor(props) {
+    super(props);
+    this.remove = this.remove.bind(this);
+  }
+
+  remove() {
+    /* eslint-disable-next-line */
+    if (confirm(`Are you sure you want to delete ${this.props.club.name}?`)) {
+      Clubs.remove(this.props.club._id, this.deleteCallback);
+    }
+  }
+
+  deleteCallback(error) {
+    if (error) {
+      Bert.alert({ type: 'danger', message: `Delete failed: ${error.message}` });
+    } else {
+      Bert.alert({ type: 'success', message: 'The club has been successfully deleted.' });
+    }
+  }
+
   render() {
     return (
         <Card href='#card-example-link-card' color='green' centered>
@@ -35,7 +57,7 @@ class ClubItemSuperAdmin extends React.Component {
           </Card.Content>
           <Card.Content>
             <Link to={`/edit/${this.props.club._id}`}><Button>Edit</Button></Link>
-            <Button negative>Delete</Button>
+            <Button negative onClick={this.remove}>Delete</Button>
           </Card.Content>
         </Card>
     );
