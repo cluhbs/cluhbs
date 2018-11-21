@@ -4,7 +4,7 @@ import { Clubs } from '../../api/club/club.js';
 
 /** Initialize the database with a default data document. */
 function addData(data) {
-  console.log(`  Adding: ${data.website} (${data.owner})`);
+  console.log(`  Adding: ${data.name} (${data.owner})`);
   Clubs.insert(data);
 }
 

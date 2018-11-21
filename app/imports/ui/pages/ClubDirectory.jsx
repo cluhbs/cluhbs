@@ -39,6 +39,7 @@ ClubDirectory.propTypes = {
 export default withTracker(() => {
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Clubs');
+  const subscription2 = Meteor.subscribe('Profiles');
   return {
     clubs: Clubs.find({}).fetch().sort((a, b) => {
       if (a.name < b.name) {
@@ -49,6 +50,6 @@ export default withTracker(() => {
       }
       return 0;
     }),
-    ready: subscription.ready(),
+    ready: subscription.ready() && subscription2.ready(),
   };
 })(ClubDirectory);
