@@ -7,7 +7,7 @@ import { withRouter, Link } from 'react-router-dom';
 class ClubItem extends React.Component {
   render() {
     return (
-        <Card as={Link} to={`/club-info/${this.props.club._id}`} color='green' centered>
+        <Card color='green' centered>
           <Card.Content>
             <Container textAlign='center'>
               <Image style={{ height: '190px', paddingBottom: '10px' }} src={this.props.club.image}/>
@@ -19,6 +19,7 @@ class ClubItem extends React.Component {
             <Card.Description>
               {this.props.club.description.substring(0, 250)}{(this.props.club.description.length > 250) ? '...' : ''}
             </Card.Description>
+            <Card.Description><Link to={`/club-info/${this.props.club._id}`}>Learn More</Link></Card.Description>
           </Card.Content>
           <Card.Content>
             <Label.Group tag color='green'>

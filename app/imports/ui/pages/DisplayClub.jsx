@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Loader, Header, Image, Button, List, Segment, Container, Label } from 'semantic-ui-react';
+import { Grid, Loader, Header, Image, Button, List, Segment, Container } from 'semantic-ui-react';
 import { Clubs } from '/imports/api/club/club';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
@@ -33,7 +33,8 @@ class DisplayClub extends React.Component {
                           <Header as="h1" textAlign="center">{this.props.doc.name}</Header>
                           {(this.props.doc.website) ? (
                               <Header.Subheader><strong>Club Website: </strong>
-                                <Link to={this.props.doc.website}>{this.props.doc.website}</Link>
+                                <a href={this.props.doc.website} rel='noopener noreferrer'
+                                   target='_blank'>{this.props.doc.website}</a>
                               </Header.Subheader>) : ''
                           }
                           <Grid container>
@@ -82,7 +83,7 @@ class DisplayClub extends React.Component {
                                 <Grid.Column>
                                   <Header as='h4' attached='top' textAlign='center'>Members</Header>
                                   <List bulleted>
-                                    {this.props.doc.interests.map((member, index) => <List.Item key={index}
+                                    {this.props.doc.members.map((member, index) => <List.Item key={index}
                                                                                                 content={member}/>)}
                                   </List>
                                 </Grid.Column>
