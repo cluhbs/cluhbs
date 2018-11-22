@@ -7,16 +7,19 @@ const Clubs = new Mongo.Collection('Clubs');
 
 /** Create a schema to constrain the structure of documents associated with this collection. */
 const ClubSchema = new SimpleSchema({
-  image: String,
-  name: String,
-  website: String,
-  description: String,
-  meetTime: String,
-  location: String,
-  contactPerson: String,
-  contact: String,
-  interest: String,
-  owner: String,
+  image: { type: String, optional: true },
+  name: { type: String },
+  website: { type: String, optional: true },
+  description: { type: String },
+  meetTime: { type: String },
+  location: { type: String },
+  contactPerson: { type: String },
+  contactEmail: { type: String },
+  interests: { type: Array, defaultValue: [] },
+  'interests.$': { type: String, min: 1 },
+  members: { type: Array, defaultValue: [] },
+  'members.$': { type: String },
+  owner: { type: String },
 }, { tracker: Tracker });
 
 /** Attach this schema to the collection. */

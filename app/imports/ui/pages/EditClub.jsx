@@ -17,9 +17,20 @@ class EditClub extends React.Component {
 
   /** On successful submit, insert the data. */
   submit(data) {
-    const { image, name, website, description, meetTime, location, contactPerson, contact, interest, _id } = data;
-    /* eslint-disable-next-line */
-    Clubs.update(_id, { $set:{ image, name, website, description, meetTime, location, contactPerson, contact, interest } }, (error) => (error ?
+    const { image, name, website, description, meetTime, location, contactPerson, contactEmail, interests, _id } = data;
+    Clubs.update(_id, {
+      $set: {
+        image,
+        name,
+        website,
+        description,
+        meetTime,
+        location,
+        contactPerson,
+        contactEmail,
+        interests,
+      },
+    }, (error) => (error ?
         Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` }) :
         Bert.alert({ type: 'success', message: 'Update succeeded' })));
   }
@@ -45,8 +56,8 @@ class EditClub extends React.Component {
                   <TextField name='meetTime'/>
                   <TextField name='location'/>
                   <TextField name='contactPerson'/>
-                  <TextField name='contact'/>
-                  <TextField name='interest'/>
+                  <TextField name='contactEmail'/>
+                  <TextField name='interests'/>
                   <SubmitField value='Submit'/>
                   <ErrorsField/>
                   <HiddenField name='owner'/>

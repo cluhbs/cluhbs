@@ -33,9 +33,10 @@ class AddClub extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { image, name, website, description, meetTime, location, contact, interest, contactPerson } = data;
+    const { name, image, website, description, meetTime, location, contactPerson, contactEmail, interests } = data;
     const owner = Meteor.user().username;
-    Clubs.insert({ image, name, website, description, meetTime, location, contact, interest, contactPerson, owner },
+    Clubs.insert({ name, image, website, description, meetTime, location, contactPerson, contactEmail,
+          interests, owner },
         this.insertCallback);
   }
 
@@ -47,15 +48,15 @@ class AddClub extends React.Component {
             <Header as="h2" textAlign="center">Add Club</Header>
             <AutoForm ref={(ref) => { this.formRef = ref; }} schema={ClubSchema} onSubmit={this.submit}>
               <Segment>
-                <TextField name='image'/>
                 <TextField name='name'/>
+                <TextField name='image'/>
                 <TextField name='website'/>
                 <LongTextField name='description'/>
                 <TextField name='meetTime'/>
                 <TextField name='location'/>
                 <TextField name='contactPerson'/>
-                <TextField name='contact'/>
-                <TextField name='interest'/>
+                <TextField name='contactEmail'/>
+                <TextField name='interests'/>
                 <SubmitField value='Submit'/>
                 <ErrorsField/>
                 <HiddenField name='owner' value='fakeuser@foo.com'/>
