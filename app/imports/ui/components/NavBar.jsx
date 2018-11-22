@@ -21,12 +21,9 @@ class NavBar extends React.Component {
               [<Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>]
           ) : ''}
           {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') &&
-          (Clubs.findOne({ owner: this.props.currentUser }) === undefined) ? (
-              [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Club</Menu.Item>]
-          ) : ''}
-          {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') &&
           (Clubs.findOne({ owner: this.props.currentUser }) !== undefined) ? (
-              [<Menu.Item as={NavLink} activeClassName="active" exact to={`/club-info/${Clubs.findOne()._id}`}
+              [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Club</Menu.Item>,
+                <Menu.Item as={NavLink} activeClassName="active" exact to={`/club-info/${Clubs.findOne()._id}`}
                           key={'manage'}>Manage Club</Menu.Item>]
           ) : ''}
           {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
