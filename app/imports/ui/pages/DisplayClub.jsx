@@ -15,6 +15,7 @@ class DisplayClub extends React.Component {
   state = {
     isMember: false,
     icon: 'star',
+    color: 'yellow',
   };
 
   constructor(props) {
@@ -36,9 +37,11 @@ class DisplayClub extends React.Component {
     if (this.state.isMember) {
       this.setState({ isMember: false });
       this.setState({ icon: 'star' });
+      this.setState({ color: 'yellow' });
     } else {
       this.setState({ isMember: true });
       this.setState({ icon: 'check' });
+      this.setState({ color: 'green' });
     }
   }
 
@@ -62,7 +65,7 @@ class DisplayClub extends React.Component {
     // } else {
     let clubs = [];
     let members = [];
-    if (this.state.icon === 'check') {
+    if (this.state.isMember) {
       // remove club from member and member from club
       clubs = userProfile.clubs.filter((x) => (x !== this.props.doc._id));
       members = this.props.doc.members.filter((x) => (x !== userProfile._id));
@@ -130,7 +133,7 @@ class DisplayClub extends React.Component {
                           (this.props.doc.owner === this.props.currentUser.username) ? (
                               <Button basic color='blue' as={Link} icon='edit' content='Edit Club'
                                       to={`/club-edit/${this.props.doc._id}`}/>
-                          ) : <Button icon={this.state.icon} color='yellow' onClick={this.onClickSaveClub}/>}
+                          ) : <Button icon={this.state.icon} color={this.state.color} onClick={this.onClickSaveClub}/>}
                           {/* {(this.props.doc.members.indexOf(this.props.currentUser._id) === -1) ? (
                               <Button icon='star' color='yellow' onClick=
                                   {this.onClickSaveClub}/>
