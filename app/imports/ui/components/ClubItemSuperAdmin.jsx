@@ -29,7 +29,7 @@ class ClubItemSuperAdmin extends React.Component {
 
   render() {
     return (
-        <Card href='#card-example-link-card' color='green' centered>
+        <Card as={Link} to={`/club-info/${this.props.club._id}`} color='green' centered>
           <Card.Content>
             <Image fluid src={this.props.club.image}/>
             <Card.Header>
@@ -57,7 +57,7 @@ class ClubItemSuperAdmin extends React.Component {
           </Card.Content>
           <Card.Content>
             <Link to={`/edit/${this.props.club._id}`}><Button>Edit</Button></Link>
-            <Button negative onClick={this.remove}>Delete</Button>
+            <Button negative onClick={this.remove} as={Link} to='/admin'>Delete</Button>
           </Card.Content>
         </Card>
     );
