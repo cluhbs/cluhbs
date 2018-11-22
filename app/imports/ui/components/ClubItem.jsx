@@ -19,7 +19,9 @@ class ClubItem extends React.Component {
             <Card.Description>
               {this.props.club.description.substring(0, 250)}{(this.props.club.description.length > 250) ? '...' : ''}
             </Card.Description>
-            <Card.Description><Link to={`/club-info/${this.props.club._id}`}>Learn More</Link></Card.Description>
+            <Card.Description textAlign='right'>
+              <Link to={`/club-info/${this.props.club._id}`}>Learn More</Link>
+            </Card.Description>
           </Card.Content>
           <Card.Content>
             <Label.Group tag color='green'>

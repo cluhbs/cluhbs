@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Loader, Header, Image, Button, List, Segment } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
+import { Clubs } from '/imports/api/club/club';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
@@ -8,6 +9,10 @@ import PropTypes from 'prop-types';
 
 /** Renders the Page for displaying a single document. */
 class DisplayProfile extends React.Component {
+
+  returnClub(clubId) {
+    return Clubs.findOne({ _id: clubId });
+  }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -54,10 +59,12 @@ class DisplayProfile extends React.Component {
                                 </Grid.Column>
                                 <Grid.Column>
                                   <Header as='h4' attached='top' textAlign='center'>Clubs</Header>
-                                  {/* change this.props.doc.interests to this.props.doc.clubs when implemented */}
                                   <List bulleted>
-                                    {this.props.doc.interests.map((club, index) => <List.Item key={index}
-                                                                                              content={club}/>)}
+                                    {this.props.doc.clubs.map(
+                                        (clubId, index) => <List.Item key={index} as={Link}
+                                                                      to={`/club-info/${this.returnClub(clubId)._id}`}>
+                                          {this.returnClub(clubId).name}</List.Item>,
+                                    )}
                                   </List>
                                 </Grid.Column>
                               </Grid.Row>
@@ -85,10 +92,11 @@ DisplayProfile.propTypes = {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
-  const subscription = Meteor.subscribe('Profiles');
+  const subscription = Meteor.subscribe('Clubs');
+  const subscription2 = Meteor.subscribe('Profiles');
   // Get access to Profile documents.
   return {
     doc: Profiles.findOne(),
-    ready: subscription.ready(),
+    ready: subscription.ready() && subscription2.ready(),
   };
 })(DisplayProfile);
