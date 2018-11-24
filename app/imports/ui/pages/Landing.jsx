@@ -1,13 +1,16 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Grid, Icon, Header, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Clubs } from '/imports/api/club/club';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
   render() {
-    return (
-        <div className='landing-background'>
+    const isLogged = Meteor.userId() !== null;
+    return isLogged ?
+        (<Redirect to={{ pathname: '/home'}}/>) :
+        (<div className='landing-background'>
           <Grid container stackable centered>
             <Grid.Row>
               <div className='landing-title'>
@@ -85,7 +88,7 @@ class Landing extends React.Component {
                     5. Contact club admins using given contact information
                   </Header>
                   <Header as="h3" inverted>
-                    6. Enjoy getting involved with your club!
+                    6. Have fun getting involved with your club!
                   </Header>
                 </div>
               </Grid.Column>

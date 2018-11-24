@@ -14,9 +14,15 @@ class NavBar extends React.Component {
     Meteor.subscribe('ClubAdmin');
     return (
         <Menu style={menuStyle} attached="top" borderless inverted color='green'>
-          <Menu.Item as={NavLink} activeClassName="" exact to="/">
-            <Header inverted as='h1'>clUHbs</Header>
-          </Menu.Item>
+          {this.props.currentUser === '' ? (
+                  <Menu.Item as={NavLink} activeClassName="" exact to="/">
+                    <Header inverted as='h1'>clUHbs</Header>
+                  </Menu.Item>
+          ): (
+              <Menu.Item as={NavLink} activeClassName="" exact to="/home">
+                <Header inverted as='h1'>clUHbs</Header>
+              </Menu.Item>
+          )}
           {(this.props.currentUser && (this.props.currentUser !== 'admin@foo.com')) ? (
               [<Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>]
           ) : ''}
