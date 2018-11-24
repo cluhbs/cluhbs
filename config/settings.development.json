@@ -1,56 +1,154 @@
 {
   "defaultAccounts": [
+    { "email": "john@foo.com", "password": "changeme" }
     { "email": "admin@foo.com", "password": "changeme", "role": "admin" },
     { "email": "clubAdmin@foo.com", "password": "changeme", "role": "clubAdmin" },
-    { "email": "clubAdmin2@foo.com", "password": "changeme", "role": "clubAdmin" },
-    { "email": "clubAdmin3@foo.com", "password": "changeme", "role": "clubAdmin" },
-    { "email": "john@foo.com", "password": "changeme" }
+    { "email": "clubAdminA2@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminA3@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminA4@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminA5@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminB1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminB2@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminC1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminD1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminT1@foo.com", "password": "changeme", "role": "clubAdmin" }
   ],
 
   "defaultProfiles": [
     { "owner": "john@foo.com", "firstName": "John", "lastName": "Smith", "contactEmail": "john@foo.com" },
-    { "owner": "clubAdmin@foo.com", "firstName": "Eliza", "lastName": "Sinclair", "contactEmail": "clubAdmin@foo.com" },
-    { "owner": "clubAdmin2@foo.com", "firstName": "Evan", "lastName": "Johnson", "contactEmail": "clubAdmin2@foo.com" },
-    { "owner": "clubAdmin3@foo.com", "firstName": "Christine", "lastName": "Yang", "contactEmail": "clubAdmin3@foo.com" }
+    { "owner": "clubAdmin@foo.com", "firstName": "Emma", "lastName": "Daily", "contactEmail": "edaily@hawaii.edu" },
+    { "owner": "clubAdminA2@foo.com", "firstName": "Joyce", "lastName": "Pang", "contactEmail": "pjoyce@hawaii.edu" },
+    { "owner": "clubAdminA3@foo.com", "firstName": "Timothy", "lastName": "Halliday", "contactEmail": "halliday@hawaii.edu" },
+    { "owner": "clubAdminA4@foo.com", "firstName": "Branden", "lastName": "Annino", "contactEmail": "anninob@hawaii.edu" },
+    { "owner": "clubAdminA5@foo.com", "firstName": "Barryn", "lastName": "Chun", "contactEmail": "ams@hawaii.edu" },
+    { "owner": "clubAdminB1@foo.com", "firstName": "Charisse", "lastName": "Agraan", "contactEmail": "cagraan@hawaii.edu" },
+    { "owner": "clubAdminB2@foo.com", "firstName": "Ryan", "lastName": "Kurasaki", "contactEmail": "rkurasak@hawaii.edu" },
+    { "owner": "clubAdminC1@foo.com", "firstName": "Kevin", "lastName": "Liu", "contactEmail": "liukevin@hawaii.edu" },
+    { "owner": "clubAdminD1@foo.com", "firstName": "Karli", "lastName": "Fukushima", "contactEmail": "karlif@hawaii.edu" },
+    { "owner": "clubAdminT1@foo.com", "firstName": "Phyllis", "lastName": "Raquinio", "contactEmail": "praquini@hawaii.edu" }
   ],
 
   "defaultClubs": [
     {
-      "image": "http://static1.squarespace.com/static/57e48324579fb35bcfcd4bd6/t/57e4a2f615d5db083266d200/1541540054230/?format=1500w",
+      "image": "http://acm.hawaii.edu/wp-content/uploads/2016/10/ACM_Logo_1.png",
       "name": "American Institute of Architecture Students",
       "website": "http://www.aiashawaii.com/",
-      "description": "AIAS Hawaii is a student-run, non-profit organization whose mission is to promote excellence in architectural education, training, and practice; to foster an appreciation of architecture and related disciplines; to enrich communities in a spirit of collaboration; and to organize students and combine efforts to advance the art and science of architecture.",
+      "description": "Since 2004, ACM Mānoa has empowered students to tell their own stories by teaching cinematic narrative theories, skills and application across multiple platforms of digital media and within a context of cultural and aesthetic values, while at the same time nurturing robust job placement programs and internships.",
       "meetTime": "Tues 5-7pm",
-      "location": "Honolulu, Hi 96822",
-      "contactPerson": "Branden Annino",
-      "contactEmail": "anninob@hawaii.edu",
+      "location": "ACM Media Center is located in the 1st Floor Diamond Head side wing of the KHET building at 2350 Dole Street.",
+      "contactPerson": "Emma Daily",
+      "contactEmail": "edaily@hawaii.edu",
       "interests": ["Academic", "Professional"],
       "owner": "clubAdmin@foo.com"
     },
+    {
+      "image": "http://acuhmanoa.com/wp-content/uploads/2018/09/New-AC-Logo.png?w=100",
+      "name": "Accounting Club",
+      "website": "http://acuhmanoa.com/",
+      "description": "In cooperation with the School of Accountancy, we provide additional perspectives and supplemental information concerning public, private, and governmental accounting. Our main goal is to promote the professional and personal development of our members through socials, community service, professional interactions, workshops, and office tours.",
+      "meetTime": "Look at Status Sheet: http://acuhmanoa.com/wp-content/uploads/2018/10/ActiveStatusSheet-Fall-2018.pdf",
+      "location": "University of Hawaii Shidler College of Business, 2404 Maile Way BusAd G201",
+      "contactPerson": "Joyce Pang",
+      "contactEmail": "pjoyce@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminA2@foo.com"
+    },
+    {
+      "image": "https://www.aikidohawaii.org/images/menu-logo.gif",
+      "name": "Aikido at the University of Hawaii at Manoa",
+      "website": "https://www.aikidohawaii.org/dojo_uh_manoa.html",
+      "description": "The Aikido Club at UHM was founded by Robert Little Sensei (5th dan) and is affiliated with the Hawaii Aikido Federation. Little Sensei is the chief instructor of the club. Visitors are welcome and classes are always open to beginning students.",
+      "meetTime": "Tuesday, Thursday, Friday: 6:00 - 7:30 AM",
+      "location": "Physical Education/Athletic Complex Room #248, Lower Campus Road, University of Hawaii at Manoa Campus",
+      "contactPerson": "Timothy Halliday",
+      "contactEmail": "halliday@hawaii.edu",
+      "interests": ["Sports", "Leisure"],
+      "owner": "clubAdminA3@foo.com"
+    },
+    {
+      "image": "http://static1.squarespace.com/static/57e48324579fb35bcfcd4bd6/t/57e4a2f615d5db083266d200/1541540054230/?format=1500w",
+      "name": "American Institute of Architecture Students",
+      "website": "http://www.aiashawaii.com/",
+      "description": "To promote excellence in architecture education, training and practice.  To foster an appreciation of architecture and related disciplines.  To enrich communities in a spirit of collaboration.  To organize students and combine their efforts to advance the art and science of architecture.",
+      "meetTime": "After contact",
+      "location": "After contact",
+      "contactPerson": "Branden Annino",
+      "contactEmail": "anninob@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminA4@foo.com"
+    },
+    {
+      "image": "https://i0.wp.com/www.amshawaii.org/wp-content/uploads/2018/09/ams-logo-full-square-white.png?resize=300%2C300&ssl=1",
+      "name": "Anime Manga Society",
+      "website": "https://www.amshawaii.org/",
+      "description": "We are an open community of people who love to watch Japanese anime, read manga, have an interest in gaming, cosplay, Japanese culture, western comics/animation, or anything related.",
+      "meetTime": "Thursday and Friday weekly from 4:30pm to 7:00pm",
+      "location": "Kuykendall Hall 210",
+      "contactPerson": "Barryn Chun",
+      "contactEmail": "ams@hawaii.edu",
+      "interests": ["Sports", "Leisure"],
+      "owner": "clubAdminA5@foo.com"
+    },
+    {
+      "image": "http://www2.hawaii.edu/~bap/images/BAP-Logo1.png",
+      "name": "Beta Alpha Psi - Delta Theta Chapter",
+      "website": "http://www2.hawaii.edu/~bap/",
+      "description": "Beta Alpha Psi is an honors organization for Financial Information students and professionals. The primary objective of Beta Alpha Psi is to encourage and give recognition to scholastic and professional excellence in the business information field.",
+      "meetTime": "Calendar: http://www2.hawaii.edu/~bap/calendar.html",
+      "location": "2404 Maile Way Honolulu, HI 96822",
+      "contactPerson": "Charisse Agraan",
+      "contactEmail": "cagraan@hawaii.edu",
+      "interests": ["Honorary Society"],
+      "owner": "clubAdminB1@foo.com"
+    },
+    {
+      "image": "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-1/c7.0.200.200/p200x200/1391914_738279742854666_1694063506_n.png?_nc_cat=109&_nc_ht=scontent-lax3-1.xx&oh=b816fbf681fab7220d745f9c099f5a10&oe=5C73F7E5",
+      "name": "Biological Engineering Student Association",
+      "website": "https://www.facebook.com/besaatuhmanoa/",
+      "description": "A Graduate/Undergraduate Organization in Biological Engineering",
+      "meetTime": "after contact",
+      "location": "After contact",
+      "contactPerson": "Ryan Kurasaki",
+      "contactEmail": "rkurasak@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminB2@foo.com"
+    }, 
     {
       "image": "https://ckiuhm.weebly.com/uploads/8/6/7/3/86734930/11994145-1125200664174836-55470367-o_orig.jpg",
       "name": "Circle K International at the University of Hawaii at Manoa",
       "website": "https://ckiuhm.weebly.com/",
       "description": "Circle K International (CKI) at the University of Hawai`i at Manoa was founded in 1978. We are a premier collegiate community service club, leadership development, and friendship organization in the world.",
-      "meetTime": "MWF 1:30-4pm",
-      "location": "2500 Campus Rd",
+      "meetTime": "after contact",
+      "location": "after contact",
       "contactPerson": "Kevin Liu",
       "contactEmail": "liukevin@hawaii.edu",
       "interests": ["Service"],
-      "owner": "clubAdmin2@foo.com"
+      "owner": "clubAdminC1@foo.com"
+    },
+    {
+      "image": "https://static.wixstatic.com/media/a0066f_0886276a79d94c98a4889d41e972bb2c~mv2.png/v1/fill/w_320,h_265,al_c,q_80,usm_0.66_1.00_0.01/a0066f_0886276a79d94c98a4889d41e972bb2c~mv2.webp",
+      "name": "Disney Ohana Club",
+      "website": "https://disneyoc.wixsite.com/disneyohanaclub",
+      "description": "The Disney Ohana Club at the University of Hawai`i at Mānoa is dedicated to providing students with a variety of opportunities that are offered to enhance their college career and promote professional-personal development through leadership, friendships, and community service.",
+      "meetTime": "check website",
+      "location": "after contact",
+      "contactPerson": "Karli Fukushima",
+      "contactEmail": "karlif@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminD1@foo.com"
     },
     {
       "image": "http://manoa.hawaii.edu/rio/timpuyog/img/timpuyogbanner.png",
       "name": "Timpuyog Organization",
       "website": "http://manoa.hawaii.edu/rio/timpuyog",
       "description": "Timpuyog (“togetherness”) is the organization of students enrolled in various courses offered by the Ilokano Language and Literature Program (ILLP) at UH Mānoa.",
-      "meetTime": "All weekdays 2-5pm",
-      "location": "Queen Liliuokalani Center",
+      "meetTime": "after contact",
+      "location": "Ilokano Language and Literature Program 2540 Maile Way, Spalding 255",
       "contactPerson": "Phyllis Raquinio",
       "contactEmail": "praquini@hawaii.edu",
       "interests": ["Cultural", "Ethnic"],
-      "owner": "clubAdmin3@foo.com"
+      "owner": "clubAdminT1@foo.com"
     }
   ]
-
+  
 }
