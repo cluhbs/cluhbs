@@ -3,21 +3,25 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { Grid, Header, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { withRouter, NavLink } from 'react-router-dom';
+import { Profiles } from '/imports/api/profile/profile';
 import { Clubs } from '/imports/api/club/club';
 
 class UserHomePage extends React.Component {
 
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
 
+  renderPage() {
     return (
 
         <div>
           <Grid container stackable centered>
             <Grid.Row>
               <Header as='h1'>
-                Welcome {this.props.currentUser}!
+                Welcome {this.props.doc.firstName} {this.props.doc.lastName}!
               </Header>
+
             </Grid.Row>
             <Grid.Row>
 
@@ -30,11 +34,16 @@ class UserHomePage extends React.Component {
 }
 
 UserHomePage.propTypes = {
-  currentUser: PropTypes.string,
+  doc: PropTypes.object,
+  model: PropTypes.object,
+  ready: PropTypes.bool.isRequired,
 };
 
-const UserHomePageContainer = withTracker(() => ({
-  currentUser: Meteor.user() ? Meteor.user().username : '',
-}))(UserHomePage);
+export default withTracker(() => {
+  const subscription = Meteor.subscribe('Profiles');
 
-export default withRouter(UserHomePageContainer);
+  return {
+    doc: Profiles.findOne(),
+    ready: subscription.ready(),
+  };
+})(UserHomePage);
