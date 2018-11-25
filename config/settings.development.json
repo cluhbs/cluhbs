@@ -16,12 +16,19 @@
     { "email": "clubAdminF1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminG1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminH1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminI1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminJ1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminK1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminL1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminM1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminN1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminP1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminR1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminR2@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminS1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminT1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminT2@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminU1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminW1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminY1@foo.com", "password": "changeme", "role": "clubAdmin" }
   ],
@@ -42,12 +49,19 @@
     { "owner": "clubAdminF2@foo.com", "firstName": "Emiri", "lastName": "Hirayama", "contactEmail": "emirih@hawaii.edu" },
     { "owner": "clubAdminG1@foo.com", "firstName": "Stephany", "lastName": "Calvillo", "contactEmail": "scalvill@hawaii.edu" },
     { "owner": "clubAdminH1@foo.com", "firstName": "Hannah", "lastName": "Poffenberger-Twomey", "contactEmail": "hpt41004@hawaii.edu" },
+    { "owner": "clubAdminI1@foo.com", "firstName": "Danica", "lastName": "Fernando", "contactEmail": "danica3@hawaii.edu" },
     { "owner": "clubAdminJ1@foo.com", "firstName": "Luka", "lastName": "Masuda", "contactEmail": "lukakm@hawaii.edu" },
+    { "owner": "clubAdminK1@foo.com", "firstName": "Kevin", "lastName": "Hanaoka", "contactEmail": "hanaokak@hawaii.edu" },
+    { "owner": "clubAdminL1@foo.com", "firstName": "Sydney", "lastName": "Ludlow", "contactEmail": "sludlow@hawaii.edu" },
     { "owner": "clubAdminM1@foo.com", "firstName": "Van", "lastName": "Wishingrad", "contactEmail": "vanw@hawaii.edu" },
+    { "owner": "clubAdminN1@foo.com", "firstName": "Erica", "lastName": "Dias", "contactEmail": "ecalistr@hawaii.edu" },
     { "owner": "clubAdminP1@foo.com", "firstName": "Jathryn", "lastName": "Racasa", "contactEmail": "jracasa@hawaii.edu" },
     { "owner": "clubAdminR1@foo.com", "firstName": "Grace", "lastName": "Morita", "contactEmail": "gracemor@hawaii.edu" },
+    { "owner": "clubAdminR2@foo.com", "firstName": "Stephen", "lastName": "Case", "contactEmail": "stevec@hawaii.edu" },
+    { "owner": "clubAdminS1@foo.com", "firstName": "Chau", "lastName": "Truong", "contactEmail": "chautg@hawaii.edu" },
     { "owner": "clubAdminT1@foo.com", "firstName": "Phyllis", "lastName": "Raquinio", "contactEmail": "praquini@hawaii.edu" },
     { "owner": "clubAdminT2@foo.com", "firstName": "Kanyanat", "lastName": "Sakkanayok", "contactEmail": "kanyanat@hawaii.edu" },
+    { "owner": "clubAdminU1@foo.com", "firstName": "Angela", "lastName": "Sagisi", "contactEmail": "asagisi@hawaii.edu" },
     { "owner": "clubAdminW1@foo.com", "firstName": "Liam", "lastName": "Griffin", "contactEmail": "liam9999@gmail.com" },
     { "owner": "clubAdminY1@foo.com", "firstName": "Landon", "lastName": "Li", "contactEmail": "landonli@hawaii.edu" }
   ],
@@ -222,6 +236,18 @@
       "owner": "clubAdminH1@foo.com"
     },
     {
+      "image": "https://instagram.fhnl1-1.fna.fbcdn.net/vp/73f1dc3e11241bd8098df05fc94480fe/5CB0BC0B/t51.2885-19/s150x150/23164443_139939583427949_4682645810234523648_n.jpg",
+      "name": "International Business Organization",
+      "website": "https://www.ibouhm.com/",
+      "description": "The International Business Organization (IBO) was created by two international students in 2010. We are the foremost club promoting the study of international business and culture at the Shidler College of Business.",
+      "meetTime": "check out calendar",
+      "location": "checkout events on website",
+      "contactPerson": "Danica Fernando",
+      "contactEmail": "danica3@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminI1@foo.com"
+    },
+    {
       "image": "https://scontent.fhnl1-1.fna.fbcdn.net/v/t1.0-1/c24.0.200.200/p200x200/11001784_798169536885802_6094398106127262366_n.jpg?_nc_cat=104&_nc_ht=scontent.fhnl1-1.fna&oh=96956e5c0e5d9149a1a43f0ea23ef6ba&oe=5CA98834",
       "name": "Japanese Culture Club",
       "website": "https://uhmjcc.weebly.com/",
@@ -234,6 +260,30 @@
       "owner": "clubAdminJ1@foo.com"
     },
     {
+      "image": "https://sites.google.com/site/kempoclubatuhm/_/rsrc/1314377367743/home/image1.jpg",
+      "name": "Kempo Club at UHM",
+      "website": "https://sites.google.com/site/kempoclubatuhm/",
+      "description": "Kempo Club at the University of Hawaii at Manoa (Kempo Club at UHM)* is a new club practicing the art of Kempo. We emphasize personalized instruction in a friendly, non-competitive, but challenging atmosphere.",
+      "meetTime": "check schedule",
+      "location": "Physical Education Athletic Complex studios",
+      "contactPerson": "Kevin Hanaoka",
+      "contactEmail": "hanaokak@hawaii.edu",
+      "interests": ["Sports", "Leisure"],
+      "owner": "clubAdminK1@foo.com"
+    },
+    {
+      "image": "https://scontent.fhnl1-1.fna.fbcdn.net/v/t1.0-1/p200x200/14100525_1127620080655241_5411534804987057782_n.jpg?_nc_cat=100&_nc_ht=scontent.fhnl1-1.fna&oh=60abe5947d531a27b996f2df525a4420&oe=5C6639FB",
+      "name": "Linguistic Society of Hawaii",
+      "website": "https://www.facebook.com/LinguisticSocietyofHawaii/",
+      "description": "The Linguistic Society of Hawai`i (LSH) is the organization of linguistics students and faculty at the University of Hawai`i at Manoa. LSH participates in the International Conference on Language Documentation and Conservation (ICLDC), student conferences on campus, sponsors various social events, and holds fundraisers during the academic year.",
+      "meetTime": "meetings twice each semester ",
+      "location": "1890 E West Rd, # 569",
+      "contactPerson": "Sydney Ludlow",
+      "contactEmail": "sludlow@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminL1@foo.com"
+    },
+    {
       "image": "https://www.hawaii.edu/site/calendar/uploads/31829.jpg",
       "name": "Manoa Ultimate Disc",
       "website": "https://www.facebook.com/groups/manoaultimatedisc/?ref=ts&fref=ts",
@@ -244,6 +294,18 @@
       "contactEmail": "vanw@hawaii.edu",
       "interests": ["Sports", "Leisure"],
       "owner": "clubAdminM1@foo.com"
+    },
+    {
+      "image": "https://instagram.fhnl1-1.fna.fbcdn.net/vp/530285872b34a065378cc891f1b2d8b5/5C98473A/t51.2885-19/s150x150/22158797_1174959935937175_6141450101068922880_n.jpg",
+      "name": "Nā Hawaiʻi ʻImi Loa Hui Haumāna",
+      "website": "http://nhilhh.weebly.com/",
+      "description": "Our hui is currently open to students pursuing a degree in Library & Information Sciences, Hawaiian Language, or Hawaiian Studies at the University of Hawai‘i at Mānoa. ",
+      "meetTime": "after contact",
+      "location": "after contact",
+      "contactPerson": "Erica T Dias",
+      "contactEmail": "ecalistr@hawaii.edu",
+      "interests": ["Service"],
+      "owner": "clubAdminN1@foo.com"
     },
     {
       "image": "https://scontent.fhnl1-1.fna.fbcdn.net/v/t1.0-1/c0.0.200.200/p200x200/1545781_206555972868707_1235469995_n.jpg?_nc_cat=100&_nc_ht=scontent.fhnl1-1.fna&oh=0f101fd83f765ccd8b3ccc69fd0b0890&oe=5C694F22",
@@ -270,6 +332,30 @@
       "owner": "clubAdminR1@foo.com"
     },
     {
+      "image": "http://www2.hawaii.edu/~jugglers/images/rainbow.gif",
+      "name": "Rainbow Jugglers Juggling Club",
+      "website": "http://www.rainbowjugglers.org/",
+      "description": "UH Manoa Juggling Club",
+      "meetTime": "Every Monday at 8:00pm",
+      "location": "U.H. Manoa athletic complex, studio 3",
+      "contactPerson": "Stephen Case",
+      "contactEmail": "stevec@hawaii.edu",
+      "interests": ["Sports", "Leisure"],
+      "owner": "clubAdminR2@foo.com"
+    },
+    {
+      "image": "http://blog.hawaii.edu/slssa/files/2018/10/cropped-2018-SLS-Retreat-B-1.jpg",
+      "name": "Second Language Studies Student Association",
+      "website": "http://blog.hawaii.edu/slssa/",
+      "description": "An active student association that includes both BA and graduate students. SLSSA has both social and academic activities throughout the school year.",
+      "meetTime": "after contact",
+      "location": "after contact",
+      "contactPerson": "Chau Truong",
+      "contactEmail": "chautg@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminS1@foo.com"
+    },
+    {
       "image": "http://manoa.hawaii.edu/rio/timpuyog/img/timpuyogbanner.png",
       "name": "Timpuyog Organization",
       "website": "http://manoa.hawaii.edu/rio/timpuyog",
@@ -292,6 +378,18 @@
       "contactEmail": "kanyanat@hawaii.edu",
       "interests": ["Cultural", "Ethnic"],
       "owner": "clubAdminT2@foo.com"
+    },
+    {
+      "image": "https://scontent.fhnl1-1.fna.fbcdn.net/v/t1.0-1/p200x200/14192528_150462462065296_6646533273077888436_n.jpg?_nc_cat=105&_nc_ht=scontent.fhnl1-1.fna&oh=31d4601cd75679a0b2664898fcf2a576&oe=5C76AAD7",
+      "name": "UPENA",
+      "website": "https://www.facebook.com/HiUpenaClub/",
+      "description": "We are a club built on a solid foundation of truth, love, and respect for all people and creation. Our purpose is to build a community of students who aim to have fun and grow according to their individuality and interest through various activities.",
+      "meetTime": "check events",
+      "location": "UHM Hemingway 211",
+      "contactPerson": "Angela Sagisi",
+      "contactEmail": "asagisi@hawaii.edu",
+      "interests": ["Recreational", "Leisure"],
+      "owner": "clubAdminU1@foo.com"
     },
     {
       "image": "https://scontent.fhnl1-1.fna.fbcdn.net/v/t1.0-9/424351_1944597550642_1031243999_n.jpg?_nc_cat=100&_nc_ht=scontent.fhnl1-1.fna&oh=82e4ce09bb2c72fae81b464b8b738173&oe=5C7CDBB7",
