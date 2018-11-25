@@ -11,7 +11,19 @@
     { "email": "clubAdminB2@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminC1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminD1@foo.com", "password": "changeme", "role": "clubAdmin" },
-    { "email": "clubAdminT1@foo.com", "password": "changeme", "role": "clubAdmin" }
+    { "email": "clubAdminE1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminF1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminF1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminG1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminH1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminJ1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminM1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminP1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminR1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminT1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminT2@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminW1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminY1@foo.com", "password": "changeme", "role": "clubAdmin" }
   ],
 
   "defaultProfiles": [
@@ -25,7 +37,19 @@
     { "owner": "clubAdminB2@foo.com", "firstName": "Ryan", "lastName": "Kurasaki", "contactEmail": "rkurasak@hawaii.edu" },
     { "owner": "clubAdminC1@foo.com", "firstName": "Kevin", "lastName": "Liu", "contactEmail": "liukevin@hawaii.edu" },
     { "owner": "clubAdminD1@foo.com", "firstName": "Karli", "lastName": "Fukushima", "contactEmail": "karlif@hawaii.edu" },
-    { "owner": "clubAdminT1@foo.com", "firstName": "Phyllis", "lastName": "Raquinio", "contactEmail": "praquini@hawaii.edu" }
+    { "owner": "clubAdminE1@foo.com", "firstName": "Fernando", "lastName": "Santiago-Mandujano", "contactEmail": "santiago@hawaii.edu" },
+    { "owner": "clubAdminF1@foo.com", "firstName": "Savannah", "lastName": "Adler", "contactEmail": "sadler3@hawaii.edu" },
+    { "owner": "clubAdminF2@foo.com", "firstName": "Emiri", "lastName": "Hirayama", "contactEmail": "emirih@hawaii.edu" },
+    { "owner": "clubAdminG1@foo.com", "firstName": "Stephany", "lastName": "Calvillo", "contactEmail": "scalvill@hawaii.edu" },
+    { "owner": "clubAdminH1@foo.com", "firstName": "Hannah", "lastName": "Poffenberger-Twomey", "contactEmail": "hpt41004@hawaii.edu" },
+    { "owner": "clubAdminJ1@foo.com", "firstName": "Luka", "lastName": "Masuda", "contactEmail": "lukakm@hawaii.edu" },
+    { "owner": "clubAdminM1@foo.com", "firstName": "Van", "lastName": "Wishingrad", "contactEmail": "vanw@hawaii.edu" },
+    { "owner": "clubAdminP1@foo.com", "firstName": "Jathryn", "lastName": "Racasa", "contactEmail": "jracasa@hawaii.edu" },
+    { "owner": "clubAdminR1@foo.com", "firstName": "Grace", "lastName": "Morita", "contactEmail": "gracemor@hawaii.edu" },
+    { "owner": "clubAdminT1@foo.com", "firstName": "Phyllis", "lastName": "Raquinio", "contactEmail": "praquini@hawaii.edu" },
+    { "owner": "clubAdminT2@foo.com", "firstName": "Kanyanat", "lastName": "Sakkanayok", "contactEmail": "kanyanat@hawaii.edu" },
+    { "owner": "clubAdminW1@foo.com", "firstName": "Liam", "lastName": "Griffin", "contactEmail": "liam9999@gmail.com" },
+    { "owner": "clubAdminY1@foo.com", "firstName": "Landon", "lastName": "Li", "contactEmail": "landonli@hawaii.edu" }
   ],
 
   "defaultClubs": [
@@ -138,6 +162,114 @@
       "owner": "clubAdminD1@foo.com"
     },
     {
+      "image": "https://eastwest.toastmastersclubs.org/images/Toastmasters-International-Mark-White-1x.png",
+      "name": "East-West Toastmasters",
+      "website": "https://eastwest.toastmastersclubs.org/",
+      "description": "The East-West Toastmasters club members are students, faculty, and staff of the University of Hawaii at Manoa, as well as people from the community.",
+      "meetTime": "Meetings are the 1st and 3rd Tuesday of the month from 1:00 to 2:00 PM",
+      "location": "Hemenway Hall, Sinclair Library or Campus Center, at the UH Manoa Campus",
+      "contactPerson": "Fernando Santiago-Mandujano",
+      "contactEmail": "santiago@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminE1@foo.com"
+    },
+    {
+      "image": "https://instagram.fhnl1-1.fna.fbcdn.net/vp/bafde6214e1251d3c7c1c9433570d8cc/5CA8677E/t51.2885-19/s150x150/43408230_346401326135156_1169138669756350464_n.jpg",
+      "name": "Fashion Art & Business",
+      "website": "https://www.instagram.com/f.a.b_hawaii/",
+      "description": "We are Undergraduate students enrolled in the University of Hawaii Fashion Design and Merchandising (FDM) program. FAB members are interested in fashion design, merchandising, and other related fields in the fashion industry.",
+      "meetTime": "Our meetings are scheduled once a month",
+      "location": "Shidler College of Business sPACE E-402",
+      "contactPerson": "Savannah Adler",
+      "contactEmail": "sadler3@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminF1@foo.com"
+    },
+    {
+      "image": "https://fshncouncil.files.wordpress.com/2017/05/cropped-heart-fruit-and-vegetables.jpg",
+      "name": "Food Science Human Nutrition Council",
+      "website": "https://fshncouncil.wordpress.com/",
+      "description": "Meet and network with fellow FSHN students– ranging from food science majors to dietetics majors. At each monthly meeting we join together to discuss how FSHN council can make a positive impact on the community through volunteering and educating the public.",
+      "meetTime": "Our meetings are scheduled once a month",
+      "location": "AgSci 219",
+      "contactPerson": "Emiri Hirayama",
+      "contactEmail": "emirih@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminF2@foo.com"
+    },
+    {
+      "image": "https://944nxamsxb-flywheel.netdna-ssl.com/wp-content/uploads/2018/03/geog-logo-1.png",
+      "name": "Geography and the Environment Club at the University of Hawaii at Manoa",
+      "website": "https://geography.manoa.hawaii.edu/geography-club/",
+      "description": "The Geography Club connects undergraduate and graduate students with faculty, alumni, and affiliates through a variety of social, academic, and community activities that promote a more sustainable Hawaiʻi.",
+      "meetTime": "Monday–Friday from 8:30 am to 4:30 pm.",
+      "location": "Department of Geography and Environment 2424 Maile Way, Saunders Hall 445",
+      "contactPerson": "Stephany Calvillo",
+      "contactEmail": "scalvill@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminG1@foo.com"
+    },
+    {
+      "image": "https://scontent.fhnl1-1.fna.fbcdn.net/v/t1.0-1/p200x200/22539906_728507734001021_2926665202248254184_n.png?_nc_cat=102&_nc_ht=scontent.fhnl1-1.fna&oh=c83557383f4b65aebf0c279a7d7e31de&oe=5CA6E242",
+      "name": "Hanwoori Hawai'i",
+      "website": "https://www.facebook.com/pg/hanwoorihawaii/about/?ref=page_internal",
+      "description": "Hanwoori is a student community that strives to connect UH students interested in Korean culture and language with peers and Korean exchange students",
+      "meetTime": "after fee pay",
+      "location": "after form register",
+      "contactPerson": "Hannah Poffenberger-Twomey",
+      "contactEmail": "hpt41004@hawaii.edu",
+      "interests": ["Ethic", "Culutral"],
+      "owner": "clubAdminH1@foo.com"
+    },
+    {
+      "image": "https://scontent.fhnl1-1.fna.fbcdn.net/v/t1.0-1/c24.0.200.200/p200x200/11001784_798169536885802_6094398106127262366_n.jpg?_nc_cat=104&_nc_ht=scontent.fhnl1-1.fna&oh=96956e5c0e5d9149a1a43f0ea23ef6ba&oe=5CA98834",
+      "name": "Japanese Culture Club",
+      "website": "https://uhmjcc.weebly.com/",
+      "description": "Japanese Culture Club is an organization that promotes Japanese culture to the students of the University of Hawaii at Manoa. Our goal is to spread and understand Japanese culture. We have done community services, intercultural exchanges with students from Japan, and many social events!",
+      "meetTime": "bi-weekly on Fridays",
+      "location": "1890 East West Road Suite (Moore Hall 365)",
+      "contactPerson": "Luka Masuda",
+      "contactEmail": "lukakm@hawaii.edu",
+      "interests": ["Ethic", "Culutral"],
+      "owner": "clubAdminJ1@foo.com"
+    },
+    {
+      "image": "https://www.hawaii.edu/site/calendar/uploads/31829.jpg",
+      "name": "Manoa Ultimate Disc",
+      "website": "https://www.facebook.com/groups/manoaultimatedisc/?ref=ts&fref=ts",
+      "description": "We play pickup Ultimate Frisbee games. Everyone is welcome regardless of skill level.",
+      "meetTime": "every Wednesday at 5:30 pm",
+      "location": "corner of University and Dole",
+      "contactPerson": "Van Wishingrad",
+      "contactEmail": "vanw@hawaii.edu",
+      "interests": ["Sports", "Leisure"],
+      "owner": "clubAdminM1@foo.com"
+    },
+    {
+      "image": "https://scontent.fhnl1-1.fna.fbcdn.net/v/t1.0-1/c0.0.200.200/p200x200/1545781_206555972868707_1235469995_n.jpg?_nc_cat=100&_nc_ht=scontent.fhnl1-1.fna&oh=0f101fd83f765ccd8b3ccc69fd0b0890&oe=5C694F22",
+      "name": "Phoenix \m/ Dance Club",
+      "website": "https://www.facebook.com/PhoenixShaka/about/?ref=page_internal",
+      "description": "To use social media to showcase our members' talents through music & film. The \m/ is the Shaka sign due to our Hawaiian roots.",
+      "meetTime": "after contact",
+      "location": "after contact",
+      "contactPerson": "Jathryn Racasa",
+      "contactEmail": "jracasa@hawaii.edu",
+      "interests": ["Recreational", "Leisure"],
+      "owner": "clubAdminP1@foo.com"
+    },
+    {
+      "image": "http://ruf.org/images/ruf-logo.png",
+      "name": "Reformed University Fellowship",
+      "website": "http://ruf.org/",
+      "description": "We are the Church going to the campus with the message of Jesus Christ. As a ministry of the Presbyterian Church in America, RUF holds to the convictions of historic Christianity which motivate our hearts for God and love for the university.",
+      "meetTime": "after contact",
+      "location": "after contact",
+      "contactPerson": "Grace Morita",
+      "contactEmail": "gracemor@hawaii.edu",
+      "interests": ["Religious", "Spiritual"],
+      "owner": "clubAdminR1@foo.com"
+    },
+    {
       "image": "http://manoa.hawaii.edu/rio/timpuyog/img/timpuyogbanner.png",
       "name": "Timpuyog Organization",
       "website": "http://manoa.hawaii.edu/rio/timpuyog",
@@ -148,6 +280,42 @@
       "contactEmail": "praquini@hawaii.edu",
       "interests": ["Cultural", "Ethnic"],
       "owner": "clubAdminT1@foo.com"
+    },
+    {
+      "image": "https://thaistudieshawaii.files.wordpress.com/2014/04/elephant-love-thai.jpg?w=112&h=93",
+      "name": "Thai Studies Club",
+      "website": "https://thaistudieshawaii.wordpress.com/",
+      "description": "The Thai Studies Club at the University of Hawaii at Manoa seeks to promote a better understanding of Thailand and its people, including language, culture and society.",
+      "meetTime": "on activities list",
+      "location": "on activities list",
+      "contactPerson": "Kanyanat Sakkanayok",
+      "contactEmail": "kanyanat@hawaii.edu",
+      "interests": ["Cultural", "Ethnic"],
+      "owner": "clubAdminT2@foo.com"
+    },
+    {
+      "image": "https://scontent.fhnl1-1.fna.fbcdn.net/v/t1.0-9/424351_1944597550642_1031243999_n.jpg?_nc_cat=100&_nc_ht=scontent.fhnl1-1.fna&oh=82e4ce09bb2c72fae81b464b8b738173&oe=5C7CDBB7",
+      "name": "Waikiki Acrobatics Troupe",
+      "website": "https://sites.google.com/site/waikikiacrobatictroupe/",
+      "description": "An acrobatic group",
+      "meetTime": "Wednesday 8:00pm - 10:00pm",
+      "location": "Studio 4 in the athletic complex",
+      "contactPerson": "Liam Griffin",
+      "contactEmail": "liam9999@gmail.com",
+      "interests": ["Sports", "Leisure"],
+      "owner": "clubAdminW1@foo.com"
+    },
+    {
+      "image": "https://static1.squarespace.com/static/5858fe115016e10449ffb7b3/t/58590290e4fcb586c80e2cdf/1540957797294/?format=1500w",
+      "name": "Young Progressives Demanding Action",
+      "website": "https://www.facebook.com/ypdahawaii/",
+      "description": "We are the Hawaiʻi chapter of Young Progressives Demanding Action (YPDA). Formerly the Oʻahu Students for Bernie Sanders, a student-led organization that campaigned for Senator Sanders during his 2016 Presidential bid, we played a major role in securing 70 percent of the democratic primary vote Hawaiʻi.",
+      "meetTime": "https://www.facebook.com/pg/ypdahawaii/events/?ref=page_internal",
+      "location": "look at event schedule",
+      "contactPerson": "Landon Li",
+      "contactEmail": "landonli@hawaii.edu",
+      "interests": ["Academic", "Professional"],
+      "owner": "clubAdminY1@foo.com"
     }
   ]
   
