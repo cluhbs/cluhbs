@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
-import { Grid, Header, Loader } from 'semantic-ui-react';
+import { Card, Header, Loader, Container } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Profiles } from '/imports/api/profile/profile';
 import { Clubs } from '/imports/api/club/club';
+import ClubItem from '/imports/ui/components/ClubItem';
 
 class UserHomePage extends React.Component {
 
@@ -15,18 +16,21 @@ class UserHomePage extends React.Component {
   renderPage() {
     return (
 
-        <div>
-          <Grid container stackable centered>
-            <Grid.Row>
-              <Header as='h1'>
+        <div className='home'>
+          <Container>
+              <Header as='h1' textAlign='center'>
                 Welcome {this.props.doc.firstName} {this.props.doc.lastName}!
               </Header>
-
-            </Grid.Row>
-            <Grid.Row>
-
-            </Grid.Row>
-          </Grid>
+              {this.props.doc.clubs == '' ? (
+                <Header as='h3' textAlign='center'>
+                  No clubs to display. Saved clubs will display here.
+                </Header>
+              ) : (
+                  <Card.Group>
+                    {this.props.doc.clubs.map((club, index) => <ClubItem key={index} club={club}/>)}
+                  </Card.Group>
+              )}
+          </Container>
         </div>
 
     );
@@ -41,6 +45,7 @@ UserHomePage.propTypes = {
 
 export default withTracker(() => {
   const subscription = Meteor.subscribe('Profiles');
+  const subscription2 = Meteor.subscribe('Clubs');
 
   return {
     doc: Profiles.findOne(),

@@ -24,7 +24,7 @@ class Landing extends React.Component {
                 </Header>
               </div>
               <div className='button'>
-                <Button size='huge' color='green' as={Link} to="/signup">Get Started</Button>
+                <Button size='huge' color='green' as={Link} to="/signin">Get Started</Button>
               </div>
             </Grid.Row>
             <Grid.Row columns={2}>
