@@ -1,21 +1,21 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Grid, Icon, Header, Button } from 'semantic-ui-react';
+import { Grid, Icon, Header, Button, Image } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import { Clubs } from '/imports/api/club/club';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
   render() {
-    const contentStyle = { marginBottom: '50px' };
+    const contentStyle = { paddingBottom: '15px' };
     const isLogged = Meteor.userId() !== null;
     return isLogged ?
         (<Redirect to={{ pathname: '/home' }}/>) :
         (
-            <div style={contentStyle}>
+            <div style={contentStyle} className='landing-background'>
               <Grid container stackable centered>
                 <Grid.Row>
-                  <div className='landing-background'>
+                  <div className='landing-first-grid-row'>
                     <div className='landing-title'>
                       <Header inverted>
                         clUHbs
@@ -34,36 +34,36 @@ class Landing extends React.Component {
                 <Grid.Row columns={2}>
                   <Grid.Column>
                     <div className='landing-middle'>
-                      <Header as="h1">
+                      <Header as="h1" inverted>
                         Why clUHbs?
                       </Header>
                       <hr/>
-                      <Header as="h3">
+                      <Header as="h3" inverted>
                         <Icon name='search'/>
-                        <Header.Content>
+                        <Header.Content inverted='true'>
                           Find Clubs Easily
-                          <Header.Subheader>
+                          <Header.Subheader inverted='true'>
                             Students are able to browse a well organized directory of all current student clubs with the
                             necessary information required to get involved
                           </Header.Subheader>
                         </Header.Content>
                       </Header>
-                      <Header as="h3">
+                      <Header as="h3" inverted>
                         <Icon name='edit'/>
-                        <Header.Content>
+                        <Header.Content inverted='true'>
                           Manage Your Club
-                          <Header.Subheader>
+                          <Header.Subheader inverted='true'>
                             Club admins have the ability to edit the information of their club and have it displayed
                             onto
                             the club directory where interested students can find a way to contact them
                           </Header.Subheader>
                         </Header.Content>
                       </Header>
-                      <Header as="h3">
+                      <Header as="h3" inverted>
                         <Icon name='group'/>
-                        <Header.Content>
+                        <Header.Content inverted='true'>
                           Make Lasting Friendships
-                          <Header.Subheader>
+                          <Header.Subheader inverted='true'>
                             clUHbs helps build a better sense of community at the University of Hawaiʻi at Mānoa by
                             introducing students to others that have common interests
                           </Header.Subheader>
@@ -73,24 +73,24 @@ class Landing extends React.Component {
                   </Grid.Column>
                   <Grid.Column>
                     <div className='landing-middle'>
-                      <Header as="h1">
+                      <Header as="h1" inverted>
                         How to use clUHbs
                       </Header>
                       <hr/>
-                      <Header as="h3">
-                        1. Create your profile
+                      <Header as="h3" inverted>
+                        <Icon name='pencil'/> Create your profile
                       </Header>
-                      <Header as="h3">
-                        2. Specify your interests
+                      <Header as="h3" inverted>
+                        <Icon name='tasks'/> Specify your interests
                       </Header>
-                      <Header as="h3">
-                        3. Search clubs in club directory
+                      <Header as="h3" inverted>
+                        <Icon name='search'/> Search clubs in club directory
                       </Header>
-                      <Header as="h3">
-                        4. Save the clubs you want to get involved with
+                      <Header as="h3" inverted>
+                        <Icon name='save'/> Save the clubs you want to get involved with
                       </Header>
-                      <Header as="h3">
-                        5. Use club information to contact clubs or go to club meetings
+                      <Header as="h3" inverted>
+                        <Icon name='comment'/> Use club information to contact clubs or go to club meetings
                       </Header>
                     </div>
                   </Grid.Column>

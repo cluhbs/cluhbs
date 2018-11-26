@@ -3,24 +3,24 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
-import { Menu, Dropdown, Header } from 'semantic-ui-react';
+import { Menu, Dropdown, Header, Image } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '/imports/api/club/club';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 class NavBar extends React.Component {
   render() {
-    const menuStyle = { marginBottom: '15px' };
+    const menuStyle = { marginBottom: '15px', size: '20px' };
     Meteor.subscribe('ClubAdmin');
     return (
         <Menu style={menuStyle} attached="top" borderless inverted color='green'>
           {this.props.currentUser === '' ? (
                   <Menu.Item as={NavLink} activeClassName="" exact to="/">
-                    <Header inverted as='h1'>clUHbs</Header>
+                      <Image src='/images/logo-text.png' size='tiny' />
                   </Menu.Item>
           ): (
               <Menu.Item as={NavLink} activeClassName="" exact to="/home">
-                <Header inverted as='h1'>clUHbs</Header>
+                <Image src='/images/logo-text.png' size='tiny' />
               </Menu.Item>
           )}
           {(this.props.currentUser && (this.props.currentUser !== 'admin@foo.com')) ? (
