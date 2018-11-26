@@ -70,13 +70,17 @@ class ClubItem extends React.Component {
   }
 
   renderItem() {
-    Meteor.subscribe('Profiles');
     const userProfile = Profiles.findOne({ owner: this.props.currentUser });
+    const userClub = Clubs.findOne({ owner: this.props.currentUser });
     return (
         <Card centered>
-          {(this.props.club.members.indexOf(userProfile._id) > -1) ? (
-              <Label corner='right' icon='check' color='green' onClick={this.onClickSaveClub}/>
-          ) : ''}
+          {(userClub._id === this.props.club._id) ? (
+              <Label corner='right' icon='edit' color='blue'/>
+          ) : (
+              (this.props.club.members.indexOf(userProfile._id) > -1) ? (
+                  <Label corner='right' icon='check' color='green'/>
+              ) : '')
+          }
           <Card.Content>
             <Container textAlign='center'>
               <Image style={{ height: '190px', paddingBottom: '10px' }} src={this.props.club.image}/>
@@ -97,11 +101,15 @@ class ClubItem extends React.Component {
               {this.props.club.interests.map((interest, index) => <Label key={index} content={interest}/>)}
             </Label.Group>
           </Card.Content>
-          {(this.props.club.members.indexOf(userProfile._id) > -1) ? (
-              <Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>
+          {(userClub._id === this.props.club._id) ? (
+              <Button icon='edit' color='blue' as={Link} to={`/club-edit/${this.props.club._id}`}/>
           ) : (
-              <Button icon={this.state.icon} color={this.state.color} onClick={() => this.onClickSaveClub(false)}/>
-          )}
+              (this.props.club.members.indexOf(userProfile._id) > -1) ? (
+                  <Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>
+              ) : (
+                  <Button icon={this.state.icon} color={this.state.color} onClick={() => this.onClickSaveClub(false)}/>
+              ))
+          }
         </Card>
     );
   }
@@ -116,7 +124,7 @@ ClubItem.propTypes = {
 
 const ClubItemContainer = withTracker(() => ({
   currentUser: Meteor.user() ? Meteor.user().username : '',
-  ready: Meteor.subscribe('Profiles').ready(),
+  ready: Meteor.subscribe('Profiles').ready() && Meteor.subscribe('ClubAdmin').ready(),
 }))(ClubItem);
 
 /** Wrap this component in withRouter since we use the <Link> React Router element. */
