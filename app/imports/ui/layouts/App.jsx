@@ -12,6 +12,7 @@ import DisplayProfile from '../pages/DisplayProfile';
 import ClubDirectorySuperAdmin from '../pages/ClubDirectorySuperAdmin';
 import ManageClubAdmin from '../pages/ManageClubAdmin';
 import ClubDirectory from '../pages/ClubDirectory';
+import RequestList from '../pages/RequestList';
 import AddClub from '../pages/AddClub';
 import EditClub from '../pages/EditClub';
 import DisplayClub from '../pages/DisplayClub';
@@ -34,6 +35,7 @@ class App extends React.Component {
               <ProtectedRoute path="/profile" component={DisplayProfile}/>
               <ProtectedRoute path="/profile-edit" component={EditProfile}/>
               <ProtectedRoute path="/list" component={ClubDirectory}/>
+              <ProtectedRoute path="/request-list" component={RequestList}/>
               <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
               <ProtectedRoute path="/add" component={AddClub}/>
               <ProtectedRoute path="/club-edit/:_id" component={EditClub}/>
