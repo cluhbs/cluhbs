@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
 import { Profiles } from '../../api/profile/profile';
 
 /** Initialize the database with a default data document. */
@@ -18,19 +17,11 @@ if (Profiles.find().count() === 0) {
 
 /** This subscription publishes only the documents associated with the logged in user */
 Meteor.publish('Profiles', function publish() {
+  // if (this.userId) {
+  //   const username = Meteor.users.findOne(this.userId).username;
+  //   return Profiles.find({ owner: username });
+  // }
   if (this.userId) {
-    const username = Meteor.users.findOne(this.userId).username;
-    return Profiles.find({ owner: username });
-  }
-  /* if (this.userId) {
-    return Profiles.find();
-  } */
-  return this.ready();
-});
-
-/** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-Meteor.publish('ProfileAdmin', function publish() {
-  if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
     return Profiles.find();
   }
   return this.ready();

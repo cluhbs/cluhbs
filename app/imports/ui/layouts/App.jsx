@@ -31,8 +31,8 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
-              <ProtectedRoute path="/profile" component={DisplayProfile}/>
-              <ProtectedRoute path="/profile-edit" component={EditProfile}/>
+              <ProtectedRoute path="/profile/:_id" component={DisplayProfile}/>
+              <ProtectedRoute path="/profile-edit/:_id" component={EditProfile}/>
               <ProtectedRoute path="/list" component={ClubDirectory}/>
               <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
               <ProtectedRoute path="/add" component={AddClub}/>

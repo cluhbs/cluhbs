@@ -42,10 +42,10 @@ class DisplayProfile extends React.Component {
                           }
                         </Grid.Column>
                         <Grid.Column textAlign='right' width={4}>
-                          <Button basic color='blue' as={Link} icon='edit'
-                                  // to={`/profile-edit/${this.props.doc._id}`}
-                                  to="/profile-edit"
-                                  content='Edit Profile'/>
+                          {(Meteor.user().username === this.props.doc.owner) ? (
+                              <Button basic color='blue' as={Link} icon='edit' content='Edit Profile'
+                                      to={`/profile-edit/${this.props.doc._id}`}/>
+                          ) : ''}
                         </Grid.Column>
                       </Grid.Row>
                       <Grid.Row columns={1}>
@@ -94,14 +94,14 @@ DisplayProfile.propTypes = {
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
+export default withTracker(({ match }) => {
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
-  // const documentId = match.params._id;
+  const documentId = match.params._id;
   const subscription = Meteor.subscribe('Profiles');
   const subscription2 = Meteor.subscribe('Clubs');
   // Get access to Profile documents.
   return {
-    doc: Profiles.findOne(),
+    doc: Profiles.findOne(documentId),
     ready: subscription.ready() && subscription2.ready(),
   };
 })(DisplayProfile);
