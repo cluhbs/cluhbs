@@ -12,7 +12,6 @@ import { Clubs } from '/imports/api/club/club';
 class ClubItem extends React.Component {
 
   state = {
-    isMember: false,
     icon: 'star',
     color: 'yellow',
   };
@@ -31,24 +30,21 @@ class ClubItem extends React.Component {
     }
   }
 
-  changeIcon() {
-    if (this.state.isMember) {
-      this.setState({ isMember: false });
+  changeIcon(isMember) {
+    if (isMember) {
       this.setState({ icon: 'star' });
       this.setState({ color: 'yellow' });
     } else {
-      this.setState({ isMember: true });
       this.setState({ icon: 'check' });
       this.setState({ color: 'green' });
     }
   }
 
-  onClickSaveClub() {
+  onClickSaveClub(isMember) {
     const userProfile = Profiles.findOne({ owner: this.props.currentUser });
-    this.setState({ isMember: (this.props.club.members.indexOf(userProfile._id) > -1) });
     let clubs = [];
     let members = [];
-    if (this.state.isMember) {
+    if (isMember) {
       // remove club from member and member from club
       clubs = userProfile.clubs.filter((x) => (x !== this.props.club._id));
       members = this.props.club.members.filter((x) => (x !== userProfile._id));
@@ -58,11 +54,11 @@ class ClubItem extends React.Component {
     }
     Profiles.update(userProfile._id, { $set: { clubs: clubs } });
     Clubs.update(this.props.club._id, { $set: { members: members } }, this.updateCallback(this.error));
-    this.changeIcon();
+    this.changeIcon(isMember);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.isMember !== nextState.isMember) {
+    if (this.state.icon !== nextState.icon) {
       return false;
     }
     return true;
@@ -79,8 +75,8 @@ class ClubItem extends React.Component {
     return (
         <Card centered>
           {(this.props.club.members.indexOf(userProfile._id) > -1) ? (
-              <Label corner='right' icon='check' color='green' onClick={this.onClickSaveClub} />
-          ) : '' }
+              <Label corner='right' icon='check' color='green' onClick={this.onClickSaveClub}/>
+          ) : ''}
           <Card.Content>
             <Container textAlign='center'>
               <Image style={{ height: '190px', paddingBottom: '10px' }} src={this.props.club.image}/>
@@ -101,7 +97,11 @@ class ClubItem extends React.Component {
               {this.props.club.interests.map((interest, index) => <Label key={index} content={interest}/>)}
             </Label.Group>
           </Card.Content>
-          <Button icon={this.state.icon} color={this.state.color} onClick={this.onClickSaveClub} />
+          {(this.props.club.members.indexOf(userProfile._id) > -1) ? (
+              <Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>
+          ) : (
+              <Button icon={this.state.icon} color={this.state.color} onClick={() => this.onClickSaveClub(false)}/>
+          )}
         </Card>
     );
   }

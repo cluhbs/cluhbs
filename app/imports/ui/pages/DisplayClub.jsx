@@ -13,7 +13,6 @@ import { Bert } from 'meteor/themeteorchef:bert';
 class DisplayClub extends React.Component {
 
   state = {
-    isMember: false,
     icon: 'star',
     color: 'yellow',
   };
@@ -22,7 +21,6 @@ class DisplayClub extends React.Component {
     super(props);
     this.onClickSaveClub = this.onClickSaveClub.bind(this);
     this.changeIcon = this.changeIcon.bind(this);
-    this.updateIconState = this.updateIconState.bind(this);
   }
 
   updateCallback(error) {
@@ -33,39 +31,21 @@ class DisplayClub extends React.Component {
     }
   }
 
-  changeIcon() {
-    if (this.state.isMember) {
-      this.setState({ isMember: false });
+  changeIcon(isMember) {
+    if (isMember) {
       this.setState({ icon: 'star' });
       this.setState({ color: 'yellow' });
     } else {
-      this.setState({ isMember: true });
       this.setState({ icon: 'check' });
       this.setState({ color: 'green' });
     }
   }
 
-  updateIconState() {
+  onClickSaveClub(isMember) {
     const userProfile = Profiles.findOne({ owner: this.props.currentUser.username });
-    this.setState({ isMember: this.props.doc.members.indexOf(userProfile._id) > -1 });
-    if (this.state.isMember) {
-      this.setState({ icon: 'check' });
-    } else {
-      this.setState({ icon: 'star' });
-    }
-    console.log(this.state.isMember);
-  }
-
-  onClickSaveClub() {
-    const userProfile = Profiles.findOne({ owner: this.props.currentUser.username });
-    // if (this.state.isMember === '') {
-    //   this.updateIconState();
-    //   // console.log(this.props.doc.members, userProfile._id);
-    //   // console.log(this.props.doc.members.indexOf(userProfile._id), this.state.isMember, isMember);
-    // } else {
     let clubs = [];
     let members = [];
-    if (this.state.isMember) {
+    if (isMember) {
       // remove club from member and member from club
       clubs = userProfile.clubs.filter((x) => (x !== this.props.doc._id));
       members = this.props.doc.members.filter((x) => (x !== userProfile._id));
@@ -75,17 +55,19 @@ class DisplayClub extends React.Component {
     }
     Profiles.update(userProfile._id, { $set: { clubs: clubs } });
     Clubs.update(this.props.doc._id, { $set: { members: members } }, this.updateCallback(this.error));
-    this.changeIcon();
-    // }
+    this.changeIcon(isMember);
   }
 
   returnProfile(memberId) {
     return Profiles.findOne({ _id: memberId });
   }
 
+  returnProfile2(username) {
+    return Profiles.findOne({ owner: username });
+  }
+
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
-    // this.changeIcon(this.props.doc.members.includes(this.props.currentUser._id));
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
@@ -131,16 +113,17 @@ class DisplayClub extends React.Component {
                         <Grid.Column textAlign='right' width={4}>
                           {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') &&
                           (this.props.doc.owner === this.props.currentUser.username) ? (
-                              <Button basic color='blue' as={Link} icon='edit' content='Edit Club'
-                                      to={`/club-edit/${this.props.doc._id}`}/>
-                          ) : <Button icon={this.state.icon} color={this.state.color} onClick={this.onClickSaveClub}/>}
-                          {/* {(this.props.doc.members.indexOf(this.props.currentUser._id) === -1) ? (
-                              <Button icon='star' color='yellow' onClick=
-                                  {this.onClickSaveClub}/>
+                                  <Button basic color='blue' as={Link} icon='edit' content='Edit Club'
+                                          to={`/club-edit/${this.props.doc._id}`}/>
+                              ) :
+                              (this.props.doc.members.indexOf(this.returnProfile2(this.props.currentUser.username)._id)
+                                  === -1) ? (
+                                  <Button icon={this.state.icon} color={this.state.color}
+                                          onClick={() => this.onClickSaveClub(false)}/>
                               ) : (
-                              <Button icon='check' color='yellow' onClick=
-                                  {this.onClickSaveClub}/>
-                          )} */}
+                                  <Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>
+                              )
+                          }
                         </Grid.Column>
                       </Grid.Row>
                       <Grid.Row columns={1}>
@@ -200,7 +183,6 @@ DisplayClub.propTypes = {
 export default withTracker(({ match }) => {
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
   const documentId = match.params._id;
-  // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Clubs');
   const subscription2 = Meteor.subscribe('Profiles');
   return {
