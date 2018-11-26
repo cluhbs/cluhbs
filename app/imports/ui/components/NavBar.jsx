@@ -22,12 +22,13 @@ class NavBar extends React.Component {
           ) : ''}
           {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') &&
           (Clubs.findOne({ owner: this.props.currentUser }) !== undefined) ? (
-              [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Club</Menu.Item>,
                 <Menu.Item as={NavLink} activeClassName="active" exact to={`/club-info/${Clubs.findOne()._id}`}
-                          key={'manage'}>Manage Club</Menu.Item>]
+                          key={'manage'}>Manage Club</Menu.Item>
           ) : ''}
           {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
-              <Menu.Item as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Club Directory</Menu.Item>
+              [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Club</Menu.Item>,
+                <Menu.Item as={NavLink} activeClassName="active" exact to="/admin"
+                           key='admin'>Club Directory</Menu.Item>]
           ) : ''}
           <Menu.Item position="right">
             {this.props.currentUser === '' ? (
