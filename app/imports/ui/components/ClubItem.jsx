@@ -69,18 +69,36 @@ class ClubItem extends React.Component {
     return (this.props.ready) ? this.renderItem() : <Loader active>Getting data</Loader>;
   }
 
+  renderButtons(userProfile, userClub) {
+    if (userClub) {
+      if (userClub._id === this.props.club._id) {
+        return (<Button icon='edit' color='blue' as={Link} to={`/club-edit/${this.props.club._id}`}/>);
+      }
+    }
+    if (this.props.club.members.indexOf(userProfile._id) > -1) {
+      return (<Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>);
+    }
+    return (<Button icon={this.state.icon} color={this.state.color} onClick={() => this.onClickSaveClub(false)}/>);
+  }
+
+  renderLabels(userProfile, userClub) {
+    if (userClub) {
+      if (userClub._id === this.props.club._id) {
+        return (<Label corner='right' icon='edit' color='blue'/>);
+      }
+    }
+    if (this.props.club.members.indexOf(userProfile._id) > -1) {
+      return (<Label corner='right' icon='check' color='green'/>);
+    }
+    return '';
+  }
+
   renderItem() {
     const userProfile = Profiles.findOne({ owner: this.props.currentUser });
     const userClub = Clubs.findOne({ owner: this.props.currentUser });
     return (
         <Card centered>
-          {(userClub._id === this.props.club._id) ? (
-              <Label corner='right' icon='edit' color='blue'/>
-          ) : (
-              (this.props.club.members.indexOf(userProfile._id) > -1) ? (
-                  <Label corner='right' icon='check' color='green'/>
-              ) : '')
-          }
+          {this.renderLabels(userProfile, userClub)}
           <Card.Content>
             <Container textAlign='center'>
               <Image style={{ height: '190px', paddingBottom: '10px' }} src={this.props.club.image}/>
@@ -101,15 +119,7 @@ class ClubItem extends React.Component {
               {this.props.club.interests.map((interest, index) => <Label key={index} content={interest}/>)}
             </Label.Group>
           </Card.Content>
-          {(userClub._id === this.props.club._id) ? (
-              <Button icon='edit' color='blue' as={Link} to={`/club-edit/${this.props.club._id}`}/>
-          ) : (
-              (this.props.club.members.indexOf(userProfile._id) > -1) ? (
-                  <Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>
-              ) : (
-                  <Button icon={this.state.icon} color={this.state.color} onClick={() => this.onClickSaveClub(false)}/>
-              ))
-          }
+          {this.renderButtons(userProfile, userClub)}
         </Card>
     );
   }
