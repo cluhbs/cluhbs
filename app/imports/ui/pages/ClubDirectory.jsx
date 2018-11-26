@@ -17,7 +17,9 @@ class ClubDirectory extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     const searchBar = { padding: '30px 0px 30px 0px' };
+    const contentStyle = {marginBottom: '50px'};
     return (
+        <div style={contentStyle}>
         <Container>
           <Header as="h2" dividing textAlign="center">Club Directory</Header>
           <Input style={searchBar} fluid icon='search' placeholder='Search...'/>
@@ -25,6 +27,7 @@ class ClubDirectory extends React.Component {
             {this.props.clubs.map((club, index) => <ClubItem key={index} club={club}/>)}
           </Card.Group>
         </Container>
+        </div>
     );
   }
 }

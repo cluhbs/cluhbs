@@ -10,7 +10,7 @@ import { Clubs } from '/imports/api/club/club';
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 class NavBar extends React.Component {
   render() {
-    const menuStyle = { marginBottom: '10px' };
+    const menuStyle = { marginBottom: '15px' };
     Meteor.subscribe('ClubAdmin');
     return (
         <Menu style={menuStyle} attached="top" borderless inverted color='green'>

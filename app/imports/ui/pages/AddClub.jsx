@@ -35,35 +35,42 @@ class AddClub extends React.Component {
   submit(data) {
     const { name, image, website, description, meetTime, location, contactPerson, contactEmail, interests } = data;
     const owner = Meteor.user().username;
-    Clubs.insert({ name, image, website, description, meetTime, location, contactPerson, contactEmail,
-          interests, owner },
+    Clubs.insert({
+          name, image, website, description, meetTime, location, contactPerson, contactEmail,
+          interests, owner
+        },
         this.insertCallback);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   render() {
+    const contentStyle = {marginBottom: '50px'};
     return (
-        <Grid container centered>
-          <Grid.Column>
-            <Header as="h2" textAlign="center">Add Club</Header>
-            <AutoForm ref={(ref) => { this.formRef = ref; }} schema={ClubSchema} onSubmit={this.submit}>
-              <Segment>
-                <TextField name='name'/>
-                <TextField name='image'/>
-                <TextField name='website'/>
-                <LongTextField name='description'/>
-                <TextField name='meetTime'/>
-                <TextField name='location'/>
-                <TextField name='contactPerson'/>
-                <TextField name='contactEmail'/>
-                <TextField name='interests'/>
-                <SubmitField value='Submit'/>
-                <ErrorsField/>
-                <HiddenField name='owner' value='fakeuser@foo.com'/>
-              </Segment>
-            </AutoForm>
-          </Grid.Column>
-        </Grid>
+        <div style={contentStyle}>
+          <Grid container centered>
+            <Grid.Column>
+              <Header as="h2" textAlign="center">Add Club</Header>
+              <AutoForm ref={(ref) => {
+                this.formRef = ref;
+              }} schema={ClubSchema} onSubmit={this.submit}>
+                <Segment>
+                  <TextField name='name'/>
+                  <TextField name='image'/>
+                  <TextField name='website'/>
+                  <LongTextField name='description'/>
+                  <TextField name='meetTime'/>
+                  <TextField name='location'/>
+                  <TextField name='contactPerson'/>
+                  <TextField name='contactEmail'/>
+                  <TextField name='interests'/>
+                  <SubmitField value='Submit'/>
+                  <ErrorsField/>
+                  <HiddenField name='owner' value='fakeuser@foo.com'/>
+                </Segment>
+              </AutoForm>
+            </Grid.Column>
+          </Grid>
+        </div>
     );
   }
 }

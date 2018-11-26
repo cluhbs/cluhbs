@@ -22,7 +22,7 @@ class UserHomePage extends React.Component {
                 Welcome {this.props.doc.firstName} {this.props.doc.lastName}!
               </Header>
               {this.props.doc.clubs == '' ? (
-                <Header as='h3' textAlign='center'>
+                <Header as='h3' textAlign='center' color='grey'>
                   No clubs to display. Saved clubs will display here.
                 </Header>
               ) : (
