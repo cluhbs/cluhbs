@@ -1,13 +1,13 @@
 import React from 'react';
-import { Card, Image, Button } from 'semantic-ui-react';
+import { Card, Image, Button, Dropdown } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Requests } from '/imports/api/request/request';
 
-
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class RequestAdmin extends React.Component {
+
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
@@ -41,6 +41,15 @@ class RequestAdmin extends React.Component {
             <Card.Description>
               {this.props.request.message}
             </Card.Description>
+          </Card.Content>
+          <Card.Content>
+            <Dropdown text='Request Status'>
+              <Dropdown.Menu>
+                <Dropdown.Item>Accept</Dropdown.Item>
+                <Dropdown.Item>Pending</Dropdown.Item>
+                <Dropdown.Item>Deny</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Card.Content>
           <Card.Content extra>
             <Button onClick={this.onClick}>Delete</Button>
