@@ -13,7 +13,9 @@ import ClubDirectorySuperAdmin from '../pages/ClubDirectorySuperAdmin';
 import ManageClubAdmin from '../pages/ManageClubAdmin';
 import ClubDirectory from '../pages/ClubDirectory';
 import RequestList from '../pages/RequestList';
+import RequestListAdmin from '../pages/RequestListAdmin';
 import AddClub from '../pages/AddClub';
+import MakeRequest from '../pages/MakeRequest';
 import EditClub from '../pages/EditClub';
 import DisplayClub from '../pages/DisplayClub';
 import NotFound from '../pages/NotFound';
@@ -38,9 +40,11 @@ class App extends React.Component {
               <ProtectedRoute path="/request-list" component={RequestList}/>
               <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
               <ProtectedRoute path="/add" component={AddClub}/>
+              <ProtectedRoute path="/make-request" component={MakeRequest}/>
               <ProtectedRoute path="/club-edit/:_id" component={EditClub}/>
               <ProtectedRoute path="/club-info/:_id" component={DisplayClub}/>
               <AdminProtectedRoute path="/admin" component={ClubDirectorySuperAdmin}/>
+              <AdminProtectedRoute path="/request-admin" component={RequestListAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>

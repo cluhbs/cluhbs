@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-class Request extends React.Component {
+class RequestAdmin extends React.Component {
   render() {
     return (
         <Card centered itemsPerRow={2}>
@@ -24,9 +24,9 @@ class Request extends React.Component {
 }
 
 /** Require a document to be passed to this component. */
-Request.propTypes = {
+RequestAdmin.propTypes = {
   request: PropTypes.object.isRequired,
 };
 
 /** Wrap this component in withRouter since we use the <Link> React Router element. */
-export default withRouter(Request);
+export default withRouter(RequestAdmin);
