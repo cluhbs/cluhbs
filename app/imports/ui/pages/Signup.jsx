@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
 import { Profiles } from '/imports/api/profile/profile';
@@ -9,11 +10,11 @@ import PropTypes from 'prop-types';
 /**
  * Signup component is similar to signin component, but we attempt to create a new user instead.
  */
-export default class Signup extends React.Component {
+class Signup extends React.Component {
   /** Initialize state fields. */
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '', error: '' };
+    this.state = { email: '', password: '', error: '', currentUser: '' };
     // Ensure that 'this' is bound to this component in these two functions.
     // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,8 +24,10 @@ export default class Signup extends React.Component {
   createProfile() {
     const owner = Meteor.users.findOne().username;
     Profiles.insert({ owner });
-    // const { firstName, lastName, contactEmail } = '';
-    // Profiles.update(owner, { $set: { firstName, lastName, contactEmail } });
+  }
+
+  returnProfile(owner) {
+    return Profiles.findOne({ owner: owner });
   }
 
   /** Update the form controls each time the user interacts with them. */
@@ -41,16 +44,17 @@ export default class Signup extends React.Component {
       } else {
         // browserHistory.push('/login');
         this.createProfile();
-        this.setState({ error: '', redirectToReferer: true });
+        this.setState({ error: '', currentUser: Meteor.user().username, redirectToReferer: true });
       }
     });
   }
 
   /** Display the signup form. */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/profile' } };
     // if correct authentication, redirect to page instead of login screen
     if (this.state.redirectToReferer) {
+      const { from } = this.props.location.state ||
+      { from: { pathname: `/profile-edit/${this.returnProfile(this.state.currentUser)._id}` } };
       return <Redirect to={from}/>;
     }
     // otherwise return the Register Form
@@ -107,3 +111,12 @@ export default class Signup extends React.Component {
 Signup.propTypes = {
   location: PropTypes.object,
 };
+
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+const SignupContainer = withTracker(() => ({
+  // currentUser: Meteor.user() ? Meteor.user().username : '',
+  // ready: Meteor.subscribe('ClubAdmin').ready() && Meteor.subscribe('Profiles').ready(),
+}))(Signup);
+
+/** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */
+export default withRouter(SignupContainer);

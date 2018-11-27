@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Loader, Header, Image, Button, List, Segment } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
+import { Clubs } from '/imports/api/club/club';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
@@ -8,6 +9,10 @@ import PropTypes from 'prop-types';
 
 /** Renders the Page for displaying a single document. */
 class DisplayProfile extends React.Component {
+
+  returnClub(clubId) {
+    return Clubs.findOne({ _id: clubId });
+  }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -37,7 +42,10 @@ class DisplayProfile extends React.Component {
                           }
                         </Grid.Column>
                         <Grid.Column textAlign='right' width={4}>
-                          <Button basic color='blue' as={Link} icon='edit' to="/profile-edit" content='Edit Profile'/>
+                          {(Meteor.user().username === this.props.doc.owner) ? (
+                              <Button basic color='blue' as={Link} icon='edit' content='Edit Profile'
+                                      to={`/profile-edit/${this.props.doc._id}`}/>
+                          ) : ''}
                         </Grid.Column>
                       </Grid.Row>
                       <Grid.Row columns={1}>
@@ -54,10 +62,12 @@ class DisplayProfile extends React.Component {
                                 </Grid.Column>
                                 <Grid.Column>
                                   <Header as='h4' attached='top' textAlign='center'>Clubs</Header>
-                                  {/* change this.props.doc.interests to this.props.doc.clubs when implemented */}
                                   <List bulleted>
-                                    {this.props.doc.interests.map((club, index) => <List.Item key={index}
-                                                                                              content={club}/>)}
+                                    {this.props.doc.clubs.map(
+                                        (clubId, index) => <List.Item key={index} as={Link}
+                                                                      to={`/club-info/${this.returnClub(clubId)._id}`}>
+                                          {this.returnClub(clubId).name}</List.Item>,
+                                    )}
                                   </List>
                                 </Grid.Column>
                               </Grid.Row>
@@ -84,11 +94,14 @@ DisplayProfile.propTypes = {
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
+export default withTracker(({ match }) => {
+  // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
+  const documentId = match.params._id;
   const subscription = Meteor.subscribe('Profiles');
+  const subscription2 = Meteor.subscribe('Clubs');
   // Get access to Profile documents.
   return {
-    doc: Profiles.findOne(),
-    ready: subscription.ready(),
+    doc: Profiles.findOne(documentId),
+    ready: subscription.ready() && subscription2.ready(),
   };
 })(DisplayProfile);
