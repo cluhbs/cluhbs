@@ -112,7 +112,7 @@ class ClubItem extends React.Component {
     const userClub = Clubs.findOne({ owner: this.props.currentUser });
     return (
         <Card centered>
-          {this.renderLabels(userProfile, userClub)}
+          {this.props.currentUser !== '' ? this.renderLabels(userProfile, userClub) : ''}
           <Card.Content>
             <Container textAlign='center'>
               <Image style={{ height: '190px', paddingBottom: '10px' }} src={this.props.club.image}/>
@@ -133,7 +133,7 @@ class ClubItem extends React.Component {
               {this.props.club.interests.map((interest, index) => <Label key={index} content={interest}/>)}
             </Label.Group>
           </Card.Content>
-          {this.renderButtons(userProfile, userClub)}
+          {this.props.currentUser !== '' ? this.renderButtons(userProfile, userClub) : ''}
         </Card>
     );
   }
