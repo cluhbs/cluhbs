@@ -45,52 +45,55 @@ export default class Signin extends React.Component {
       return <Redirect to={from}/>;
     }
     // Otherwise return the Login form.
-    return (
-        <Container>
-          <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
-            <Grid.Column>
-              <Header as="h2" textAlign="center">
-                Log in to your account
-              </Header>
-              <Form onSubmit={this.handleSubmit}>
-                <Segment stacked>
-                  <Form.Input
-                      label="Email"
-                      icon="user"
-                      iconPosition="left"
-                      name="email"
-                      type="email"
-                      placeholder="E-mail address"
-                      onChange={this.handleChange}
-                  />
-                  <Form.Input
-                      label="Password"
-                      icon="lock"
-                      iconPosition="left"
-                      name="password"
-                      placeholder="Password"
-                      type="password"
-                      onChange={this.handleChange}
-                  />
-                  <Form.Button content="Submit"/>
-                </Segment>
-              </Form>
-              <Message>
-                Don't have an account? Register <Link to="/signup">here</Link>.
-              </Message>
-              {this.state.error === '' ? (
-                  ''
-              ) : (
-                  <Message
-                      error
-                      header="Login was not successful"
-                      content={this.state.error}
-                  />
-              )}
-            </Grid.Column>
-          </Grid>
-        </Container>
-    );
+    const isLogged = Meteor.userId() !== null;
+    return isLogged ?
+        (<Redirect to={{ pathname: '/home' }}/>) :
+        (
+            <Container>
+              <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
+                <Grid.Column>
+                  <Header as="h2" textAlign="center">
+                    Log in to your account
+                  </Header>
+                  <Form onSubmit={this.handleSubmit}>
+                    <Segment stacked>
+                      <Form.Input
+                          label="Email"
+                          icon="user"
+                          iconPosition="left"
+                          name="email"
+                          type="email"
+                          placeholder="E-mail address"
+                          onChange={this.handleChange}
+                      />
+                      <Form.Input
+                          label="Password"
+                          icon="lock"
+                          iconPosition="left"
+                          name="password"
+                          placeholder="Password"
+                          type="password"
+                          onChange={this.handleChange}
+                      />
+                      <Form.Button content="Submit"/>
+                    </Segment>
+                  </Form>
+                  <Message>
+                    Don't have an account? Register <Link to="/signup">here</Link>.
+                  </Message>
+                  {this.state.error === '' ? (
+                      ''
+                  ) : (
+                      <Message
+                          error
+                          header="Login was not successful"
+                          content={this.state.error}
+                      />
+                  )}
+                </Grid.Column>
+              </Grid>
+            </Container>
+        );
   }
 }
 
