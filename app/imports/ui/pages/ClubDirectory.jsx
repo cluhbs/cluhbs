@@ -1,10 +1,11 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Loader, Card, Input } from 'semantic-ui-react';
+import { Container, Header, Loader, Card } from 'semantic-ui-react';
 import { Clubs } from '/imports/api/club/club';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import ClubItem from '/imports/ui/components/ClubItem';
+import SearchBar from '/imports/ui/components/SearchBar';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class ClubDirectory extends React.Component {
@@ -16,12 +17,12 @@ class ClubDirectory extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const searchBar = { padding: '30px 0px 30px 0px' };
+    const cardPadding = { padding: '30px 0px 0px 0px' };
     return (
         <Container>
           <Header as="h2" dividing textAlign="center">Club Directory</Header>
-          <Input style={searchBar} fluid icon='search' placeholder='Search...'/>
-          <Card.Group itemsPerRow={3}>
+          <SearchBar/>
+          <Card.Group itemsPerRow={3} style={cardPadding}>
             {this.props.clubs.map((club, index) => <ClubItem key={index} club={club}/>)}
           </Card.Group>
         </Container>
@@ -32,6 +33,7 @@ class ClubDirectory extends React.Component {
 /** Require an array of Stuff documents in the props. */
 ClubDirectory.propTypes = {
   clubs: PropTypes.array.isRequired,
+  search: PropTypes.array,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -46,6 +48,12 @@ export default withTracker(() => {
       }
       if (a.name > b.name) {
         return 1;
+      }
+      return 0;
+    }),
+    search: Clubs.find({ SearchBar }).fetch((a) => {
+      if (a.interests === SearchBar) {
+        return a;
       }
       return 0;
     }),
