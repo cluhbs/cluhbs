@@ -50,14 +50,19 @@ class DisplayClub extends React.Component {
   }
 
   renderButtons() {
-    if (Roles.userIsInRole(Meteor.userId(), 'clubAdmin') && this.props.doc.owner === this.props.currentUser.username) {
+    if (Roles.userIsInRole(Meteor.userId(), 'admin') || (Roles.userIsInRole(Meteor.userId(), 'clubAdmin')
+        && this.props.doc.owner === this.props.currentUser.username)) {
       return (<Button basic color='blue' as={Link} icon='edit' content='Edit Club'
                       to={`/club-edit/${this.props.doc._id}`}/>);
     }
-    if (this.props.doc.members.indexOf(this.returnProfile2(this.props.currentUser.username)._id) > -1) {
-      return (<Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>);
+    const userProfile = this.returnProfile2(this.props.currentUser.username);
+    if (userProfile) {
+      if (this.props.doc.members.indexOf(userProfile._id) > -1) {
+        return (<Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>);
+      }
+      return (<Button icon='star' color='yellow' onClick={() => this.onClickSaveClub(false)}/>);
     }
-    return (<Button icon='star' color='yellow' onClick={() => this.onClickSaveClub(false)}/>);
+    return '';
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
