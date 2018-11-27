@@ -23,8 +23,11 @@ const interestOptions = [
 const interestLabel = label => ({ color: 'green', content: `${label.text}` });
 
 const SearchBar = () => (
-    <Dropdown placeholder='Select an Interest' fluid multiple search selection options={interestOptions}
-              renderLabel={interestLabel}/>
+    <Dropdown
+        placeholder='Select an Interest'
+        fluid multiple search selection
+        options={interestOptions}
+        renderLabel={interestLabel}/>
 );
 
 /** Wrap this component in withRouter since we use the <Link> React Router element. */

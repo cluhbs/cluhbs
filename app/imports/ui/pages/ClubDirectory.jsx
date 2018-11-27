@@ -33,7 +33,6 @@ class ClubDirectory extends React.Component {
 /** Require an array of Stuff documents in the props. */
 ClubDirectory.propTypes = {
   clubs: PropTypes.array.isRequired,
-  search: PropTypes.array,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -48,12 +47,6 @@ export default withTracker(() => {
       }
       if (a.name > b.name) {
         return 1;
-      }
-      return 0;
-    }),
-    search: Clubs.find({ SearchBar }).fetch((a) => {
-      if (a.interests === SearchBar) {
-        return a;
       }
       return 0;
     }),
