@@ -35,15 +35,17 @@ class App extends React.Component {
                 <Route exact path="/" component={Landing}/>
                 <Route path="/signin" component={Signin}/>
                 <Route path="/signup" component={Signup}/>
-                <ProtectedRoute path="/home" component={UserHomePage}/>
                 <ProtectedRoute path="/profile" component={DisplayProfile}/>
                 <ProtectedRoute path="/profile-edit" component={EditProfile}/>
+                <ProtectedRoute path="/make-request" component={MakeRequest}/>
                 <ProtectedRoute path="/list" component={ClubDirectory}/>
+                <ProtectedRoute path="/request-list" component={RequestList}/>
                 <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
                 <ProtectedRoute path="/add" component={AddClub}/>
                 <ProtectedRoute path="/club-edit/:_id" component={EditClub}/>
                 <ProtectedRoute path="/club-info/:_id" component={DisplayClub}/>
                 <AdminProtectedRoute path="/admin" component={ClubDirectorySuperAdmin}/>
+                <AdminProtectedRoute path="/request-admin" component={RequestListAdmin}/>
                 <ProtectedRoute path="/signout" component={Signout}/>
                 <Route component={NotFound}/>
               </Switch>
