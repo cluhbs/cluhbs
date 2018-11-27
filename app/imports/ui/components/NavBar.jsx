@@ -18,9 +18,7 @@ class NavBar extends React.Component {
             <Header inverted as='h1'>clUHbs</Header>
           </Menu.Item>
           {(this.props.currentUser && (this.props.currentUser !== 'admin@foo.com')) ? (
-              [<Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>,
-                <Menu.Item as={NavLink} activeClassName="active" exact to="/make-request"
-                           key='make-request'>Make Request</Menu.Item>]
+              [<Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>]
           ) : ''}
           {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') &&
           (Clubs.findOne({ owner: this.props.currentUser }) !== undefined) ? (
@@ -46,6 +44,7 @@ class NavBar extends React.Component {
                 <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
                   <Dropdown.Menu>
                     <Dropdown.Item icon="user" text="My Profile" as={NavLink} exact to="/profile"/>
+                    <Dropdown.Item icon="add" text="Make Request" as={NavLink} exact to="/make-request" />
                     <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
                   </Dropdown.Menu>
                 </Dropdown>
