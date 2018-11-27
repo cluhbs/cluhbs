@@ -84,6 +84,8 @@ class DisplayClub extends React.Component {
                           {(this.props.doc.website) ? (
                               <Header.Subheader><strong>Club Website: </strong>
                                 <a href={this.props.doc.website}>{this.props.doc.website}</a>
+                                <a href={this.props.doc.website} rel='noopener noreferrer'
+                                   target='_blank'>{this.props.doc.website}</a>
                               </Header.Subheader>) : ''
                           }
                           <Grid container>

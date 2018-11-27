@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
-import { Menu, Dropdown, Header, Loader } from 'semantic-ui-react';
+import { Menu, Dropdown, Loader, Image } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '/imports/api/club/club';
 import { Profiles } from '/imports/api/profile/profile';
@@ -21,12 +21,18 @@ class NavBar extends React.Component {
   }
 
   renderPage() {
-    const menuStyle = { marginBottom: '10px' };
+    const menuStyle = { marginBottom: '15px', size: '20px' };
     return (
         <Menu style={menuStyle} attached="top" borderless inverted color='green'>
-          <Menu.Item as={NavLink} activeClassName="" exact to="/">
-            <Header inverted as='h1'>clUHbs</Header>
-          </Menu.Item>
+          {this.props.currentUser === '' ? (
+                  <Menu.Item as={NavLink} activeClassName="" exact to="/">
+                      <Image src='/images/logo-text.png' size='tiny' />
+                  </Menu.Item>
+          ) : (
+              <Menu.Item as={NavLink} activeClassName="" exact to="/home">
+                <Image src='/images/logo-text.png' size='tiny' />
+              </Menu.Item>
+          )}
           {(this.props.currentUser && (this.props.currentUser !== 'admin@foo.com')) ? (
               [<Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>]
           ) : ''}
@@ -54,7 +60,7 @@ class NavBar extends React.Component {
                 <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
                   <Dropdown.Menu>
                     <Dropdown.Item icon="user" text="My Profile" as={NavLink}
-                                   exact to={`/profile/${this.returnProfile(this.props.currentUser)._id}`}/>
+                                   exact to={`/profile/${this.returnProfile(this.props.currentUser)._id}`} />
                     <Dropdown.Item icon="add" text="Make Request" as={NavLink} exact to="/make-request" />
                     <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
                   </Dropdown.Menu>

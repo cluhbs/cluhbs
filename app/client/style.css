@@ -1,8 +1,8 @@
 .landing-background {
-  background: url('/images/223.jpg') no-repeat center center fixed;
+  background: url('/images/landing.jpg') no-repeat center center fixed;
   background-size: cover;
-  max-width: 100%;
-  height: auto;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .landing-title {
@@ -16,8 +16,51 @@
   font: 2em verdana, sans-serif;
 }
 
+.landing-first-grid-row {
+  background-color: rgba(115, 115, 115, 0.45);
+  padding-top: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+  border: thick solid white;
+}
+
 .landing-middle {
-  padding: 12px;
+  padding: 25px;
+  background-color: rgba(115, 115, 115, 0.45);
+  border: thin solid white;
+}
+
+.home {
+  padding-top: 20px;
+}
+
+:root {
+  --space: 1.5em 0;
+  --space: 2em 0;
+}
+
+.Site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.Site-content {
+  flex: 1 0 auto;
+  padding: var(--space) var(--space) 0;
+  width: 100%;
+}
+
+.Site-content:after {
+  content: '\00a0';
+  display: block;
+  margin-top: var(--space);
+  height: 0;
+  visibility: hidden;
+}
+
+.footer-background {
+  background-color: #F8F8F9;
 }
 
 .button {

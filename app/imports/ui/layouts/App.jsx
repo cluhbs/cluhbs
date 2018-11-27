@@ -7,6 +7,7 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
+import UserHomePage from '../pages/UserHomePage';
 import EditProfile from '../pages/EditProfile';
 import DisplayProfile from '../pages/DisplayProfile';
 import ClubDirectorySuperAdmin from '../pages/ClubDirectorySuperAdmin';
@@ -40,6 +41,7 @@ class App extends React.Component {
                 <ProtectedRoute path="/make-request" component={MakeRequest}/>
                 <ProtectedRoute path="/list" component={ClubDirectory}/>
                 <ProtectedRoute path="/request-list" component={RequestList}/>
+                <ProtectedRoute path="/home" component={UserHomePage}/>
                 <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
                 <ProtectedRoute path="/add" component={AddClub}/>
                 <ProtectedRoute path="/club-edit/:_id" component={EditClub}/>
@@ -63,16 +65,16 @@ class App extends React.Component {
  * @param {any} { component: Component, ...rest }
  */
 const ProtectedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      const isLogged = Meteor.userId() !== null;
-      return isLogged ?
-          (<Component {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
-      );
-    }}
-  />
+    <Route
+        {...rest}
+        render={(props) => {
+          const isLogged = Meteor.userId() !== null;
+          return isLogged ?
+              (<Component {...props} />) :
+              (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+              );
+        }}
+    />
 );
 
 /**

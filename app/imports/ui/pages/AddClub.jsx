@@ -47,7 +47,6 @@ class AddClub extends React.Component {
     const clubs = [insertedClub];
     Profiles.update(memberId, { $set: { clubs: clubs } });
     this.setState({ error: '', currentClub: insertedClub, redirectToReferer: true });
-
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -57,28 +56,33 @@ class AddClub extends React.Component {
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
     }
+    const contentStyle = { marginBottom: '50px' };
     return (
-        <Grid container centered>
-          <Grid.Column>
-            <Header as="h2" textAlign="center">Add Club</Header>
-            <AutoForm ref={(ref) => { this.formRef = ref; }} schema={ClubSchema} onSubmit={this.submit}>
-              <Segment>
-                <TextField name='name'/>
-                <TextField name='image'/>
-                <TextField name='website'/>
-                <LongTextField name='description'/>
-                <TextField name='meetTime'/>
-                <TextField name='location'/>
-                <TextField name='contactPerson'/>
-                <TextField name='contactEmail'/>
-                <TextField name='interests'/>
-                <SubmitField value='Submit'/>
-                <ErrorsField/>
-                <HiddenField name='owner' value='fakeuser@foo.com'/>
-              </Segment>
-            </AutoForm>
-          </Grid.Column>
-        </Grid>
+        <div style={contentStyle}>
+          <Grid container centered>
+            <Grid.Column>
+              <Header as="h2" textAlign="center">Add Club</Header>
+              <AutoForm ref={(ref) => {
+                this.formRef = ref;
+              }} schema={ClubSchema} onSubmit={this.submit}>
+                <Segment>
+                  <TextField name='name'/>
+                  <TextField name='image'/>
+                  <TextField name='website'/>
+                  <LongTextField name='description'/>
+                  <TextField name='meetTime'/>
+                  <TextField name='location'/>
+                  <TextField name='contactPerson'/>
+                  <TextField name='contactEmail'/>
+                  <TextField name='interests'/>
+                  <SubmitField value='Submit'/>
+                  <ErrorsField/>
+                  <HiddenField name='owner' value='fakeuser@foo.com'/>
+                </Segment>
+              </AutoForm>
+            </Grid.Column>
+          </Grid>
+        </div>
     );
   }
 }
