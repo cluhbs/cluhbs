@@ -57,7 +57,7 @@ class DisplayClub extends React.Component {
     if (this.props.doc.members.indexOf(this.returnProfile2(this.props.currentUser.username)._id) > -1) {
       return (<Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>);
     }
-    return (<Button icon='check' color='yellow' onClick={() => this.onClickSaveClub(false)}/>);
+    return (<Button icon='star' color='yellow' onClick={() => this.onClickSaveClub(false)}/>);
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */

@@ -18,7 +18,7 @@ class RequestListAdmin extends React.Component {
     return (
         <Container>
           <Header as="h2" textAlign="center">Request List</Header>
-          <Card.Group>
+          <Card.Group centered itemsPerRow={2}>
             {this.props.requests.map((request, index) => <RequestAdmin key={index} request={request} />)}
           </Card.Group>
         </Container>

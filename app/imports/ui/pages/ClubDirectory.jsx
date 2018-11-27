@@ -24,7 +24,7 @@ class ClubDirectory extends React.Component {
         <Container>
           <Header as="h2" dividing textAlign="center">Club Directory</Header>
           <SearchBar/>
-          <Card.Group itemsPerRow={3} style={cardPadding}>
+          <Card.Group style={cardPadding}>
             {this.props.clubs.map((club, index) => <ClubItem key={index} club={club}/>)}
           </Card.Group>
         </Container>

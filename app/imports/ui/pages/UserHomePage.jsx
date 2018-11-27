@@ -6,40 +6,46 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Profiles } from '/imports/api/profile/profile';
 import { Clubs } from '/imports/api/club/club';
 import ClubItem from '/imports/ui/components/ClubItem';
+import { Redirect } from 'react-router-dom';
+import { Roles } from 'meteor/alanning:roles';
 
 class UserHomePage extends React.Component {
 
+  returnClub(clubId) {
+    return Clubs.findOne({ _id: clubId });
+  }
+
   render() {
+    if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
+      return (<Redirect to={{ pathname: '/request-admin' }}/>);
+    }
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
   renderPage() {
+    const userProfile = Profiles.findOne({ owner: Meteor.user().username });
     return (
-
         <div className='home'>
           <Container>
-              <Header as='h1' textAlign='center'>
-                Welcome {this.props.doc.firstName} {this.props.doc.lastName}!
-              </Header>
-              {this.props.doc.clubs == '' ? (
+            <Header as='h1' textAlign='center'>
+              Welcome {userProfile.firstName} {userProfile.lastName}!
+            </Header>
+            {userProfile.clubs.length === 0 ? (
                 <Header as='h3' textAlign='center' color='grey'>
-                  No clubs to display. Saved clubs will display here.
+                  No clubs to display. Saved clubs will be displayed here.
                 </Header>
-              ) : (
-                  <Card.Group>
-                    {this.props.doc.clubs.map((club, index) => <ClubItem key={index} club={club}/>)}
-                  </Card.Group>
-              )}
+            ) : (
+                <Card.Group>
+                  {userProfile.clubs.map((clubId, index) => <ClubItem key={index} club={this.returnClub(clubId)}/>)}
+                </Card.Group>
+            )}
           </Container>
         </div>
-
     );
   }
 }
 
 UserHomePage.propTypes = {
-  doc: PropTypes.object,
-  model: PropTypes.object,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -48,7 +54,6 @@ export default withTracker(() => {
   const subscription2 = Meteor.subscribe('Clubs');
 
   return {
-    doc: Profiles.findOne(),
-    ready: subscription.ready(),
+    ready: subscription.ready() && subscription2.ready(),
   };
 })(UserHomePage);

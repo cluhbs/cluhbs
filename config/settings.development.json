@@ -13,7 +13,7 @@
     { "email": "clubAdminD1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminE1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminF1@foo.com", "password": "changeme", "role": "clubAdmin" },
-    { "email": "clubAdminF1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminF2@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminG1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminH1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminI1@foo.com", "password": "changeme", "role": "clubAdmin" },

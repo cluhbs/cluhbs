@@ -15,6 +15,81 @@ class NavBar extends React.Component {
     return Profiles.findOne({ owner: username });
   }
 
+  renderWelcomeNavLink() {
+    if (this.props.currentUser === '') {
+      return (
+          <Menu.Item as={NavLink} activeClassName="" exact to="/">
+            <Image src='/images/logo-text.png' size='tiny'/>
+          </Menu.Item>
+      );
+    }
+    if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
+      return (
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/request-admin" key='request-admin'>
+            <Image src='/images/logo-text.png' size='tiny'/>
+          </Menu.Item>
+      );
+    }
+    return (
+        <Menu.Item as={NavLink} activeClassName="" exact to="/home" key='home'>
+          <Image src='/images/logo-text.png' size='tiny'/>
+        </Menu.Item>
+    );
+  }
+
+  renderClubAdminMenu() {
+    if (Clubs.findOne({ owner: this.props.currentUser }) !== undefined) {
+      return (
+          <Menu.Item as={NavLink} activeClassName="active" exact to={`/club-info/${Clubs.findOne()._id}`}
+                     key={'manage'}>Manage Club</Menu.Item>
+      );
+    }
+    return (<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Club</Menu.Item>);
+  }
+
+  renderDropdown() {
+    if (this.props.currentUser === '') {
+      return (
+          <Dropdown pointing="top right" icon={'user'}>
+            <Dropdown.Menu>
+              <Dropdown.Item icon="user" text="Log in" as={NavLink} exact to="/signin"/>
+              <Dropdown.Item icon="add user" text="Register" as={NavLink} exact to="/signup"/>
+            </Dropdown.Menu>
+          </Dropdown>
+      );
+    }
+    if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
+      return (
+          <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
+            <Dropdown.Menu>
+              <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
+            </Dropdown.Menu>
+          </Dropdown>
+      );
+    }
+    if (Roles.userIsInRole(Meteor.userId(), 'clubAdmin')) {
+      return (
+          <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
+            <Dropdown.Menu>
+              <Dropdown.Item icon="user" text="My Profile" as={NavLink}
+                             exact to={`/profile/${this.returnProfile(this.props.currentUser)._id}`}/>
+              <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
+            </Dropdown.Menu>
+          </Dropdown>
+      );
+    }
+    return (
+        <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
+          <Dropdown.Menu>
+            <Dropdown.Item icon="user" text="My Profile" as={NavLink}
+                           exact to={`/profile/${this.returnProfile(this.props.currentUser)._id}`}/>
+            <Dropdown.Item icon="add" text="Make Request" as={NavLink} exact to="/make-request"/>
+            <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
+          </Dropdown.Menu>
+        </Dropdown>
+    );
+  }
+
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
@@ -24,48 +99,16 @@ class NavBar extends React.Component {
     const menuStyle = { marginBottom: '15px', size: '20px' };
     return (
         <Menu style={menuStyle} attached="top" borderless inverted color='green'>
-          {this.props.currentUser === '' ? (
-                  <Menu.Item as={NavLink} activeClassName="" exact to="/">
-                      <Image src='/images/logo-text.png' size='tiny' />
-                  </Menu.Item>
-          ) : (
-              <Menu.Item as={NavLink} activeClassName="" exact to="/home">
-                <Image src='/images/logo-text.png' size='tiny' />
-              </Menu.Item>
-          )}
-          {(this.props.currentUser && (this.props.currentUser !== 'admin@foo.com')) ? (
-              [<Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>]
-          ) : ''}
-          {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') &&
-          (Clubs.findOne({ owner: this.props.currentUser }) !== undefined) ? (
-                <Menu.Item as={NavLink} activeClassName="active" exact to={`/club-info/${Clubs.findOne()._id}`}
-                          key={'manage'}>Manage Club</Menu.Item>
-          ) : ''}
+          {this.renderWelcomeNavLink()}
+          <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>
+          {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') ? this.renderClubAdminMenu() : ''}
           {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
               [<Menu.Item as={NavLink} activeClassName="active" exact to="/request-admin"
                           key='request-admin'>Requests</Menu.Item>,
-                  <Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Club</Menu.Item>,
-                <Menu.Item as={NavLink} activeClassName="active" exact to="/admin"
-                           key='admin'>Club Directory</Menu.Item>]
+                <Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Club</Menu.Item>]
           ) : ''}
           <Menu.Item position="right">
-            {this.props.currentUser === '' ? (
-                <Dropdown pointing="top right" icon={'user'}>
-                  <Dropdown.Menu>
-                    <Dropdown.Item icon="user" text="Log in" as={NavLink} exact to="/signin"/>
-                    <Dropdown.Item icon="add user" text="Register" as={NavLink} exact to="/signup"/>
-                  </Dropdown.Menu>
-                </Dropdown>
-            ) : (
-                <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
-                  <Dropdown.Menu>
-                    <Dropdown.Item icon="user" text="My Profile" as={NavLink}
-                                   exact to={`/profile/${this.returnProfile(this.props.currentUser)._id}`} />
-                    <Dropdown.Item icon="add" text="Make Request" as={NavLink} exact to="/make-request" />
-                    <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
-                  </Dropdown.Menu>
-                </Dropdown>
-            )}
+            {this.renderDropdown()}
           </Menu.Item>
         </Menu>
     );

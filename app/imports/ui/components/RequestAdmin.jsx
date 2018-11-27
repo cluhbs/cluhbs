@@ -15,7 +15,7 @@ class RequestAdmin extends React.Component {
 
   onClick() {
     /* eslint-disable-next-line */
-    var affirm = confirm("Do you really want to delete this contact?");
+    const affirm = confirm("Do you really want to delete this contact?");
     if (affirm) {
       Requests.remove(this.props.request._id, this.deleteCallback);
     }
@@ -31,7 +31,7 @@ class RequestAdmin extends React.Component {
 
   render() {
     return (
-        <Card centered itemsPerRow={2}>
+        <Card>
           <Card.Content>
             <Image floated='left' size='mini' src={this.props.request.image} />
             <Card.Header>

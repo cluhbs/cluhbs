@@ -5,21 +5,32 @@ import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, Link } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
+import { Roles } from 'meteor/alanning:roles';
 import { Profiles } from '/imports/api/profile/profile';
 import { Clubs } from '/imports/api/club/club';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class ClubItem extends React.Component {
 
-  state = {
-    icon: 'star',
-    color: 'yellow',
-  };
-
   constructor(props) {
     super(props);
     this.onClickSaveClub = this.onClickSaveClub.bind(this);
-    this.changeIcon = this.changeIcon.bind(this);
+    this.remove = this.remove.bind(this);
+  }
+
+  remove() {
+    /* eslint-disable-next-line */
+    if (confirm(`Are you sure you want to delete ${this.props.club.name}?`)) {
+      Clubs.remove(this.props.club._id, this.deleteCallback);
+    }
+  }
+
+  deleteCallback(error) {
+    if (error) {
+      Bert.alert({ type: 'danger', message: `Delete failed: ${error.message}` });
+    } else {
+      Bert.alert({ type: 'success', message: 'The club has been successfully deleted.' });
+    }
   }
 
   updateCallback(error) {
@@ -27,16 +38,6 @@ class ClubItem extends React.Component {
       Bert.alert({ type: 'danger', message: `Profile update failed: ${error.message}` });
     } else {
       Bert.alert({ type: 'success', message: 'Profile update succeeded' });
-    }
-  }
-
-  changeIcon(isMember) {
-    if (isMember) {
-      this.setState({ icon: 'star' });
-      this.setState({ color: 'yellow' });
-    } else {
-      this.setState({ icon: 'check' });
-      this.setState({ color: 'green' });
     }
   }
 
@@ -54,14 +55,6 @@ class ClubItem extends React.Component {
     }
     Profiles.update(userProfile._id, { $set: { clubs: clubs } });
     Clubs.update(this.props.club._id, { $set: { members: members } }, this.updateCallback(this.error));
-    this.changeIcon(isMember);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.icon !== nextState.icon) {
-      return false;
-    }
-    return true;
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -70,6 +63,14 @@ class ClubItem extends React.Component {
   }
 
   renderButtons(userProfile, userClub) {
+    if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
+      return (
+          <Button.Group>
+            <Button as={Link} to={`/club-edit/${this.props.club._id}`}>Edit</Button>
+            <Button negative onClick={this.remove}>Delete</Button>
+          </Button.Group>
+      );
+    }
     if (userClub) {
       if (userClub._id === this.props.club._id) {
         return (<Button icon='edit' color='blue' as={Link} to={`/club-edit/${this.props.club._id}`}/>);
@@ -78,7 +79,7 @@ class ClubItem extends React.Component {
     if (this.props.club.members.indexOf(userProfile._id) > -1) {
       return (<Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>);
     }
-    return (<Button icon={this.state.icon} color={this.state.color} onClick={() => this.onClickSaveClub(false)}/>);
+    return (<Button icon='star' color='yellow' onClick={() => this.onClickSaveClub(false)}/>);
   }
 
   renderLabels(userProfile, userClub) {
@@ -87,8 +88,10 @@ class ClubItem extends React.Component {
         return (<Label corner='right' icon='edit' color='blue'/>);
       }
     }
-    if (this.props.club.members.indexOf(userProfile._id) > -1) {
-      return (<Label corner='right' icon='check' color='green'/>);
+    if (userProfile) {
+      if (this.props.club.members.indexOf(userProfile._id) > -1) {
+        return (<Label corner='right' icon='check' color='green'/>);
+      }
     }
     return '';
   }
