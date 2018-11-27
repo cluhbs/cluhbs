@@ -35,9 +35,9 @@ class UserHomePage extends React.Component {
                   No clubs to display. Saved clubs will be displayed here.
                 </Header>
             ) : (
-                <Card.Group>
-                  {userProfile.clubs.map((clubId, index) => <ClubItem key={index} club={this.returnClub(clubId)}/>)}
-                </Card.Group>
+                <Header as='h3' textAlign='center' color='grey'>
+                  Clubs will be displayed here. Will be implemented soon.
+                </Header>
             )}
           </Container>
         </div>
