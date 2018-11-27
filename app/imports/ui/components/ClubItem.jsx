@@ -12,6 +12,10 @@ import { Clubs } from '/imports/api/club/club';
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class ClubItem extends React.Component {
 
+  state = {
+    redirectToReferer: false,
+  };
+
   constructor(props) {
     super(props);
     this.onClickSaveClub = this.onClickSaveClub.bind(this);
@@ -49,6 +53,9 @@ class ClubItem extends React.Component {
       // remove club from member and member from club
       clubs = userProfile.clubs.filter((x) => (x !== this.props.club._id));
       members = this.props.club.members.filter((x) => (x !== userProfile._id));
+      if (this.props.location.pathname === '/home') {
+        this.setState({ redirectToReferer: true });
+      }
     } else {
       clubs = userProfile.clubs.concat(this.props.club._id);
       members = this.props.club.members.concat(userProfile._id);
@@ -59,6 +66,10 @@ class ClubItem extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
+    if (this.state.redirectToReferer) {
+      // reload the page
+      return <Link to='/home'/>;
+    }
     return (this.props.ready) ? this.renderItem() : <Loader active>Getting data</Loader>;
   }
 
@@ -133,6 +144,7 @@ ClubItem.propTypes = {
   club: PropTypes.object.isRequired,
   currentUser: PropTypes.string,
   ready: PropTypes.bool,
+  location: PropTypes.object,
 };
 
 const ClubItemContainer = withTracker(() => ({
