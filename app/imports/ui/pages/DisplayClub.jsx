@@ -12,15 +12,9 @@ import { Bert } from 'meteor/themeteorchef:bert';
 /** Renders the Page for displaying a single document. */
 class DisplayClub extends React.Component {
 
-  state = {
-    icon: 'star',
-    color: 'yellow',
-  };
-
   constructor(props) {
     super(props);
     this.onClickSaveClub = this.onClickSaveClub.bind(this);
-    this.changeIcon = this.changeIcon.bind(this);
   }
 
   updateCallback(error) {
@@ -28,16 +22,6 @@ class DisplayClub extends React.Component {
       Bert.alert({ type: 'danger', message: `Profile update failed: ${error.message}` });
     } else {
       Bert.alert({ type: 'success', message: 'Profile update succeeded' });
-    }
-  }
-
-  changeIcon(isMember) {
-    if (isMember) {
-      this.setState({ icon: 'star' });
-      this.setState({ color: 'yellow' });
-    } else {
-      this.setState({ icon: 'check' });
-      this.setState({ color: 'green' });
     }
   }
 
@@ -55,7 +39,6 @@ class DisplayClub extends React.Component {
     }
     Profiles.update(userProfile._id, { $set: { clubs: clubs } });
     Clubs.update(this.props.doc._id, { $set: { members: members } }, this.updateCallback(this.error));
-    this.changeIcon(isMember);
   }
 
   returnProfile(memberId) {
@@ -64,6 +47,17 @@ class DisplayClub extends React.Component {
 
   returnProfile2(username) {
     return Profiles.findOne({ owner: username });
+  }
+
+  renderButtons() {
+    if (Roles.userIsInRole(Meteor.userId(), 'clubAdmin') && this.props.doc.owner === this.props.currentUser.username) {
+      return (<Button basic color='blue' as={Link} icon='edit' content='Edit Club'
+                      to={`/club-edit/${this.props.doc._id}`}/>);
+    }
+    if (this.props.doc.members.indexOf(this.returnProfile2(this.props.currentUser.username)._id) > -1) {
+      return (<Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>);
+    }
+    return (<Button icon='check' color='yellow' onClick={() => this.onClickSaveClub(false)}/>);
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -111,19 +105,7 @@ class DisplayClub extends React.Component {
                           </Grid>
                         </Grid.Column>
                         <Grid.Column textAlign='right' width={4}>
-                          {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') &&
-                          (this.props.doc.owner === this.props.currentUser.username) ? (
-                                  <Button basic color='blue' as={Link} icon='edit' content='Edit Club'
-                                          to={`/club-edit/${this.props.doc._id}`}/>
-                              ) :
-                              (this.props.doc.members.indexOf(this.returnProfile2(this.props.currentUser.username)._id)
-                                  === -1) ? (
-                                  <Button icon={this.state.icon} color={this.state.color}
-                                          onClick={() => this.onClickSaveClub(false)}/>
-                              ) : (
-                                  <Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>
-                              )
-                          }
+                          {this.renderButtons()}
                         </Grid.Column>
                       </Grid.Row>
                       <Grid.Row columns={1}>
