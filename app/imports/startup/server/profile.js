@@ -21,8 +21,9 @@ Meteor.publish('Profiles', function publish() {
   //   const username = Meteor.users.findOne(this.userId).username;
   //   return Profiles.find({ owner: username });
   // }
-  if (this.userId) {
-    return Profiles.find();
-  }
-  return this.ready();
+  // if (this.userId) {
+  //   return Profiles.find();
+  // }
+  // return this.ready();
+  return Profiles.find();
 });
