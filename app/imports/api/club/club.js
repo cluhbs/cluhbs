@@ -8,10 +8,10 @@ const Clubs = new Mongo.Collection('Clubs');
 /** Create a schema to constrain the structure of documents associated with this collection. */
 const ClubSchema = new SimpleSchema({
   image: { type: String, optional: true },
-  name: { type: String },
+  name: { type: String, label: 'Club Name' },
   website: { type: String, optional: true },
   description: { type: String },
-  meetTime: { type: String },
+  meetTime: { type: String, label: 'Meeting Times' },
   location: { type: String },
   contactPerson: { type: String },
   contactEmail: { type: String },

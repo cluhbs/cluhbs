@@ -1,38 +1,50 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Grid, Icon, Header, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import { Clubs } from '/imports/api/club/club';
+import { Link, Redirect } from 'react-router-dom';
+import { Roles } from 'meteor/alanning:roles';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
+
   render() {
+    const contentStyle = { paddingBottom: '15px' };
+    const isLogged = Meteor.userId() !== null;
+    if (isLogged) {
+      if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
+        return (<Redirect to={{ pathname: '/request-admin' }}/>);
+      }
+      return (<Redirect to={{ pathname: '/home' }}/>);
+    }
     return (
-        <div className='landing-background'>
+        <div style={contentStyle} className='landing-background'>
           <Grid container stackable centered>
             <Grid.Row>
-              <div className='landing-title'>
-                <Header inverted>
-                  clUHbs
-                </Header>
-              </div>
-              <div className='landing-subtitle'>
-                <Header inverted>
-                  an easy way to find clubs at the University of Hawaiʻi at Mānoa
-                </Header>
-              </div>
-              <div className='button'>
-                <Button size='huge' color='green' as={Link} to="/signup">Get Started</Button>
+              <div className='landing-first-grid-row'>
+                <div className='landing-title'>
+                  <Header inverted>
+                    clUHbs
+                  </Header>
+                </div>
+                <div className='landing-subtitle'>
+                  <Header inverted>
+                    an easy way to find clubs at the University of Hawaiʻi at Mānoa
+                  </Header>
+                </div>
+                <div className='button'>
+                  <Button size='huge' color='green' as={Link} to="/signin">Get Started</Button>
+                </div>
               </div>
             </Grid.Row>
             <Grid.Row columns={2}>
               <Grid.Column>
-                <div className="landing-middle">
+                <div className='landing-middle'>
                   <Header as="h1" inverted>
                     Why clUHbs?
                   </Header>
                   <hr/>
                   <Header as="h3" inverted>
-                    <Icon inverted name='search'/>
+                    <Icon name='search'/>
                     <Header.Content inverted='true'>
                       Find Clubs Easily
                       <Header.Subheader inverted='true'>
@@ -42,17 +54,18 @@ class Landing extends React.Component {
                     </Header.Content>
                   </Header>
                   <Header as="h3" inverted>
-                    <Icon inverted name='edit'/>
+                    <Icon name='edit'/>
                     <Header.Content inverted='true'>
                       Manage Your Club
                       <Header.Subheader inverted='true'>
-                        Club admins have the ability to edit the information of their club and have it displayed onto
+                        Club admins have the ability to edit the information of their club and have it displayed
+                        onto
                         the club directory where interested students can find a way to contact them
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
                   <Header as="h3" inverted>
-                    <Icon inverted name='group'/>
+                    <Icon name='group'/>
                     <Header.Content inverted='true'>
                       Make Lasting Friendships
                       <Header.Subheader inverted='true'>
@@ -64,28 +77,25 @@ class Landing extends React.Component {
                 </div>
               </Grid.Column>
               <Grid.Column>
-                <div className="landing-middle">
+                <div className='landing-middle'>
                   <Header as="h1" inverted>
                     How to use clUHbs
                   </Header>
                   <hr/>
                   <Header as="h3" inverted>
-                    1. Create your profile
+                    <Icon name='pencil'/> Create your profile
                   </Header>
                   <Header as="h3" inverted>
-                    2. Specify your interests
+                    <Icon name='tasks'/> Specify your interests
                   </Header>
                   <Header as="h3" inverted>
-                    3. Search clubs in club directory
+                    <Icon name='search'/> Search clubs in club directory
                   </Header>
                   <Header as="h3" inverted>
-                    4. Add clubs to {'your clubs'}
+                    <Icon name='save'/> Save the clubs you want to get involved with
                   </Header>
                   <Header as="h3" inverted>
-                    5. Contact club admins using given contact information
-                  </Header>
-                  <Header as="h3" inverted>
-                    6. Enjoy getting involved with your club!
+                    <Icon name='comment'/> Use club information to contact clubs or go to club meetings
                   </Header>
                 </div>
               </Grid.Column>

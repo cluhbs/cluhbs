@@ -4,7 +4,7 @@ import { Clubs } from '../../api/club/club.js';
 
 /** Initialize the database with a default data document. */
 function addData(data) {
-  console.log(`  Adding: ${data.website} (${data.owner})`);
+  console.log(`  Adding: ${data.name} (${data.owner})`);
   Clubs.insert(data);
 }
 
@@ -18,10 +18,7 @@ if (Clubs.find().count() === 0) {
 
 /** This subscription publishes only the documents associated with the logged in user */
 Meteor.publish('Clubs', function publish() {
-  if (this.userId) {
-    return Clubs.find();
-  }
-  return this.ready();
+  return Clubs.find();
 });
 
 /** This subscription publishes only the documents associated with the logged in user, club admins */

@@ -205,15 +205,15 @@ EditProfile.propTypes = {
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
+export default withTracker(({ match }) => {
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
-  // const documentId = match.params._id;
+  const documentId = match.params._id;
   const subscription = Meteor.subscribe('Profiles');
   // const username = Meteor.user().username;
   // console.log(username);
   // Get access to Profile documents.
   return {
-    doc: Profiles.findOne(),
+    doc: Profiles.findOne(documentId),
     ready: subscription.ready(),
   };
 })(EditProfile);

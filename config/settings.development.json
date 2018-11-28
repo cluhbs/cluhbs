@@ -13,7 +13,7 @@
     { "email": "clubAdminD1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminE1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminF1@foo.com", "password": "changeme", "role": "clubAdmin" },
-    { "email": "clubAdminF1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdminF2@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminG1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminH1@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminI1@foo.com", "password": "changeme", "role": "clubAdmin" },
@@ -66,11 +66,22 @@
     { "owner": "clubAdminY1@foo.com", "firstName": "Landon", "lastName": "Li", "contactEmail": "landonli@hawaii.edu" }
   ],
 
+  "defaultRequests" : [
+    {"firstName": "Philip", "lastName": "Johnson", "email": "test1@foo.com",
+      "image": "https://philipmjohnson.github.io/images/philip2.jpeg",
+      "message": "I would like to request to be a clubAdmin1", "owner": "admin@foo.com"
+    },
+    {"firstName": "Henri", "lastName": "Casanova", "email": "test2@foo.com",
+      "image": "https://avatars0.githubusercontent.com/u/7494478?s=460&v=4",
+      "message": "I would like to request to be a clubAdmin2", "owner": "admin@foo.com"
+    }
+  ],
+
   "defaultClubs": [
     {
       "image": "http://acm.hawaii.edu/wp-content/uploads/2016/10/ACM_Logo_1.png",
-      "name": "American Institute of Architecture Students",
-      "website": "http://www.aiashawaii.com/",
+      "name": "Academy of Creative Media",
+      "website": "http://www.acm.hawaii.edu/",
       "description": "Since 2004, ACM Mānoa has empowered students to tell their own stories by teaching cinematic narrative theories, skills and application across multiple platforms of digital media and within a context of cultural and aesthetic values, while at the same time nurturing robust job placement programs and internships.",
       "meetTime": "Tues 5-7pm",
       "location": "ACM Media Center is located in the 1st Floor Diamond Head side wing of the KHET building at 2350 Dole Street.",

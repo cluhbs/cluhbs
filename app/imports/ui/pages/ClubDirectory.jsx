@@ -18,14 +18,17 @@ class ClubDirectory extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     const cardPadding = { padding: '30px 0px 0px 0px' };
+    const contentStyle = { marginBottom: '50px' };
     return (
+        <div style={contentStyle}>
         <Container>
           <Header as="h2" dividing textAlign="center">Club Directory</Header>
           <SearchBar/>
-          <Card.Group itemsPerRow={3} style={cardPadding}>
+          <Card.Group style={cardPadding}>
             {this.props.clubs.map((club, index) => <ClubItem key={index} club={club}/>)}
           </Card.Group>
         </Container>
+        </div>
     );
   }
 }
@@ -40,6 +43,7 @@ ClubDirectory.propTypes = {
 export default withTracker(() => {
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Clubs');
+  const subscription2 = Meteor.subscribe('Profiles');
   return {
     clubs: Clubs.find({}).fetch().sort((a, b) => {
       if (a.name < b.name) {
@@ -50,6 +54,6 @@ export default withTracker(() => {
       }
       return 0;
     }),
-    ready: subscription.ready(),
+    ready: subscription.ready() && subscription2.ready(),
   };
 })(ClubDirectory);
