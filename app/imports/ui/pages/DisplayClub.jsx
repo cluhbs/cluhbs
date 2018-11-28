@@ -112,7 +112,7 @@ class DisplayClub extends React.Component {
                           </Grid>
                         </Grid.Column>
                         <Grid.Column textAlign='right' width={4}>
-                          {this.renderButtons()}
+                          {this.props.currentUser ? this.renderButtons() : ''}
                         </Grid.Column>
                       </Grid.Row>
                       <Grid.Row columns={1}>
