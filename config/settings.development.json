@@ -418,21 +418,21 @@
   ],
 
   "defaultInterests": [
-    { "name": "Academic", "description": "" },
-    { "name": "Cultural", "description": "" },
-    { "name": "Ethnic", "description": "" },
-    { "name": "Fan Club", "description": "" },
-    { "name": "Fraternity", "description": "" },
-    { "name": "Honorary Society", "description": "" },
-    { "name": "Leisure", "description": "" },
-    { "name": "Political", "description": "" },
-    { "name": "Professional", "description": "" },
-    { "name": "Recreational", "description": "" },
-    { "name": "Religious", "description": "" },
-    { "name": "Service", "description": "" },
-    { "name": "Sorority", "description": "" },
-    { "name": "Spiritual", "description": "" },
-    { "name": "Sport", "description": "" },
-    { "name": "Student Affairs", "description": "" }
+    { "name": "Academic", "names": [] },
+    { "name": "Cultural", "names": [] },
+    { "name": "Ethnic", "names": [] },
+    { "name": "Fan Club", "names": [] },
+    { "name": "Fraternity", "names": [] },
+    { "name": "Honorary Society", "names": [] },
+    { "name": "Leisure", "names": [] },
+    { "name": "Political", "names": [] },
+    { "name": "Professional", "names": [] },
+    { "name": "Recreational", "names": [] },
+    { "name": "Religious", "names": [] },
+    { "name": "Service", "names": [] },
+    { "name": "Sorority", "names": [] },
+    { "name": "Spiritual", "names": [] },
+    { "name": "Sport", "names": [] },
+    { "name": "Student Affairs", "names": [] }
   ]
 }
