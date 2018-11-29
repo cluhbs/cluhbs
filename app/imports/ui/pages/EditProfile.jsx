@@ -69,7 +69,6 @@ class EditProfile extends React.Component {
     this.updateProfile(data);
     this.setState({ disabledAdd: true });
     this.setState({ clear: false });
-    // this.setState({ deletedInterest: '' });
   }
 
   handleInterestChange(event) {
@@ -95,8 +94,19 @@ class EditProfile extends React.Component {
     this.setState({ clear: true });
   }
 
+  returnProfile(username) {
+    return Profiles.findOne({ owner: username });
+  }
+
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
+    if (this.returnProfile(Meteor.user().username)._id !== this.props.doc._id) {
+      return (
+          <Header as='h2' textAlign='center'>
+            You do not have access to this page. Log in as this user to edit the profile.
+          </Header>
+      );
+    }
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
@@ -209,8 +219,6 @@ export default withTracker(({ match }) => {
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
   const documentId = match.params._id;
   const subscription = Meteor.subscribe('Profiles');
-  // const username = Meteor.user().username;
-  // console.log(username);
   // Get access to Profile documents.
   return {
     doc: Profiles.findOne(documentId),
