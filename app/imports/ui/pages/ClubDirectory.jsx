@@ -1,14 +1,37 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Loader, Card } from 'semantic-ui-react';
-import { Clubs } from '/imports/api/club/club';
+import { Container, Header, Loader, Card, Dropdown } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import ClubItem from '/imports/ui/components/ClubItem';
-import SearchBar from '/imports/ui/components/SearchBar';
+// import SearchBar from '/imports/ui/components/SearchBar';
+import { Clubs } from '/imports/api/club/club';
+import { defaultInterests } from '/imports/api/profile/profile';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class ClubDirectory extends React.Component {
+
+  state = {
+    clubs: [],
+  };
+
+  constructor(props) {
+    super(props);
+    this.handleClubSearchChange = this.handleClubSearchChange.bind(this);
+    this.interests = defaultInterests.map((interest, index) => ({ key: index, value: interest, text: interest }));
+  }
+
+  returnClub(clubId) {
+    return Clubs.findOne({ _id: clubId });
+  }
+
+  handleClubSearchChange(event, data) {
+    event.preventDefault();
+    const clubs = this.props.clubs.filter((x) => _.intersection(x.interests, data.value).length === data.value.length);
+    console.log(clubs);
+    console.log(_.union(_.pluck(this.props.clubs, 'interests'))); 
+    this.setState({ clubs: clubs });
+  }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -21,13 +44,20 @@ class ClubDirectory extends React.Component {
     const contentStyle = { marginBottom: '50px' };
     return (
         <div style={contentStyle}>
-        <Container>
-          <Header as="h2" dividing textAlign="center">Club Directory</Header>
-          <SearchBar/>
-          <Card.Group style={cardPadding}>
-            {this.props.clubs.map((club, index) => <ClubItem key={index} club={club}/>)}
-          </Card.Group>
-        </Container>
+          <Container>
+            <Header as="h2" dividing textAlign="center">Club Directory</Header>
+            {/* <SearchBar/> */}
+            <Dropdown placeholder='Select Interests' fluid multiple search selection
+                      options={this.interests} onChange={(event, data) => this.handleClubSearchChange(event, data)}
+            />
+            <Card.Group style={cardPadding}>
+              {this.state.clubs.length === 0 ? (
+                  this.props.clubs.map((club, index) => <ClubItem key={index} club={club}/>)
+              ) : (
+                  this.state.clubs.map((club, index) => <ClubItem key={index} club={this.returnClub(club._id)}/>))
+              }
+            </Card.Group>
+          </Container>
         </div>
     );
   }

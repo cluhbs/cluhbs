@@ -87,8 +87,10 @@ class ClubItem extends React.Component {
         return (<Button icon='edit' color='blue' as={Link} to={`/club-edit/${this.props.club._id}`}/>);
       }
     }
-    if (this.props.club.members.indexOf(userProfile._id) > -1) {
-      return (<Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>);
+    if (userProfile) {
+      if (this.props.club.members.indexOf(userProfile._id) > -1) {
+        return (<Button icon='check' color='green' onClick={() => this.onClickSaveClub(true)}/>);
+      }
     }
     return (<Button icon='star' color='yellow' onClick={() => this.onClickSaveClub(false)}/>);
   }
