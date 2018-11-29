@@ -9,8 +9,8 @@ class Landing extends React.Component {
 
   render() {
     const contentStyle = { paddingBottom: '15px' };
-    const isLogged = Meteor.userId() !== null;
-    if (isLogged) {
+    const isNotLogged = Meteor.userId() === null || Meteor.user() === undefined;
+    if (!isNotLogged) {
       if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
         return (<Redirect to={{ pathname: '/request-admin' }}/>);
       }
