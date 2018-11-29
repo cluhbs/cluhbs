@@ -11,7 +11,6 @@ import UserHomePage from '../pages/UserHomePage';
 import EditProfile from '../pages/EditProfile';
 import DisplayProfile from '../pages/DisplayProfile';
 import ClubDirectorySuperAdmin from '../pages/ClubDirectorySuperAdmin';
-import ManageClubAdmin from '../pages/ManageClubAdmin';
 import ClubDirectory from '../pages/ClubDirectory';
 import RequestList from '../pages/RequestList';
 import RequestListAdmin from '../pages/RequestListAdmin';
@@ -42,7 +41,6 @@ class App extends React.Component {
                 <Route path="/list" component={ClubDirectory}/>
                 <ProtectedRoute path="/request-list" component={RequestList}/>
                 <ProtectedRoute path="/home" component={UserHomePage}/>
-                <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
                 <ProtectedRoute path="/add" component={AddClub}/>
                 <ProtectedRoute path="/club-edit/:_id" component={EditClub}/>
                 <Route path="/club-info/:_id" component={DisplayClub}/>
