@@ -1,5 +1,9 @@
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { withRouter } from 'react-router-dom';
+import { Meteor } from "meteor/meteor";
+import ClubItem from '/imports/ui/components/ClubItem';
 
 const interestOptions = [
   { key: 1, value: 'Academic', text: 'Academic' },
@@ -54,10 +58,27 @@ class SearchBar extends React.Component {
             onChange={this.onChange}
             onSearchChange={this.onSearchChange}
         />
+        <ClubItem/>
     );
   }
 
 }
 
 /** Wrap this component in withRouter since we use the <Link> React Router element. */
-export default SearchBar;
+export default withTracker(() => {
+  // Get access to Stuff documents.
+  const subscription = Meteor.subscribe('Clubs');
+  const subscription2 = Meteor.subscribe('Profiles');
+  return {
+    clubs: Clubs.find({}).fetch().sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    }),
+    ready: subscription.ready() && subscription2.ready(),
+  };
+})(SearchBar);
