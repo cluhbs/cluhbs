@@ -4,7 +4,6 @@ import { Container, Header, Loader, Card, Dropdown, Menu } from 'semantic-ui-rea
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import ClubItem from '/imports/ui/components/ClubItem';
-// import SearchBar from '/imports/ui/components/SearchBar';
 import { Clubs } from '/imports/api/club/club';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
@@ -12,28 +11,35 @@ class ClubDirectory extends React.Component {
 
   state = {
     clubs: [],
-    searchBy: 'Interest',
-    searchQuery: '',
+    searchBy: 'interests',
   };
 
   constructor(props) {
     super(props);
-    this.handleInterestSearchChange = this.handleInterestSearchChange.bind(this);
-    this.handleNameSearchChange = this.handleNameSearchChange.bind(this);
+    this.handleInterestChange = this.handleInterestChange.bind(this);
+    this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.createOptions = this.createOptions.bind(this);
     this.setSearchBy = this.setSearchBy.bind(this);
-    this.handleNameAddition = this.handleNameAddition.bind(this);
+    this.handleAddition = this.handleAddition.bind(this);
   }
 
   createOptions() {
+    // this.searchBy = searchByList.map((value, index) => ({ key: index, value: value, text: value }));
+    this.searchBy = [
+      { key: 1, value: 'interests', text: 'Interest' },
+      { key: 2, value: 'name', text: 'Name' },
+      { key: 3, value: 'description', text: 'Description' },
+      { key: 4, value: 'meetTime', text: 'Meeting Times' },
+      { key: 5, value: 'location', text: 'Location' },
+      { key: 6, value: 'contactPerson', text: 'Contact Person' },
+      { key: 7, value: 'contactEmail', text: 'Contact Email' },
+    ];
     /* eslint-disable-next-line */
-    const interestList = _.uniq(_.pluck(this.props.clubs, 'interests').flatten()).sort();
-    /* eslint-disable-next-line */
-    const clubNameList = _.uniq(_.pluck(this.props.clubs, 'name').flatten()).sort();
-    const searchByList = ['Interest', 'Name'];
-    this.interests = interestList.map((interest, index) => ({ key: index, value: interest, text: interest }));
-    this.clubNames = clubNameList.map((interest, index) => ({ key: index, value: interest, text: interest }));
-    this.searchBy = searchByList.map((interest, index) => ({ key: index, value: interest, text: interest }));
+    for (const category of this.searchBy) {
+      /* eslint-disable-next-line */
+      const list = _.uniq(_.pluck(this.props.clubs, category.value).flatten()).sort();
+      this[category.value] = list.map((value, index) => ({ key: index, value: value, text: value }));
+    }
   }
 
   returnClub(clubId) {
@@ -41,29 +47,24 @@ class ClubDirectory extends React.Component {
   }
 
   setSearchBy(event, data) {
-    event.preventDefault();
     this.setState({ searchBy: data.value });
   }
 
-  handleNameAddition(e, { value }) {
-    const clubs = this.props.clubs.filter((x) => (x.name.toUpperCase().indexOf(value.toUpperCase()) !== -1));
+  handleAddition(e, { value }, category) {
+    const clubs = this.props.clubs.filter((x) => (x[category].toUpperCase().indexOf(value.toUpperCase()) !== -1));
     this.setState({ clubs: clubs });
   }
 
-  handleInterestSearchChange(event, data) {
-    event.preventDefault();
+  handleSelectionChange(event, data, category) {
+    const clubs = this.props.clubs.filter((x) => (x[category].toUpperCase().indexOf(data.value.toUpperCase()) !== -1));
+    this.setState({ clubs: clubs });
+  }
+
+  handleInterestChange(event, data) {
     /* eslint-disable-next-line */
     const clubs = this.props.clubs.filter((x) => _.intersection(x.interests, data.value).length === data.value.length);
     this.setState({ clubs: clubs });
   }
-
-  handleNameSearchChange(event, data) {
-    event.preventDefault();
-    const clubs = this.props.clubs.filter((x) => (x.name.toUpperCase().indexOf(data.value.toUpperCase()) !== -1));
-    this.setState({ clubs: clubs });
-  }
-
-  handleSearchChange = (e, { searchQuery }) => this.setState({ searchQuery });
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -81,20 +82,19 @@ class ClubDirectory extends React.Component {
         <div style={contentStyle}>
           <Container>
             <Header as="h2" dividing textAlign="center">Club Directory</Header>
-            {/* <SearchBar/> */}
             <Menu>
-              <Dropdown selection defaultValue='Interest' options={this.searchBy}
+              <Dropdown selection defaultValue='interests' options={this.searchBy}
                         onChange={(e, data) => this.setSearchBy(e, data)}/>
-              {this.state.searchBy === 'Interest' ? (
+              {this.state.searchBy === 'interests' ? (
                   <Dropdown placeholder='Search by Interests' fluid multiple search selection
                             options={this.interests} icon='search'
-                            onChange={(event, data) => this.handleInterestSearchChange(event, data)}
+                            onChange={(event, data) => this.handleInterestChange(event, data)}
                   />
               ) : (
-                  <Dropdown placeholder='Search by Club Name' deburr fluid search selection clearable='true'
-                            options={this.clubNames} icon='search' allowAdditions
-                            onChange={(event, data) => this.handleNameSearchChange(event, data)}
-                            onAddItem={(e, data) => this.handleNameAddition(e, data)}
+                  <Dropdown placeholder={`Search By ${this.state.searchBy}`} deburr fluid search selection
+                            options={this[this.state.searchBy]} icon='search' allowAdditions additionLabel=''
+                            onChange={(event, data) => this.handleSelectionChange(event, data, this.state.searchBy)}
+                            onAddItem={(e, data) => this.handleAddition(e, data, this.state.searchBy)}
                   />
               )}
             </Menu>
