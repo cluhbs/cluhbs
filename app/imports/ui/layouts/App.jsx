@@ -43,7 +43,7 @@ class App extends React.Component {
                 <ProtectedRoute path="/request-list" component={RequestList}/>
                 <ProtectedRoute path="/home" component={UserHomePage}/>
                 <ProtectedRoute path="/manage" component={ManageClubAdmin}/>
-                <ProtectedRoute path="/add" component={AddClub}/>
+                <ProtectedRoute path="/club-add" component={EditClub}/>
                 <ProtectedRoute path="/club-edit/:_id" component={EditClub}/>
                 <Route path="/club-info/:_id" component={DisplayClub}/>
                 <AdminProtectedRoute path="/admin" component={ClubDirectorySuperAdmin}/>

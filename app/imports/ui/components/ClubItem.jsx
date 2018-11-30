@@ -25,6 +25,12 @@ class ClubItem extends React.Component {
   remove() {
     /* eslint-disable-next-line */
     if (confirm(`Are you sure you want to delete ${this.props.club.name}?`)) {
+      /* eslint-disable-next-line */
+      for (const memberId of this.props.club.members) {
+        const memberProfile = Profiles.findOne({ _id: memberId });
+        const clubs = memberProfile.clubs.filter((x) => (x !== this.props.club._id));
+        Profiles.update(memberId, { $set: { clubs: clubs } });
+      }
       Clubs.remove(this.props.club._id, this.deleteCallback);
     }
   }
