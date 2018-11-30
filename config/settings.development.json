@@ -426,24 +426,5 @@
       "interests": ["Academic", "Professional"],
       "owner": "clubAdminY1@foo.com"
     }
-  ],
-
-  "defaultInterests": [
-    { "name": "Academic", "names": [] },
-    { "name": "Cultural", "names": [] },
-    { "name": "Ethnic", "names": [] },
-    { "name": "Fan Club", "names": [] },
-    { "name": "Fraternity", "names": [] },
-    { "name": "Honorary Society", "names": [] },
-    { "name": "Leisure", "names": [] },
-    { "name": "Political", "names": [] },
-    { "name": "Professional", "names": [] },
-    { "name": "Recreational", "names": [] },
-    { "name": "Religious", "names": [] },
-    { "name": "Service", "names": [] },
-    { "name": "Sorority", "names": [] },
-    { "name": "Spiritual", "names": [] },
-    { "name": "Sport", "names": [] },
-    { "name": "Student Affairs", "names": [] }
   ]
 }
