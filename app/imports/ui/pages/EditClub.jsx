@@ -205,10 +205,13 @@ class EditClub extends React.Component {
                                                onClick={this.onClickAddInterest}/>}
                         />
                         <datalist id='interestList'>
-                          {this.props.doc ?
-                              (defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map(
+                          {this.props.doc ? (
+                              defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map(
                                   (item) => <option key={item} value={item}/>,
-                              )) : ''}
+                              )
+                          ) : (
+                              defaultInterests.map((item) => <option key={item} value={item}/>))
+                          }
                         </datalist>
                       </Grid.Column>
                       <Grid.Column>
