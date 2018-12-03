@@ -24,6 +24,9 @@ class UserHomePage extends React.Component {
 
   renderPage() {
     const userProfile = Profiles.findOne({ owner: Meteor.user().username });
+    if (userProfile === undefined || Meteor.user() === undefined) {
+      return (<Redirect to={{ pathname: '/' }}/>);
+    }
     return (
         <div className='home'>
           <Container>
