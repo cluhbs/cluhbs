@@ -38,13 +38,14 @@ class NavBar extends React.Component {
   }
 
   renderClubAdminMenu() {
-    if (Clubs.findOne({ owner: this.props.currentUser }) !== undefined) {
+    const adminClub = Clubs.findOne({ owner: this.props.currentUser });
+    if (adminClub !== undefined) {
       return (
-          <Menu.Item as={NavLink} activeClassName="active" exact to={`/club-info/${Clubs.findOne()._id}`}
+          <Menu.Item as={NavLink} activeClassName="active" exact to={`/club-info/${adminClub._id}`}
                      key={'manage'}>Manage Club</Menu.Item>
       );
     }
-    return (<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Club</Menu.Item>);
+    return (<Menu.Item as={NavLink} activeClassName="active" exact to="/club-add" key='add'>Add Club</Menu.Item>);
   }
 
   renderDropdown() {
@@ -102,11 +103,6 @@ class NavBar extends React.Component {
           {this.renderWelcomeNavLink()}
           <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>
           {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') ? this.renderClubAdminMenu() : ''}
-          {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
-              [<Menu.Item as={NavLink} activeClassName="active" exact to="/request-admin"
-                          key='request-admin'>Requests</Menu.Item>,
-                <Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Club</Menu.Item>]
-          ) : ''}
           <Menu.Item position="right">
             {this.renderDropdown()}
           </Menu.Item>
@@ -124,7 +120,7 @@ NavBar.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const NavBarContainer = withTracker(() => ({
   currentUser: Meteor.user() ? Meteor.user().username : '',
-  ready: Meteor.subscribe('ClubAdmin').ready() && Meteor.subscribe('Profiles').ready(),
+  ready: Meteor.subscribe('Clubs').ready() && Meteor.subscribe('Profiles').ready(),
 }))(NavBar);
 
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */

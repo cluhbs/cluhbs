@@ -88,7 +88,6 @@ class DisplayClub extends React.Component {
                           <Header as="h1" textAlign="center">{this.props.doc.name}</Header>
                           {(this.props.doc.website) ? (
                               <Header.Subheader><strong>Club Website: </strong>
-                                <a href={this.props.doc.website}>{this.props.doc.website}</a>
                                 <a href={this.props.doc.website} rel='noopener noreferrer'
                                    target='_blank'>{this.props.doc.website}</a>
                               </Header.Subheader>) : ''
@@ -112,7 +111,7 @@ class DisplayClub extends React.Component {
                           </Grid>
                         </Grid.Column>
                         <Grid.Column textAlign='right' width={4}>
-                          {this.renderButtons()}
+                          {this.props.currentUser ? this.renderButtons() : ''}
                         </Grid.Column>
                       </Grid.Row>
                       <Grid.Row columns={1}>

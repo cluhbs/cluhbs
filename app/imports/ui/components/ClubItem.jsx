@@ -25,6 +25,12 @@ class ClubItem extends React.Component {
   remove() {
     /* eslint-disable-next-line */
     if (confirm(`Are you sure you want to delete ${this.props.club.name}?`)) {
+      /* eslint-disable-next-line */
+      for (const memberId of this.props.club.members) {
+        const memberProfile = Profiles.findOne({ _id: memberId });
+        const clubs = memberProfile.clubs.filter((x) => (x !== this.props.club._id));
+        Profiles.update(memberId, { $set: { clubs: clubs } });
+      }
       Clubs.remove(this.props.club._id, this.deleteCallback);
     }
   }
@@ -114,7 +120,7 @@ class ClubItem extends React.Component {
     const userClub = Clubs.findOne({ owner: this.props.currentUser });
     return (
         <Card centered>
-          {this.renderLabels(userProfile, userClub)}
+          {this.props.currentUser !== '' ? this.renderLabels(userProfile, userClub) : ''}
           <Card.Content>
             <Container textAlign='center'>
               <Image style={{ height: '190px', paddingBottom: '10px' }} src={this.props.club.image}/>
@@ -135,7 +141,7 @@ class ClubItem extends React.Component {
               {this.props.club.interests.map((interest, index) => <Label key={index} content={interest}/>)}
             </Label.Group>
           </Card.Content>
-          {this.renderButtons(userProfile, userClub)}
+          {this.props.currentUser !== '' ? this.renderButtons(userProfile, userClub) : ''}
         </Card>
     );
   }
