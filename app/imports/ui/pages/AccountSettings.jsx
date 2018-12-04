@@ -25,9 +25,9 @@ class AccountSettings extends React.Component {
   /** Notify the user of the results of the submit. */
   updateCallback(error) {
     if (error) {
-      Bert.alert({ type: 'danger', message: `Profile update failed: ${error.message}` });
+      Bert.alert({ type: 'danger', message: `Account update failed: ${error.message}` });
     } else {
-      Bert.alert({ type: 'success', message: 'Profile update succeeded' });
+      Bert.alert({ type: 'success', message: 'Account update succeeded' });
     }
   }
 
