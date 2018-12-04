@@ -35,7 +35,7 @@ const ProfileSchema = new SimpleSchema({
   emailNotifications: { type: Boolean, defaultValue: false, label: 'Send me email notifications' },
   textNotifications: { type: Boolean, defaultValue: false, label: 'Send me text notifications' },
   recommendClubs: {
-    type: Boolean, optional: true, defaultValue: false, label: 'Allow recommended clubs to appear on your homepage',
+    type: Boolean, optional: true, defaultValue: true, label: 'Allow recommended clubs to appear on your homepage',
   },
   messages: {
     type: Array, optional: true,
