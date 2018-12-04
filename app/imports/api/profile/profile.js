@@ -39,7 +39,7 @@ const ProfileSchema = new SimpleSchema({
   },
   messages: {
     type: Array, optional: true,
-    defaultValue: ['Get started by clicking the Club Directory tab in the Navigation Bar above.', '1', '2', '3', '4'],
+    defaultValue: ['Get started by clicking the Club Directory tab in the Navigation Bar above.'],
   },
   'messages.$': { type: String, min: 1 },
   owner: { type: String },

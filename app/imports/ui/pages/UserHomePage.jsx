@@ -133,7 +133,9 @@ class UserHomePage extends React.Component {
   }
 
   sortClubsByInterest(a, b, userProfile) {
+    /* eslint-disable-next-line */
     const matchingInterestsA = _.intersection(a.interests, userProfile.interests);
+    /* eslint-disable-next-line */
     const matchingInterestsB = _.intersection(b.interests, userProfile.interests);
     if (matchingInterestsA.length > matchingInterestsB.length) {
       return -1;
