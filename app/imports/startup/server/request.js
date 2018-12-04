@@ -2,20 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Requests } from '../../api/request/request.js';
 
-/** Initialize the database with a default data document. */
-function addData(data) {
-  console.log(`  Adding: ${data.email} (${data.owner})`);
-  Requests.insert(data);
-}
-
-/** Initialize the collection if empty. */
-// if (Requests.find().count() === 0) {
-//   if (Meteor.settings.defaultRequests) {
-//     console.log('Creating default request.');
-//     Meteor.settings.defaultRequests.map(data => addData(data));
-//   }
-// }
-
 /** This subscription publishes only the documents associated with the logged in user */
 Meteor.publish('Requests', function publish() {
   if (this.userId) {
