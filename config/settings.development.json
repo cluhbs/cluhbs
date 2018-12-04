@@ -84,8 +84,8 @@
   "defaultClubs": [
     {
       "image": "http://acm.hawaii.edu/wp-content/uploads/2016/10/ACM_Logo_1.png",
-      "name": "American Institute of Architecture Students",
-      "website": "http://www.aiashawaii.com/",
+      "name": "Academy of Creative Media",
+      "website": "http://www.acm.hawaii.edu/",
       "description": "Since 2004, ACM Mānoa has empowered students to tell their own stories by teaching cinematic narrative theories, skills and application across multiple platforms of digital media and within a context of cultural and aesthetic values, while at the same time nurturing robust job placement programs and internships.",
       "meetTime": "Tues 5-7pm",
       "location": "ACM Media Center is located in the 1st Floor Diamond Head side wing of the KHET building at 2350 Dole Street.",
@@ -430,24 +430,5 @@
       "interests": ["Academic", "Professional"],
       "owner": "clubAdminY1@foo.com"
     }
-  ],
-
-  "defaultInterests": [
-    { "name": "Academic", "description": "" },
-    { "name": "Cultural", "description": "" },
-    { "name": "Ethnic", "description": "" },
-    { "name": "Fan Club", "description": "" },
-    { "name": "Fraternity", "description": "" },
-    { "name": "Honorary Society", "description": "" },
-    { "name": "Leisure", "description": "" },
-    { "name": "Political", "description": "" },
-    { "name": "Professional", "description": "" },
-    { "name": "Recreational", "description": "" },
-    { "name": "Religious", "description": "" },
-    { "name": "Service", "description": "" },
-    { "name": "Sorority", "description": "" },
-    { "name": "Spiritual", "description": "" },
-    { "name": "Sport", "description": "" },
-    { "name": "Student Affairs", "description": "" }
   ]
 }
