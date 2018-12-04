@@ -24,6 +24,7 @@ class UserHomePage extends React.Component {
 
   renderPage() {
     const userProfile = Profiles.findOne({ owner: Meteor.user().username });
+    const padding = { paddingBottom: '25px' };
     return (
         <div className='home'>
           <Container>
@@ -35,7 +36,7 @@ class UserHomePage extends React.Component {
                   No clubs to display. Saved clubs will be displayed here.
                 </Header>
             ) : (
-                <Card.Group>
+                <Card.Group style={padding}>
                   {userProfile.clubs.map((clubId, index) => <ClubItem key={index} club={this.returnClub(clubId)}/>)}
                 </Card.Group>
             )}

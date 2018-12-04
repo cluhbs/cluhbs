@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Grid, Icon, Header, Button } from 'semantic-ui-react';
+import { Grid, Icon, Header, Button, Image } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import { Roles } from 'meteor/alanning:roles';
 
@@ -22,17 +22,16 @@ class Landing extends React.Component {
             <Grid.Row>
               <div className='landing-first-grid-row'>
                 <div className='landing-title'>
-                  <Header inverted>
-                    clUHbs
-                  </Header>
+                  <Image centered src='/images/landing-header.png' size='big'/>
                 </div>
                 <div className='landing-subtitle'>
-                  <Header inverted>
-                    an easy way to find clubs at the University of Hawaiʻi at Mānoa
+                  <Header as='h1' inverted>
+                    Find the a club right for you at the University of Hawaiʻi at Mānoa
                   </Header>
                 </div>
                 <div className='button'>
-                  <Button size='huge' color='green' as={Link} to="/signin">Get Started</Button>
+                  <Button size='large' color='green' as={Link} to="/signup">REGISTER</Button>
+                  <Button size='large' as={Link} to="/signin">LOG IN</Button>
                 </div>
               </div>
             </Grid.Row>

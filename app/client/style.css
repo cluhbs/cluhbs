@@ -6,7 +6,6 @@
 }
 
 .landing-title {
-  padding-top: 50px;
   font: 7em verdana, sans-serif;
 }
 
@@ -18,7 +17,6 @@
 
 .landing-first-grid-row {
   background-color: rgba(115, 115, 115, 0.45);
-  padding-top: 25px;
   padding-left: 50px;
   padding-right: 50px;
   border: thick solid white;
