@@ -58,7 +58,7 @@ class UserHomePage extends React.Component {
     if (userProfile.newClubNotifications === newClubNotificationOptions[1]) {
       const newClubs =
           userProfile.newClubs.filter(
-          /* eslint-disable-next-line */
+              /* eslint-disable-next-line */
               (clubId) => _.intersection(this.returnClub(clubId).interests, userProfile.interests).length > 0
           );
       Profiles.update(_id, { $set: { newClubs } });
@@ -132,15 +132,28 @@ class UserHomePage extends React.Component {
     );
   }
 
+  sortClubsByInterest(a, b, userProfile) {
+    const matchingInterestsA = _.intersection(a.interests, userProfile.interests);
+    const matchingInterestsB = _.intersection(b.interests, userProfile.interests);
+    if (matchingInterestsA.length > matchingInterestsB.length) {
+      return -1;
+    }
+    if (matchingInterestsA.length < matchingInterestsB.length) {
+      return 1;
+    }
+    return 0;
+  }
+
   renderRecommendedClubs(userProfile) {
     const allClubs = Clubs.find().fetch();
     // get clubs that match user's interests
     /* eslint-disable-next-line */
-    const clubs = allClubs.filter((x) => _.intersection(x.interests, userProfile.interests).length > 0);
+    let clubs = allClubs.filter((x) => _.intersection(x.interests, userProfile.interests).length > 0);
     // filter out user's clubs
-    const clubs2 = clubs.filter((x) => userProfile.clubs.indexOf(x._id) === -1);
+    clubs = clubs.filter((x) => userProfile.clubs.indexOf(x._id) === -1);
+    clubs = clubs.sort((a, b) => this.sortClubsByInterest(a, b, userProfile));
     /* eslint-disable-next-line */
-    const clubIds = _.pluck(clubs2, '_id');
+    const clubIds = _.pluck(clubs, '_id');
     // console.log(clubIds);
     return (
         <Accordion>
