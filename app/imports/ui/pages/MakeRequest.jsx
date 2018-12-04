@@ -34,8 +34,7 @@ class MakeRequest extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { firstName, lastName, contactEmail, image, message, userId } = data;
-    const owner = Meteor.user().username;
+    const { firstName, lastName, contactEmail, image, message, userId, owner } = data;
     Requests.insert({ firstName, lastName, contactEmail, image, message, userId, owner },
         this.insertCallback);
   }
@@ -60,7 +59,7 @@ class MakeRequest extends React.Component {
                       <LongTextField name='message'/>
                       <SubmitField value='Submit'/>
                       <ErrorsField/>
-                      <HiddenField name='owner' value='fakeuser@foo.com'/>
+                      <HiddenField name='owner'/>
                       <HiddenField name='userId' value={Meteor.userId()}/>
                     </Segment>
                   </AutoForm>

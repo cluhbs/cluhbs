@@ -8,17 +8,6 @@ import { Clubs } from '/imports/api/club/club';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class ClubDirectory extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      selected: null,
-    };
-  }
-
-  onChange = (e, data) => {
-    this.setState({ selected: data.value });
-    searching = data.value;
-  }
 
   state = {
     clubs: [],
