@@ -11,7 +11,7 @@ const defaultInterests =
       'Civil', 'Religious/Spiritual', 'Fraternity/Sorority', 'Leadership', 'Political'].sort();
 const defaultImage = 'https://www.mautic.org/media/images/default_avatar.png';
 const newClubNotificationOptions = [
-  'Notify me of all new clubs',
+  'Notify me of any new clubs',
   'Notify me of new clubs that match my interests',
   'Do not send me notifications when new clubs are added to the Club Directory',
 ];
@@ -27,11 +27,15 @@ const ProfileSchema = new SimpleSchema({
   'interests.$': { type: String, min: 1 },
   clubs: { type: Array, optional: true, defaultValue: [] },
   'clubs.$': { type: String },
+  newClubs: { type: Array, optional: true, defaultValue: [] },
+  'newClubs.$': { type: String },
   newClubNotifications: {
     type: String, defaultValue: newClubNotificationOptions[0], allowedValues: newClubNotificationOptions, label: '',
   },
+  emailNotifications: { type: Boolean, defaultValue: false, label: 'Send me email notifications' },
+  textNotifications: { type: Boolean, defaultValue: false, label: 'Send me text notifications' },
   recommendClubs: {
-    type: Boolean, optional: true, defaultValue: false, label: 'Get recommended clubs that match your interests',
+    type: Boolean, optional: true, defaultValue: false, label: 'Allow recommended clubs to appear on your homepage',
   },
   messages: {
     type: Array, optional: true,

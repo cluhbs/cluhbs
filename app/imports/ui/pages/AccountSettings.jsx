@@ -32,9 +32,10 @@ class AccountSettings extends React.Component {
   }
 
   updateProfile(data) {
-    const { _id, newClubNotifications, recommendClubs } = data;
+    const { _id, newClubNotifications, recommendClubs,
+      contactEmail, phoneNumber, emailNotifications, textNotifications } = data;
     Profiles.update(_id, {
-      $set: { newClubNotifications, recommendClubs },
+      $set: { newClubNotifications, recommendClubs, contactEmail, phoneNumber, emailNotifications, textNotifications },
     }, this.updateCallback(this.error));
   }
 
@@ -85,12 +86,20 @@ class AccountSettings extends React.Component {
                 <Grid.Row>
                   <Header as='h3'>Contact Information</Header>
                 </Grid.Row>
-                <Grid.Row columns={2}>
+                <Grid.Row columns={2} verticalAlign='middle'>
                   <Grid.Column>
                     <TextField name='contactEmail'/>
                   </Grid.Column>
                   <Grid.Column>
+                    <BoolField name='emailNotifications'/>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row columns={2} verticalAlign='middle'>
+                  <Grid.Column>
                     <TextField name='phoneNumber'/>
+                  </Grid.Column>
+                  <Grid.Column>
+                    <BoolField name='textNotifications'/>
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row columns={1}>

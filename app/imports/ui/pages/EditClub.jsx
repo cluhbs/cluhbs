@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Loader, Header, Segment, Input, Button, List, Image } from 'semantic-ui-react';
 import { Clubs, ClubSchema } from '/imports/api/club/club';
-import { Profiles, defaultInterests } from '/imports/api/profile/profile';
+import { Profiles, defaultInterests, newClubNotificationOptions } from '/imports/api/profile/profile';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
@@ -84,6 +84,15 @@ class EditClub extends React.Component {
     const clubs = userProfile.clubs.concat(insertedClub);
     Profiles.update(userProfile._id, { $set: { clubs: clubs } });
     this.setState({ createdClub: true });
+    // send New Club Notifications
+    const allProfiles = Profiles.find().fetch();
+    const newClubs = userProfile.newClubs.concat(insertedClub);
+    /* eslint-disable-next-line */
+    for (const profile of allProfiles) {
+      if (profile.newClubNotifications !== newClubNotificationOptions[2]) {
+        Profiles.update(profile._id, { $set: { newClubs } });
+      }
+    }
   }
 
   updateClub(data) {
