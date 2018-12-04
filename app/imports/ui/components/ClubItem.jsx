@@ -19,10 +19,10 @@ class ClubItem extends React.Component {
   constructor(props) {
     super(props);
     this.onClickSaveClub = this.onClickSaveClub.bind(this);
-    this.remove = this.remove.bind(this);
+    this.onClickDeleteClub = this.onClickDeleteClub.bind(this);
   }
 
-  remove() {
+  onClickDeleteClub() {
     /* eslint-disable-next-line */
     if (confirm(`Are you sure you want to delete ${this.props.club.name}?`)) {
       /* eslint-disable-next-line */
@@ -59,12 +59,12 @@ class ClubItem extends React.Component {
       // remove club from member and member from club
       clubs = userProfile.clubs.filter((x) => (x !== this.props.club._id));
       members = this.props.club.members.filter((x) => (x !== userProfile._id));
-      if (this.props.location.pathname === '/home') {
-        this.setState({ redirectToReferer: true });
-      }
     } else {
       clubs = userProfile.clubs.concat(this.props.club._id);
       members = this.props.club.members.concat(userProfile._id);
+    }
+    if (this.props.location.pathname === '/home') {
+      this.setState({ redirectToReferer: true });
     }
     Profiles.update(userProfile._id, { $set: { clubs: clubs } });
     Clubs.update(this.props.club._id, { $set: { members: members } }, this.updateCallback(this.error));
@@ -84,7 +84,7 @@ class ClubItem extends React.Component {
       return (
           <Button.Group>
             <Button as={Link} to={`/club-edit/${this.props.club._id}`}>Edit</Button>
-            <Button negative onClick={this.remove}>Delete</Button>
+            <Button negative onClick={this.onClickDeleteClub}>Delete</Button>
           </Button.Group>
       );
     }
