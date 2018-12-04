@@ -70,17 +70,6 @@
     { "owner": "clubAdminY1@foo.com", "firstName": "Landon", "lastName": "Li", "contactEmail": "landonli@hawaii.edu" }
   ],
 
-  "defaultRequests" : [
-    {"firstName": "Philip", "lastName": "Johnson", "email": "test1@foo.com",
-      "image": "https://philipmjohnson.github.io/images/philip2.jpeg",
-      "message": "I would like to request to be a clubAdmin1", "owner": "admin@foo.com"
-    },
-    {"firstName": "Henri", "lastName": "Casanova", "email": "test2@foo.com",
-      "image": "https://avatars0.githubusercontent.com/u/7494478?s=460&v=4",
-      "message": "I would like to request to be a clubAdmin2", "owner": "admin@foo.com"
-    }
-  ],
-
   "defaultClubs": [
     {
       "image": "http://acm.hawaii.edu/wp-content/uploads/2016/10/ACM_Logo_1.png",
