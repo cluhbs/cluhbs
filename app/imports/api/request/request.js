@@ -9,9 +9,10 @@ const Requests = new Mongo.Collection('Requests');
 const RequestSchema = new SimpleSchema({
   firstName: String,
   lastName: String,
-  email: String,
-  image: String,
+  contactEmail: String,
+  image: { type: String, optional: true },
   message: String,
+  userId: String,
   owner: String,
 }, { tracker: Tracker });
 

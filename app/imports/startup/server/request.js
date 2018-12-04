@@ -9,12 +9,12 @@ function addData(data) {
 }
 
 /** Initialize the collection if empty. */
-if (Requests.find().count() === 0) {
-  if (Meteor.settings.defaultRequests) {
-    console.log('Creating default request.');
-    Meteor.settings.defaultRequests.map(data => addData(data));
-  }
-}
+// if (Requests.find().count() === 0) {
+//   if (Meteor.settings.defaultRequests) {
+//     console.log('Creating default request.');
+//     Meteor.settings.defaultRequests.map(data => addData(data));
+//   }
+// }
 
 /** This subscription publishes only the documents associated with the logged in user */
 Meteor.publish('Requests', function publish() {
