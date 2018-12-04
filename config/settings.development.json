@@ -2,6 +2,8 @@
   "defaultAccounts": [
     { "email": "john@foo.com", "password": "changeme" },
     { "email": "admin@foo.com", "password": "changeme", "role": "admin" },
+    { "email": "clubAdmin1@foo.com", "password": "changeme", "role": "clubAdmin" },
+    { "email": "clubAdmin2@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdmin@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminA2@foo.com", "password": "changeme", "role": "clubAdmin" },
     { "email": "clubAdminA3@foo.com", "password": "changeme", "role": "clubAdmin" },
@@ -36,6 +38,8 @@
   "defaultProfiles": [
     { "owner": "john@foo.com", "firstName": "John", "lastName": "Smith", "contactEmail": "john@foo.com" },
     { "owner": "clubAdmin@foo.com", "firstName": "Emma", "lastName": "Daily", "contactEmail": "edaily@hawaii.edu" },
+    { "owner": "clubAdmin1@foo.com", "firstName": "John", "lastName": "Daily", "contactEmail": "edaily@hawaii.edu" },
+    { "owner": "clubAdmin2@foo.com", "firstName": "Jane", "lastName": "Daily", "contactEmail": "edaily@hawaii.edu" },
     { "owner": "clubAdminA2@foo.com", "firstName": "Joyce", "lastName": "Pang", "contactEmail": "pjoyce@hawaii.edu" },
     { "owner": "clubAdminA3@foo.com", "firstName": "Timothy", "lastName": "Halliday", "contactEmail": "halliday@hawaii.edu" },
     { "owner": "clubAdminA4@foo.com", "firstName": "Branden", "lastName": "Annino", "contactEmail": "anninob@hawaii.edu" },
@@ -243,7 +247,7 @@
       "location": "after form register",
       "contactPerson": "Hannah Poffenberger-Twomey",
       "contactEmail": "hpt41004@hawaii.edu",
-      "interests": ["Ethic", "Culutral"],
+      "interests": ["Ethnic", "Cultural"],
       "owner": "clubAdminH1@foo.com"
     },
     {
@@ -267,7 +271,7 @@
       "location": "1890 East West Road Suite (Moore Hall 365)",
       "contactPerson": "Luka Masuda",
       "contactEmail": "lukakm@hawaii.edu",
-      "interests": ["Ethic", "Culutral"],
+      "interests": ["Ethic", "Cultural"],
       "owner": "clubAdminJ1@foo.com"
     },
     {

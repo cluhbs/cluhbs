@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Loader, Header, Segment, Input, Button, List, Image } from 'semantic-ui-react';
 import { Clubs, ClubSchema } from '/imports/api/club/club';
-import { defaultInterests } from '/imports/api/profile/profile';
+import { Profiles, defaultInterests, newClubNotificationOptions } from '/imports/api/profile/profile';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
@@ -11,12 +11,14 @@ import HiddenField from 'uniforms-semantic/HiddenField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /** Renders the Page for editing a single document. */
 class EditClub extends React.Component {
 
   state = {
+    createdClub: false,
     disabledAdd: true,
     clear: false,
     interest: '',
@@ -28,6 +30,7 @@ class EditClub extends React.Component {
   constructor(props) {
     super(props);
     this.submit = this.submit.bind(this);
+    this.createClub = this.createClub.bind(this);
     this.updateClub = this.updateClub.bind(this);
     this.handleInterestChange = this.handleInterestChange.bind(this);
     this.onClickAddInterest = this.onClickAddInterest.bind(this);
@@ -37,9 +40,21 @@ class EditClub extends React.Component {
 
   /** On successful submit, insert the data. */
   submit(data) {
-    this.updateClub(data);
+    if (this.props.location.pathname === '/club-add') {
+      this.createClub(data);
+    } else {
+      this.updateClub(data);
+    }
     this.setState({ disabledAdd: true });
     this.setState({ clear: false });
+  }
+
+  insertCallback(error) {
+    if (error) {
+      Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
+    } else {
+      Bert.alert({ type: 'success', message: 'Add succeeded' });
+    }
   }
 
   updateCallback(error) {
@@ -47,6 +62,36 @@ class EditClub extends React.Component {
       Bert.alert({ type: 'danger', message: `Club update failed: ${error.message}` });
     } else {
       Bert.alert({ type: 'success', message: 'Club update succeeded' });
+    }
+  }
+
+  createClub(data) {
+    const { name, image, website, description, meetTime, location, contactPerson, contactEmail } = data;
+    const owner = Meteor.user().username;
+    let interests = [];
+    if (!this.state.disabledAdd) {
+      interests = this.state.addedInterest;
+    }
+    // add user as a member of the club, insert club
+    const userProfile = Profiles.findOne({ owner: owner });
+    const members = [userProfile._id];
+    Clubs.insert({
+      name, image, website, description, meetTime, location, contactPerson, contactEmail,
+      interests, members, owner,
+    }, this.insertCallback);
+    // add club to user's clubs
+    const insertedClub = Clubs.findOne({ owner: owner })._id;
+    const clubs = userProfile.clubs.concat(insertedClub);
+    Profiles.update(userProfile._id, { $set: { clubs: clubs } });
+    this.setState({ createdClub: true });
+    // send New Club Notifications
+    const allProfiles = Profiles.find().fetch();
+    const newClubs = userProfile.newClubs.concat(insertedClub);
+    /* eslint-disable-next-line */
+    for (const profile of allProfiles) {
+      if (profile.newClubNotifications !== newClubNotificationOptions[2]) {
+        Profiles.update(profile._id, { $set: { newClubs } });
+      }
     }
   }
 
@@ -94,11 +139,27 @@ class EditClub extends React.Component {
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   renderPage() {
+    if (this.props.location.pathname === '/club-add' && this.state.createdClub) {
+      return (<Redirect to={`/club-edit/${Clubs.findOne({ owner: this.props.currentUser })._id}`}/>);
+    }
+    if (this.props.location.pathname === '/club-add' &&
+        Clubs.findOne({ owner: this.props.currentUser }) !== undefined) {
+      return (
+          <Header as='h2' textAlign='center'>
+            You are only allowed to manage one club. If you wish to manage another club, create another account and
+            request to be a club admin.
+          </Header>
+      );
+    }
     return (
         <div className='edit-club-background'>
           <Grid container centered>
             <Grid.Column>
-              <Header as="h1" textAlign="center">Edit Club Information</Header>
+              {this.props.location.pathname === '/club-add' ? (
+                  <Header as="h1" textAlign="center">Add Club</Header>
+              ) : (
+                  <Header as="h1" textAlign="center">Edit Club Information</Header>
+              )}
               <AutoForm schema={ClubSchema} onSubmit={this.submit} model={this.props.doc}>
                 <Segment>
                   <Grid>
@@ -117,8 +178,10 @@ class EditClub extends React.Component {
                     </Grid.Row>
                     <Grid.Row columns='equal'>
                       <Grid.Column width={2}>
-                        <Image src={this.props.doc.image} size='small' as='a' href={this.props.doc.image}
-                               target='_blank'/>
+                        {this.props.doc ? (
+                            <Image src={this.props.doc.image} size='small' as='a' href={this.props.doc.image}
+                                   target='_blank'/>
+                        ) : ''}
                       </Grid.Column>
                       <Grid.Column verticalAlign='middle'>
                         <TextField name='image' placeholder='Paste url to image'/>
@@ -151,16 +214,20 @@ class EditClub extends React.Component {
                                                onClick={this.onClickAddInterest}/>}
                         />
                         <datalist id='interestList'>
-                          {defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map(
-                              (item) => <option key={item} value={item}/>,
-                          )}
+                          {this.props.doc ? (
+                              defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map(
+                                  (item) => <option key={item} value={item}/>,
+                              )
+                          ) : (
+                              defaultInterests.map((item) => <option key={item} value={item}/>))
+                          }
                         </datalist>
                       </Grid.Column>
                       <Grid.Column>
                         <Grid>
                           <Grid.Row columns={2}>
                             <Grid.Column>
-                              <Header as='h3'>Your Interests</Header>
+                              <Header as='h3'>Club Interests</Header>
                             </Grid.Column>
                             <Grid.Column textAlign='right'>
                               <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
@@ -169,10 +236,11 @@ class EditClub extends React.Component {
                         </Grid>
                         <Grid.Row>
                           <List>
-                            {this.props.doc.interests.map((item) => <List.Item key={item.toString()}>
-                              <Button inverted compact circular color='red' size='mini' content='X'
-                                      value={item.toString()} onClick={this.onClickDeleteInterest}/> {item}
-                            </List.Item>)}
+                            {this.props.doc ?
+                                (this.props.doc.interests.map((item) => <List.Item key={item.toString()}>
+                                  <Button inverted compact circular color='red' size='mini' content='X'
+                                          value={item.toString()} onClick={this.onClickDeleteInterest}/> {item}
+                                </List.Item>)) : ''}
                           </List>
                         </Grid.Row>
                       </Grid.Column>
@@ -184,7 +252,11 @@ class EditClub extends React.Component {
                     </Grid.Row>
                   </Grid>
                   <ErrorsField/>
-                  <HiddenField name='owner'/>
+                  {this.props.doc ? (
+                      <HiddenField name='owner'/>
+                  ) : (
+                      <HiddenField name='owner' value='fakeuser@foo.com'/>
+                  )}
                 </Segment>
               </AutoForm>
             </Grid.Column>
@@ -199,6 +271,8 @@ EditClub.propTypes = {
   doc: PropTypes.object,
   model: PropTypes.object,
   ready: PropTypes.bool.isRequired,
+  location: PropTypes.object,
+  currentUser: PropTypes.string,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
@@ -208,7 +282,8 @@ export default withTracker(({ match }) => {
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Clubs');
   return {
-    doc: Clubs.findOne(documentId),
+    doc: (documentId) ? Clubs.findOne(documentId) : undefined,
+    currentUser: Meteor.user() ? Meteor.user().username : '',
     ready: subscription.ready(),
   };
 })(EditClub);

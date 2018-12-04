@@ -16,11 +16,15 @@ class RequestListAdmin extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     return (
-        <Container>
+        <Container textAlign='center'>
           <Header as="h2" textAlign="center">Request List</Header>
-          <Card.Group centered itemsPerRow={2}>
-            {this.props.requests.map((request, index) => <RequestAdmin key={index} request={request} />)}
-          </Card.Group>
+          {this.props.requests.length === 0 ? (
+              <Header as='h3' textAlign='center' color='grey'>No new requests.</Header>
+          ) : (
+              <Card.Group centered>
+                {this.props.requests.map((request, index) => <RequestAdmin key={index} request={request}/>)}
+              </Card.Group>
+          )}
         </Container>
     );
   }

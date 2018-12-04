@@ -18,9 +18,13 @@ class RequestList extends React.Component {
     return (
         <Container>
           <Header as="h2" textAlign="center">Request List</Header>
-          <Card.Group>
-            {this.props.requests.map((request, index) => <Request key={index} request={request} />)}
-          </Card.Group>
+          {this.props.requests.length === 0 ? (
+              <Header as='h3' textAlign='center' color='grey'>No new requests.</Header>
+          ) : (
+              <Card.Group>
+                {this.props.requests.map((request, index) => <Request key={index} request={request}/>)}
+              </Card.Group>
+          )}
         </Container>
     );
   }
