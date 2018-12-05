@@ -78,24 +78,25 @@ class UserHomePage extends React.Component {
   }
 
   renderMessages(userProfile) {
+    const totalCount = userProfile.messages.length + userProfile.newClubs.length;
     return (
         <Accordion>
           <Accordion.Title active={this.state.activeIndex === 0} index={0}
                            onClick={(e, titleProps) => this.onClickAccordion(e, titleProps)}>
             <Header as='h2' textAlign='center'>
-              {userProfile.messages.length + userProfile.newClubs.length > 0 ? (
+              {totalCount > 0 ? (
                   <div>
-                    <Icon name='exclamation circle' color='red'/> Messages <Icon name='dropdown'/>
+                    <Icon name='exclamation circle' color='red'/> Messages ({totalCount}) <Icon name='dropdown'/>
                   </div>
               ) : (
                   <div>
-                    Messages <Icon name='dropdown'/>
+                    Messages ({totalCount})<Icon name='dropdown'/>
                   </div>
               )}
             </Header>
           </Accordion.Title>
           <Accordion.Content active={this.state.activeIndex === 0}>
-            {(userProfile.messages.length + userProfile.newClubs.length === 0) ? (
+            {(totalCount === 0) ? (
                 <Header as='h3' textAlign='center' color='grey'>No new messages.</Header>
             ) : (
                 userProfile.messages.map((message, index) => <Message
