@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, Loader, Header } from 'semantic-ui-react';
-import { Profiles, ProfileSchema } from '/imports/api/profile/profile';
+import { Grid, Loader, Header, Button, Segment } from 'semantic-ui-react';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
@@ -10,16 +9,24 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Profiles, ProfileSchema } from '/imports/api/profile/profile';
 
 /** Renders the Page for editing a single document. */
 class AccountSettings extends React.Component {
+
+  state = {
+    clicked: false,
+  };
 
   /** Bind 'this' so that a ref to the Form can be saved in formRef and communicated between render() and submit(). */
   constructor(props) {
     super(props);
     this.submit = this.submit.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
+    this.onClickChangePassword = this.onClickChangePassword.bind(this);
+    this.renderChangePassword = this.renderChangePassword.bind(this);
   }
 
   /** Notify the user of the results of the submit. */
@@ -37,6 +44,19 @@ class AccountSettings extends React.Component {
     Profiles.update(_id, {
       $set: { newClubNotifications, recommendClubs, contactEmail, phoneNumber, emailNotifications, textNotifications },
     }, this.updateCallback(this.error));
+  }
+
+  onClickChangePassword() {
+    this.setState({ clicked: true });
+  }
+
+  renderChangePassword() {
+    if (this.state.clicked) {
+      return (
+          <Segment>Change Password</Segment>
+      );
+    }
+    return (<Button onClick={this.onClickChangePassword}>Change Password</Button>);
   }
 
   /** On successful submit, insert the data. */
@@ -59,6 +79,9 @@ class AccountSettings extends React.Component {
         );
       }
     }
+    if (this.state.clicked) {
+      return (<Redirect exact to={'/change-password'}/>);
+    }
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
@@ -70,6 +93,12 @@ class AccountSettings extends React.Component {
             <Header as="h2" textAlign="center">Account Settings</Header>
             <AutoForm schema={ProfileSchema} onSubmit={this.submit} model={this.props.doc}>
               <Grid stackable>
+                <Grid.Row>
+                  <Header as='h3'>Password</Header>
+                </Grid.Row>
+                <Grid.Row>
+                  <Button basic color='teal' onClick={this.onClickChangePassword}>Change Password</Button>
+                </Grid.Row>
                 <Grid.Row>
                   <Header as='h3'>Notifications</Header>
                 </Grid.Row>
