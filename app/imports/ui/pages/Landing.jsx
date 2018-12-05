@@ -9,6 +9,7 @@ class Landing extends React.Component {
 
   render() {
     const contentStyle = { paddingBottom: '15px' };
+    const gridStyle = { paddingTop: '15px' };
     const isNotLogged = Meteor.userId() === null || Meteor.user() === undefined;
     if (!isNotLogged) {
       if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
@@ -18,15 +19,15 @@ class Landing extends React.Component {
     }
     return (
         <div style={contentStyle} className='landing-background'>
-          <Grid container stackable centered>
+          <Grid style={gridStyle} container stackable centered>
             <Grid.Row>
               <div className='landing-first-grid-row'>
                 <div className='landing-title'>
                   <Image centered src='/images/landing-header.png' size='big'/>
                 </div>
                 <div className='landing-subtitle'>
-                  <Header as='h1' inverted>
-                    Find the a club right for you at the University of Hawaiʻi at Mānoa
+                  <Header as='h1' textAlign='centered' inverted>
+                    A DIRECTORY OF CLUBS OFFERED TO THE UH MĀNOA COMMUNITY
                   </Header>
                 </div>
                 <div className='button'>
@@ -35,71 +36,56 @@ class Landing extends React.Component {
                 </div>
               </div>
             </Grid.Row>
-            <Grid.Row columns={2}>
-              <Grid.Column>
-                <div className='landing-middle'>
-                  <Header as="h1" inverted>
-                    Why clUHbs?
-                  </Header>
-                  <hr/>
-                  <Header as="h3" inverted>
-                    <Icon name='search'/>
-                    <Header.Content inverted='true'>
-                      Find Clubs Easily
-                      <Header.Subheader inverted='true'>
-                        Students are able to browse a well organized directory of all current student clubs with the
-                        necessary information required to get involved
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                  <Header as="h3" inverted>
-                    <Icon name='edit'/>
-                    <Header.Content inverted='true'>
-                      Manage Your Club
-                      <Header.Subheader inverted='true'>
-                        Club admins have the ability to edit the information of their club and have it displayed
-                        onto
-                        the club directory where interested students can find a way to contact them
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                  <Header as="h3" inverted>
-                    <Icon name='group'/>
-                    <Header.Content inverted='true'>
-                      Make Lasting Friendships
-                      <Header.Subheader inverted='true'>
-                        clUHbs helps build a better sense of community at the University of Hawaiʻi at Mānoa by
-                        introducing students to others that have common interests
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                </div>
-              </Grid.Column>
-              <Grid.Column>
-                <div className='landing-middle'>
-                  <Header as="h1" inverted>
-                    How to use clUHbs
-                  </Header>
-                  <hr/>
-                  <Header as="h3" inverted>
-                    <Icon name='pencil'/> Create your profile
-                  </Header>
-                  <Header as="h3" inverted>
-                    <Icon name='tasks'/> Specify your interests
-                  </Header>
-                  <Header as="h3" inverted>
-                    <Icon name='search'/> Search clubs in club directory
-                  </Header>
-                  <Header as="h3" inverted>
-                    <Icon name='save'/> Save the clubs you want to get involved with
-                  </Header>
-                  <Header as="h3" inverted>
-                    <Icon name='comment'/> Use club information to contact clubs or go to club meetings
-                  </Header>
-                </div>
-              </Grid.Column>
-            </Grid.Row>
           </Grid>
+          <div className='landing-middle'>
+            <Grid>
+              <Grid.Row columns={2} verticalAlign='middle'>
+                <Grid.Column width={8}>
+                  <Header as='h1'>
+                    FIND A CLUB RIGHT FOR YOU
+                  </Header>
+                  <hr/>
+                  <Header.Content size='medium'>
+                    Browse through the Club Directory and discover a club that fits your interests and schedule.
+                  </Header.Content>
+                  <Header.Content>
+                    Or create an account to save your favorites and stay updated.
+                  </Header.Content>
+                </Grid.Column>
+                <Grid.Column width={8}>
+                    <Image src='/images/club-directory1.png' size='big' floated='right'/>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row columns={2} verticalAlign='middle'>
+                <Grid.Column width={8}>
+                  <Image src='/images/add-club2.png' size='big' floated='left'/>
+                </Grid.Column>
+                <Grid.Column textAlign='right' width={8}>
+                  <Header as='h1'>
+                    ADD YOUR CLUB TO THE DIRECTORY
+                  </Header>
+                  <hr/>
+                  <Header.Content>
+                    Are you part of a club that would like to be featured in the clUHbs directory?
+                  </Header.Content>
+                  <Header.Content>
+                    Become a Club Admin and share your club with the UH Mānoa Community.
+                  </Header.Content>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={8}>
+                  <Header as='h1'>
+                    CONNECT AND JOIN
+                  </Header>
+                  <hr/>
+                  <Header.Content>
+                    Attend club meetings or contact the club admin to join and create lasting relationships.
+                  </Header.Content>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </div>
         </div>
     );
   }

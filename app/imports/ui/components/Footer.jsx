@@ -17,7 +17,7 @@ class Footer extends React.Component {
                 </Grid.Row>
               </Grid.Column>
               <Grid.Column>
-                <p style={bolded}>GITHUB</p>
+                <p style={bolded}>CONNECT</p>
                 <hr/>
                 <List>
                   <List.Item style={linkColor} href='https://github.com/cluhbs' target='_blank'>CLUHBS</List.Item>

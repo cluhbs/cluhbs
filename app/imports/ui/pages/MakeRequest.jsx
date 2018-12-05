@@ -41,24 +41,29 @@ class MakeRequest extends React.Component {
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   render() {
+    const contentStyle = { marginBottom: '50px' };
     return (
-        <Grid container centered>
-          <Grid.Column>
-            <Header as="h2" textAlign="center">Make Request</Header>
-            <AutoForm ref={(ref) => { this.formRef = ref; }} schema={RequestSchema} onSubmit={this.submit}>
-              <Segment>
-                <TextField name='firstName'/>
-                <TextField name='lastName'/>
-                <TextField name='email'/>
-                <TextField name='image'/>
-                <LongTextField name='message'/>
-                <SubmitField value='Submit'/>
-                <ErrorsField/>
-                <HiddenField name='owner' value='fakeuser@foo.com'/>
-              </Segment>
-            </AutoForm>
-          </Grid.Column>
-        </Grid>
+        <div style={contentStyle}>
+          <Grid container centered>
+            <Grid.Column>
+              <Header as="h2" textAlign="center">Make Request</Header>
+              <AutoForm ref={(ref) => {
+                this.formRef = ref;
+              }} schema={RequestSchema} onSubmit={this.submit}>
+                <Segment>
+                  <TextField name='firstName'/>
+                  <TextField name='lastName'/>
+                  <TextField name='email'/>
+                  <TextField name='image'/>
+                  <LongTextField name='message'/>
+                  <SubmitField value='Submit'/>
+                  <ErrorsField/>
+                  <HiddenField name='owner' value='fakeuser@foo.com'/>
+                </Segment>
+              </AutoForm>
+            </Grid.Column>
+          </Grid>
+        </div>
     );
   }
 }
