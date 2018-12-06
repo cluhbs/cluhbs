@@ -7,12 +7,17 @@ import { Menu, Dropdown, Loader, Image } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '/imports/api/club/club';
 import { Profiles } from '/imports/api/profile/profile';
+import { Admin } from '/imports/api/admin/admin';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 class NavBar extends React.Component {
 
   returnProfile(username) {
     return Profiles.findOne({ owner: username });
+  }
+
+  returnAdmin(username) {
+    return Admin.findOne({ owner: username });
   }
 
   renderWelcomeNavLink() {
@@ -63,6 +68,8 @@ class NavBar extends React.Component {
       return (
           <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
             <Dropdown.Menu>
+              <Dropdown.Item icon="settings" text="Account Settings" as={NavLink}
+                             exact to={`/account-settings/${this.returnAdmin(this.props.currentUser)._id}`}/>
               <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
             </Dropdown.Menu>
           </Dropdown>
@@ -124,7 +131,7 @@ NavBar.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const NavBarContainer = withTracker(() => ({
   currentUser: Meteor.user() ? Meteor.user().username : '',
-  ready: Meteor.subscribe('Clubs').ready() && Meteor.subscribe('Profiles').ready(),
+  ready: Meteor.subscribe('Clubs').ready() && Meteor.subscribe('Profiles').ready() && Meteor.subscribe('Admin').ready(),
 }))(NavBar);
 
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */

@@ -53,7 +53,6 @@ class UserHomePage extends React.Component {
     const _id = userProfile._id;
     if (userProfile.newClubNotifications === newClubNotificationOptions[2]) {
       Profiles.update(_id, { $set: { newClubs: [] } });
-      console.log(newClubNotificationOptions[0]);
     }
     if (userProfile.newClubNotifications === newClubNotificationOptions[1]) {
       const newClubs =

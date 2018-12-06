@@ -6,7 +6,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { Roles } from 'meteor/alanning:roles';
 import { Profiles } from '/imports/api/profile/profile';
+import { Admin } from '/imports/api/admin/admin';
 
 /**
  * ChangePassword page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -33,10 +35,6 @@ class ChangePassword extends React.Component {
     this.onClickSubmit = this.onClickSubmit.bind(this);
   }
 
-  returnProfile(username) {
-    return Profiles.findOne({ owner: username });
-  }
-
   callback(error) {
     if (error) {
       Bert.alert({ type: 'danger', message: `Password update failed: ${error.reason}` });
@@ -58,19 +56,18 @@ class ChangePassword extends React.Component {
 
   onClickSubmit() {
     const { oldPassword, newPassword, confirmNewPassword } = this.state;
-    // if (this.returnProfile(this.props.currentUser)._id === this.props.doc._id) {
     if (newPassword === confirmNewPassword) {
       return (Accounts.changePassword(oldPassword, newPassword, (error) => this.callback(error)));
     }
     return (this.callback({ reason: 'Password match failed' }));
-    // }
-    // return (this.callback({ reason: 'Incorrect user' }));
   }
 
   /** Render the signin form. */
   render() {
+    const document = (Roles.userIsInRole(Meteor.userId(), 'admin')) ?
+        Admin.findOne({ owner: Meteor.user().username }) : Profiles.findOne({ owner: Meteor.user().username });
     if (this.state.redirectToReferer) {
-      return <Redirect exact to={`/account-settings/${this.returnProfile(Meteor.user().username)._id}`}/>;
+      return <Redirect exact to={`/account-settings/${document._id}`}/>;
     }
     return (
         <Container>
