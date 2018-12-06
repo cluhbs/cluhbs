@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, Link } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Roles } from 'meteor/alanning:roles';
-import { Profiles } from '/imports/api/profile/profile';
+import { Profiles, deletedClubNotificationOptions } from '/imports/api/profile/profile';
 import { Clubs } from '/imports/api/club/club';
 import { Admin } from '/imports/api/admin/admin';
 
@@ -30,15 +30,20 @@ class ClubItem extends React.Component {
       /* eslint-disable-next-line */
       for (const profile of allProfiles) {
         let message = `${this.props.club.name} has been removed from the Club Directory.`;
+        const newClubs = profile.newClubs.filter((x) => (x !== this.props.club._id));
         if (this.props.club.members.indexOf(profile._id) > -1) {
           const memberProfile = Profiles.findOne({ _id: profile._id });
           const clubs = memberProfile.clubs.filter((x) => (x !== this.props.club._id));
           message += ' You are no longer a member of this club.';
           Profiles.update(profile._id, { $set: { clubs } });
+          if (profile.deletedClubNotifications === deletedClubNotificationOptions[1]) {
+            Profiles.update(profile._id, { $set: { messages: profile.messages.concat(message) } });
+          }
         }
-        const newClubs = profile.newClubs.filter((x) => (x !== this.props.club._id));
-        const messages = profile.messages.concat(message);
-        Profiles.update(profile._id, { $set: { newClubs, messages } });
+        if (profile.deletedClubNotifications === deletedClubNotificationOptions[0]) {
+          Profiles.update(profile._id, { $set: { messages: profile.messages.concat(message) } });
+        }
+        Profiles.update(profile._id, { $set: { newClubs } });
       }
       const allAdmin = Admin.find().fetch();
       /* eslint-disable-next-line */

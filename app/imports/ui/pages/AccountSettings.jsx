@@ -42,10 +42,12 @@ class AccountSettings extends React.Component {
 
   updateProfile(data) {
     const {
-      _id, newClubNotifications, recommendClubs, contactEmail, phoneNumber, emailNotifications, textNotifications,
+      _id, newClubNotifications, deletedClubNotifications, recommendClubs,
+        contactEmail, phoneNumber, emailNotifications, textNotifications,
     } = data;
     Profiles.update(_id, {
-      $set: { newClubNotifications, recommendClubs, contactEmail, phoneNumber, emailNotifications, textNotifications },
+      $set: { newClubNotifications, deletedClubNotifications, recommendClubs,
+      contactEmail, phoneNumber, emailNotifications, textNotifications },
     }, this.updateCallback(this.error));
   }
 
@@ -139,6 +141,16 @@ class AccountSettings extends React.Component {
                         <Header as='h4'>Updated Club Notifications</Header>
                         <RadioField name='updatedClubNotifications'/>
                       </Grid.Column>
+                  ) : (
+                      <Grid.Column>
+                        <Header as='h4'>Deleted Club Notifications</Header>
+                        <RadioField name='deletedClubNotifications'/>
+                      </Grid.Column>
+                  )}
+                </Grid.Row>
+                <Grid.Row columns='equal'>
+                  {this.props.isAdmin ? (
+                      ''
                   ) : (
                       <Grid.Column>
                         <Header as='h4'>Club Recommendations</Header>
