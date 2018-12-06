@@ -109,6 +109,7 @@ class UserHomePage extends React.Component {
   }
 
   renderSavedClubs(userProfile) {
+    const padding = { paddingBottom: '25px' };
     return (
         <Accordion>
           <Accordion.Title active={this.state.activeIndex === 1} index={1}
@@ -189,7 +190,6 @@ class UserHomePage extends React.Component {
 
   renderPage() {
     const userProfile = Profiles.findOne({ owner: Meteor.user().username });
-  const padding = { paddingBottom: '25px' };
     if (userProfile === undefined || userProfile === null || Meteor.user() === undefined) {
       return (<Redirect to={{ pathname: '/' }}/>);
     }
