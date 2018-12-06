@@ -1,7 +1,5 @@
 import React from 'react';
 import { Grid, Loader, Header, Segment, Input, Button, List, Image } from 'semantic-ui-react';
-import { Clubs, ClubSchema } from '/imports/api/club/club';
-import { Profiles, defaultInterests, newClubNotificationOptions } from '/imports/api/profile/profile';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
@@ -13,6 +11,9 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Clubs, ClubSchema } from '/imports/api/club/club';
+import { Profiles, defaultInterests, newClubNotificationOptions } from '/imports/api/profile/profile';
+import { Admin, newClubNotificationOptionsA, updatedClubNotificationOptions } from '/imports/api/admin/admin';
 
 /** Renders the Page for editing a single document. */
 class EditClub extends React.Component {
@@ -32,6 +33,8 @@ class EditClub extends React.Component {
     this.submit = this.submit.bind(this);
     this.createClub = this.createClub.bind(this);
     this.updateClub = this.updateClub.bind(this);
+    this.sendNewClubNotifications = this.sendNewClubNotifications.bind(this);
+    this.sendUpdatedClubNotifications = this.sendUpdatedClubNotifications.bind(this);
     this.handleInterestChange = this.handleInterestChange.bind(this);
     this.onClickAddInterest = this.onClickAddInterest.bind(this);
     this.onClickDeleteInterest = this.onClickDeleteInterest.bind(this);
@@ -65,6 +68,38 @@ class EditClub extends React.Component {
     }
   }
 
+  sendNewClubNotifications(insertedClubId) {
+    const allProfiles = Profiles.find().fetch();
+    const allAdmin = Admin.find().fetch();
+    /* eslint-disable-next-line */
+    for (const profile of allProfiles) {
+      const newClubs = profile.newClubs.concat(insertedClubId);
+      if (profile.newClubNotifications !== newClubNotificationOptions[2]) {
+        Profiles.update(profile._id, { $set: { newClubs } });
+      }
+    }
+    /* eslint-disable-next-line */
+    for (const admin of allAdmin) {
+      const newClubs = admin.newClubs.concat(insertedClubId);
+      if (admin.newClubNotifications !== newClubNotificationOptionsA[1]) {
+        Admin.update(admin._id, { $set: { newClubs } });
+      }
+    }
+  }
+
+  sendUpdatedClubNotifications(updatedClubId) {
+    const allAdmin = Admin.find().fetch();
+    /* eslint-disable-next-line */
+    for (const admin of allAdmin) {
+      const updatedClubs = admin.updatedClubs.concat(updatedClubId);
+      if (admin.updatedClubNotifications !== updatedClubNotificationOptions[1]) {
+        if (!admin.updatedClubs.includes(updatedClubId)) {
+          Admin.update(admin._id, { $set: { updatedClubs } });
+        }
+      }
+    }
+  }
+
   createClub(data) {
     const { name, image, website, description, meetTime, location, contactPerson, contactEmail } = data;
     const owner = Meteor.user().username;
@@ -84,15 +119,7 @@ class EditClub extends React.Component {
     const clubs = userProfile.clubs.concat(insertedClub);
     Profiles.update(userProfile._id, { $set: { clubs: clubs } });
     this.setState({ createdClub: true });
-    // send New Club Notifications
-    const allProfiles = Profiles.find().fetch();
-    const newClubs = userProfile.newClubs.concat(insertedClub);
-    /* eslint-disable-next-line */
-    for (const profile of allProfiles) {
-      if (profile.newClubNotifications !== newClubNotificationOptions[2]) {
-        Profiles.update(profile._id, { $set: { newClubs } });
-      }
-    }
+    this.sendNewClubNotifications(insertedClub);
   }
 
   updateClub(data) {
@@ -107,6 +134,7 @@ class EditClub extends React.Component {
     Clubs.update(_id, {
       $set: { name, website, image, contactPerson, contactEmail, meetTime, location, description, interests },
     }, this.updateCallback(this.error));
+    this.sendUpdatedClubNotifications(_id);
   }
 
   handleInterestChange(event) {
@@ -154,112 +182,115 @@ class EditClub extends React.Component {
     return (
         <div className='edit-club-background'>
           <Grid container centered>
-            <Grid.Column>
-              {this.props.location.pathname === '/club-add' ? (
-                  <Header as="h1" textAlign="center">Add Club</Header>
-              ) : (
-                  <Header as="h1" textAlign="center">Edit Club Information</Header>
-              )}
-              <AutoForm schema={ClubSchema} onSubmit={this.submit} model={this.props.doc}>
-                <Segment>
-                  <Grid>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Header as='h3'>General Information</Header>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns='equal'>
-                      <Grid.Column>
-                        <TextField name='name'/>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <TextField name='website'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns='equal'>
-                      <Grid.Column width={2}>
-                        {this.props.doc ? (
-                            <Image src={this.props.doc.image} size='small' as='a' href={this.props.doc.image}
-                                   target='_blank'/>
-                        ) : ''}
-                      </Grid.Column>
-                      <Grid.Column verticalAlign='middle'>
-                        <TextField name='image' placeholder='Paste url to image'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns='equal'>
-                      <Grid.Column>
-                        <Header as='h3'>Contact Information</Header>
-                        <TextField name='contactPerson'/>
-                        <TextField name='contactEmail'/>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Header as='h3'>Meeting Information</Header>
-                        <TextField name='meetTime'/>
-                        <TextField name='location'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <LongTextField name='description'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns={2}>
-                      <Grid.Column>
-                        <Header as='h3'>Add Interests</Header>
-                        <Input id='interestInput' list='interestList' name='interest' placeholder='Select'
-                               value={this.state.interest}
-                               onChange={this.handleInterestChange}
-                               action={<Button icon='plus' color='green' disabled={this.state.disabledAdd}
-                                               onClick={this.onClickAddInterest}/>}
-                        />
-                        <datalist id='interestList'>
+            <Grid.Row columns='equal'>
+              <Grid.Column>
+                {this.props.location.pathname === '/club-add' ? (
+                    <Header as="h1" textAlign="center">Add Club</Header>
+                ) : (
+                    <Header as="h1" textAlign="center">Edit Club Information</Header>
+                )}
+                <AutoForm schema={ClubSchema} onSubmit={this.submit} model={this.props.doc}>
+                  <Segment>
+                    <Grid>
+                      <Grid.Row>
+                        <Grid.Column>
+                          <Header as='h3'>General Information</Header>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns='equal'>
+                        <Grid.Column>
+                          <TextField name='name'/>
+                        </Grid.Column>
+                        <Grid.Column>
+                          <TextField name='website'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns='equal'>
+                        <Grid.Column width={2}>
                           {this.props.doc ? (
-                              defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map(
-                                  (item) => <option key={item} value={item}/>,
-                              )
-                          ) : (
-                              defaultInterests.map((item) => <option key={item} value={item}/>))
-                          }
-                        </datalist>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Grid>
-                          <Grid.Row columns={2}>
-                            <Grid.Column>
-                              <Header as='h3'>Club Interests</Header>
-                            </Grid.Column>
-                            <Grid.Column textAlign='right'>
-                              <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
-                            </Grid.Column>
+                              <Image src={this.props.doc.image} size='small' as='a' href={this.props.doc.image}
+                                     target='_blank'/>
+                          ) : ''}
+                        </Grid.Column>
+                        <Grid.Column verticalAlign='middle'>
+                          <TextField name='image' placeholder='Paste url to image'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns='equal'>
+                        <Grid.Column>
+                          <Header as='h3'>Contact Information</Header>
+                          <TextField name='contactPerson'/>
+                          <TextField name='contactEmail'/>
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Header as='h3'>Meeting Information</Header>
+                          <TextField name='meetTime'/>
+                          <TextField name='location'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row>
+                        <Grid.Column>
+                          <LongTextField name='description'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns={2}>
+                        <Grid.Column>
+                          <Header as='h3'>Add Interests</Header>
+                          <Input id='interestInput' list='interestList' name='interest' placeholder='Select'
+                                 value={this.state.interest}
+                                 onChange={this.handleInterestChange}
+                                 action={<Button icon='plus' color='green' disabled={this.state.disabledAdd}
+                                                 onClick={this.onClickAddInterest}/>}
+                          />
+                          <datalist id='interestList'>
+                            {this.props.doc ? (
+                                defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map(
+                                    (item) => <option key={item} value={item}/>,
+                                )
+                            ) : (
+                                defaultInterests.map((item) => <option key={item} value={item}/>))
+                            }
+                          </datalist>
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Grid>
+                            <Grid.Row columns={2}>
+                              <Grid.Column>
+                                <Header as='h3'>Club Interests</Header>
+                              </Grid.Column>
+                              <Grid.Column textAlign='right'>
+                                <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
+                              </Grid.Column>
+                            </Grid.Row>
+                          </Grid>
+                          <Grid.Row>
+                            <List>
+                              {this.props.doc ?
+                                  (this.props.doc.interests.map((item) => <List.Item key={item.toString()}>
+                                    <Button inverted compact circular color='red' size='mini' content='X'
+                                            value={item.toString()} onClick={this.onClickDeleteInterest}/> {item}
+                                  </List.Item>)) : ''}
+                            </List>
                           </Grid.Row>
-                        </Grid>
-                        <Grid.Row>
-                          <List>
-                            {this.props.doc ?
-                                (this.props.doc.interests.map((item) => <List.Item key={item.toString()}>
-                                  <Button inverted compact circular color='red' size='mini' content='X'
-                                          value={item.toString()} onClick={this.onClickDeleteInterest}/> {item}
-                                </List.Item>)) : ''}
-                          </List>
-                        </Grid.Row>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns={1}>
-                      <Grid.Column>
-                        <SubmitField value='Submit'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                  <ErrorsField/>
-                  {this.props.doc ? (
-                      <HiddenField name='owner'/>
-                  ) : (
-                      <HiddenField name='owner' value='fakeuser@foo.com'/>
-                  )}
-                </Segment>
-              </AutoForm>
-            </Grid.Column>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns={1}>
+                        <Grid.Column>
+                          <SubmitField value='Submit'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+                    <ErrorsField/>
+                    {this.props.doc ? (
+                        <HiddenField name='owner'/>
+                    ) : (
+                        <HiddenField name='owner' value='fakeuser@foo.com'/>
+                    )}
+                  </Segment>
+                </AutoForm>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row/>
           </Grid>
         </div>
     );
@@ -281,9 +312,10 @@ export default withTracker(({ match }) => {
   const documentId = match.params._id;
   // Get access to Stuff documents.
   const subscription = Meteor.subscribe('Clubs');
+  const subscription2 = Meteor.subscribe('Admin');
   return {
     doc: (documentId) ? Clubs.findOne(documentId) : undefined,
     currentUser: Meteor.user() ? Meteor.user().username : '',
-    ready: subscription.ready(),
+    ready: subscription.ready() && subscription2.ready(),
   };
 })(EditClub);

@@ -10,6 +10,7 @@ import Landing from '../pages/Landing';
 import UserHomePage from '../pages/UserHomePage';
 import EditProfile from '../pages/EditProfile';
 import DisplayProfile from '../pages/DisplayProfile';
+import ChangePassword from '../pages/ChangePassword';
 import ClubDirectory from '../pages/ClubDirectory';
 import RequestListAdmin from '../pages/RequestListAdmin';
 import AccountSettings from '../pages/AccountSettings';
@@ -17,6 +18,8 @@ import MakeRequest from '../pages/MakeRequest';
 import EditClub from '../pages/EditClub';
 import DisplayClub from '../pages/DisplayClub';
 import NotFound from '../pages/NotFound';
+import ContactUs from '../pages/ContactUs';
+import Help from '../pages/Help';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
@@ -33,6 +36,7 @@ class App extends React.Component {
                 <Route exact path="/" component={Landing}/>
                 <Route path="/signin" component={Signin}/>
                 <Route path="/signup" component={Signup}/>
+                <ProtectedRoute path="/change-password" component={ChangePassword}/>
                 <ProtectedRoute path="/account-settings/:_id" component={AccountSettings}/>
                 <ProtectedRoute path="/profile/:_id" component={DisplayProfile}/>
                 <ProtectedRoute path="/profile-edit/:_id" component={EditProfile}/>
@@ -42,6 +46,8 @@ class App extends React.Component {
                 <ProtectedRoute path="/club-add" component={EditClub}/>
                 <ProtectedRoute path="/club-edit/:_id" component={EditClub}/>
                 <Route path="/club-info/:_id" component={DisplayClub}/>
+                <Route path="/contact-us" component={ContactUs}/>
+                <Route path="/help" component={Help}/>
                 <AdminProtectedRoute path="/request-admin" component={RequestListAdmin}/>
                 <ProtectedRoute path="/signout" component={Signout}/>
                 <Route component={NotFound}/>

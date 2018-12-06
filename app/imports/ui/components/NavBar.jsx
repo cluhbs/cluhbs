@@ -7,6 +7,7 @@ import { Menu, Dropdown, Loader, Image } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '/imports/api/club/club';
 import { Profiles } from '/imports/api/profile/profile';
+import { Admin } from '/imports/api/admin/admin';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 class NavBar extends React.Component {
@@ -15,24 +16,28 @@ class NavBar extends React.Component {
     return Profiles.findOne({ owner: username });
   }
 
+  returnAdmin(username) {
+    return Admin.findOne({ owner: username });
+  }
+
   renderWelcomeNavLink() {
     if (this.props.currentUser === '') {
       return (
           <Menu.Item as={NavLink} activeClassName="" exact to="/">
-            <Image src='/images/logo-text.png' size='tiny'/>
+            <Image src='/images/cluhbs-wg.png' size='tiny'/>
           </Menu.Item>
       );
     }
     if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
           <Menu.Item as={NavLink} activeClassName="active" exact to="/request-admin" key='request-admin'>
-            <Image src='/images/logo-text.png' size='tiny'/>
+            <Image src='/images/cluhbs-wg.png' size='tiny'/>
           </Menu.Item>
       );
     }
     return (
         <Menu.Item as={NavLink} activeClassName="" exact to="/home" key='home'>
-          <Image src='/images/logo-text.png' size='tiny'/>
+          <Image src='/images/cluhbs-wg.png' size='tiny'/>
         </Menu.Item>
     );
   }
@@ -63,6 +68,8 @@ class NavBar extends React.Component {
       return (
           <Dropdown text={this.props.currentUser} pointing="top right" icon={'user'}>
             <Dropdown.Menu>
+              <Dropdown.Item icon="settings" text="Account Settings" as={NavLink}
+                             exact to={`/account-settings/${this.returnAdmin(this.props.currentUser)._id}`}/>
               <Dropdown.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
             </Dropdown.Menu>
           </Dropdown>
@@ -101,9 +108,9 @@ class NavBar extends React.Component {
   }
 
   renderPage() {
-    const menuStyle = { marginBottom: '15px', size: '20px' };
+    const menuStyle = { marginBottom: '12px', size: '20px', color: 'white' };
     return (
-        <Menu style={menuStyle} attached="top" borderless inverted color='green'>
+        <Menu style={menuStyle} attached="top" borderless inverted>
           {this.renderWelcomeNavLink()}
           <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>
           {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') ? this.renderClubAdminMenu() : ''}
@@ -124,7 +131,7 @@ NavBar.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 const NavBarContainer = withTracker(() => ({
   currentUser: Meteor.user() ? Meteor.user().username : '',
-  ready: Meteor.subscribe('Clubs').ready() && Meteor.subscribe('Profiles').ready(),
+  ready: Meteor.subscribe('Clubs').ready() && Meteor.subscribe('Profiles').ready() && Meteor.subscribe('Admin').ready(),
 }))(NavBar);
 
 /** Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter */

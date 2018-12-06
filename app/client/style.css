@@ -1,12 +1,11 @@
 .landing-background {
-  background: url('/images/landing.jpg') no-repeat center center fixed;
+  background: url('/images/landing2.jpg') no-repeat center center fixed;
   background-size: cover;
   min-width: 100%;
   min-height: 100%;
 }
 
 .landing-title {
-  padding-top: 50px;
   font: 7em verdana, sans-serif;
 }
 
@@ -18,16 +17,23 @@
 
 .landing-first-grid-row {
   background-color: rgba(115, 115, 115, 0.45);
-  padding-top: 25px;
   padding-left: 50px;
   padding-right: 50px;
   border: thick solid white;
 }
 
 .landing-middle {
-  padding: 25px;
-  background-color: rgba(115, 115, 115, 0.45);
-  border: thin solid white;
+  font-size: medium;
+  margin: 25px 0px 475px 0px;
+  padding: 50px 50px 50px 50px;
+  background-color: #F8F8F9;
+  background-size: cover;
+}
+
+hr {
+  border-color: green;
+  background-color: green;
+  height: 1px;
 }
 
 .home {
