@@ -88,7 +88,7 @@ class RequestListAdmin extends React.Component {
 
   renderMessages(admin) {
     const x = 0;
-    const totalCount = admin.newClubs.length + admin.updatedClubs.length;
+    const totalCount = admin.newClubs.length + admin.updatedClubs.length + admin.messages.length;
     return (
         <Accordion>
           <Accordion.Title active={this.state.activeIndex === x} index={x}
@@ -127,7 +127,16 @@ class RequestListAdmin extends React.Component {
           <Accordion.Title active={this.state.activeIndex === x} index={x}
                            onClick={(e, titleProps) => this.onClickAccordion(e, titleProps)}>
             <Header as='h2' textAlign='center'>
-              Requests ({this.props.requests.length})<Icon name='dropdown'/>
+              {this.props.requests.length > 0 ? (
+                  <div>
+                    <Icon name='exclamation circle' color='red'/> Requests ({this.props.requests.length})
+                    <Icon name='dropdown'/>
+                  </div>
+              ) : (
+                  <div>
+                    Requests ({this.props.requests.length})<Icon name='dropdown'/>
+                  </div>
+              )}
             </Header>
           </Accordion.Title>
           <Accordion.Content active={this.state.activeIndex === x}>

@@ -99,7 +99,7 @@ class UserHomePage extends React.Component {
                 <Header as='h3' textAlign='center' color='grey'>No new messages.</Header>
             ) : (
                 userProfile.messages.map((message, index) => <Message
-                    key={index} content={message} color='teal'
+                    key={index} content={message} color='violet'
                     onDismiss={(e, data) => this.dismissMessage(e, data, userProfile)}/>)
             )}
             {userProfile.newClubs.length === 0 ? ('') : (this.renderNewClubs(userProfile))}

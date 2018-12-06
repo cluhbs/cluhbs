@@ -8,6 +8,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import { Roles } from 'meteor/alanning:roles';
 import { Profiles } from '/imports/api/profile/profile';
 import { Clubs } from '/imports/api/club/club';
+import { Admin } from '/imports/api/admin/admin';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class ClubItem extends React.Component {
@@ -25,12 +26,30 @@ class ClubItem extends React.Component {
   onClickDeleteClub() {
     /* eslint-disable-next-line */
     if (confirm(`Are you sure you want to delete ${this.props.club.name}?`)) {
+      const allProfiles = Profiles.find().fetch();
       /* eslint-disable-next-line */
-      for (const memberId of this.props.club.members) {
-        const memberProfile = Profiles.findOne({ _id: memberId });
-        const clubs = memberProfile.clubs.filter((x) => (x !== this.props.club._id));
-        Profiles.update(memberId, { $set: { clubs: clubs } });
+      for (const profile of allProfiles) {
+        let message = `${this.props.club.name} has been removed from the Club Directory.`;
+        if (this.props.club.members.indexOf(profile._id) > -1) {
+          const memberProfile = Profiles.findOne({ _id: profile._id });
+          const clubs = memberProfile.clubs.filter((x) => (x !== this.props.club._id));
+          message += ' You are no longer a member of this club.';
+          Profiles.update(profile._id, { $set: { clubs } });
+        }
+        const newClubs = profile.newClubs.filter((x) => (x !== this.props.club._id));
+        const messages = profile.messages.concat(message);
+        Profiles.update(profile._id, { $set: { newClubs, messages } });
       }
+      const allAdmin = Admin.find().fetch();
+      /* eslint-disable-next-line */
+      for (const admin of allAdmin) {
+        const newClubs = admin.newClubs.filter((x) => (x !== this.props.club._id));
+        const updatedClubs = admin.updatedClubs.filter((x) => (x !== this.props.club._id));
+        const message = `${this.props.club.name} has been removed from the Club Directory.`;
+        const messages = admin.messages.concat(message);
+        Admin.update(admin._id, { $set: { newClubs, updatedClubs, messages } });
+      }
+      this.setState({ redirectToReferer: true });
       Clubs.remove(this.props.club._id, this.deleteCallback);
     }
   }
@@ -149,7 +168,7 @@ class ClubItem extends React.Component {
 
 /** Require a document to be passed to this component. */
 ClubItem.propTypes = {
-  club: PropTypes.object.isRequired,
+  club: PropTypes.object,
   currentUser: PropTypes.string,
   ready: PropTypes.bool,
   location: PropTypes.object,
