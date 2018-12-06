@@ -54,7 +54,6 @@ class ClubItem extends React.Component {
         const messages = admin.messages.concat(message);
         Admin.update(admin._id, { $set: { newClubs, updatedClubs, messages } });
       }
-      this.setState({ redirectToReferer: true });
       Clubs.remove(this.props.club._id, this.deleteCallback);
     }
   }
