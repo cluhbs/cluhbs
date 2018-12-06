@@ -114,94 +114,100 @@ class EditProfile extends React.Component {
   renderPage() {
     return (
         <Grid container centered>
-          <Grid.Column>
-            <Header as="h2" textAlign="center">Edit Profile</Header>
-            <AutoForm schema={ProfileSchema} onSubmit={this.submit} model={this.props.doc}>
-              <Grid stackable>
-                <Grid.Row>
-                  <Header as='h3'>General Information</Header>
-                </Grid.Row>
-                <Grid.Row columns='equal'>
-                  <Grid.Column>
-                    <TextField name='firstName'/>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <TextField name='lastName'/>
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row columns='equal'>
-                  <Grid.Column width={2}>
-                    <Image src={this.props.doc.image} size='small' as='a' href={this.props.doc.image} target='_blank'/>
-                  </Grid.Column>
-                  <Grid.Column verticalAlign='middle'>
-                    <TextField name='image' placeholder='Paste url to image'/>
-                  </Grid.Column>
-                </Grid.Row>
+          <Grid.Row columns='equal'>
+            <Grid.Column>
+              <Header as="h2" textAlign="center">Edit Profile</Header>
+              <AutoForm schema={ProfileSchema} onSubmit={this.submit} model={this.props.doc}>
+                <Grid stackable>
+                  <Grid.Row>
+                    <Header as='h3'>General Information</Header>
+                  </Grid.Row>
+                  <Grid.Row columns='equal'>
+                    <Grid.Column>
+                      <TextField name='firstName'/>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <TextField name='lastName'/>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row columns='equal'>
+                    <Grid.Column width={2}>
+                      <Image src={this.props.doc.image} size='small' as='a' href={this.props.doc.image}
+                             target='_blank'/>
+                    </Grid.Column>
+                    <Grid.Column verticalAlign='middle'>
+                      <TextField name='image' placeholder='Paste url to image'/>
+                    </Grid.Column>
+                  </Grid.Row>
 
-                <Grid.Row columns={1}>
-                  <Header as='h3'>Contact Information</Header>
-                </Grid.Row>
+                  <Grid.Row columns={1}>
+                    <Header as='h3'>Contact Information</Header>
+                  </Grid.Row>
 
-                <Grid.Row columns={2}>
-                  <Grid.Column>
-                    <TextField name='contactEmail'/>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <TextField name='phoneNumber'/>
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row columns={1} textAlign='center'>
-                  <Header as='h3'>Interest Areas</Header>
-                </Grid.Row>
-                <Grid.Row columns={2}>
-                  <Grid.Column>
-                    <Header as='h3'>Add Interests</Header>
-                    <Input id='interestInput' list='interestList' name='interest' placeholder='Select'
-                           value={this.state.interest}
-                           onChange={this.handleInterestChange}
-                           action={
-                             <Button icon='plus' color='green' disabled={this.state.disabledAdd}
-                                     onClick={this.onClickAddInterest}
-                             />
-                           }
-                    />
-                    <datalist id='interestList'>
-                      {defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map((item) => <option
-                          key={item} value={item}/>)}
-                    </datalist>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Grid>
-                      <Grid.Row columns={2}>
-                        <Grid.Column>
-                          <Header as='h3'>Your Interests</Header>
-                        </Grid.Column>
-                        <Grid.Column textAlign='right'>
-                          <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
-                        </Grid.Column>
+                  <Grid.Row columns={2}>
+                    <Grid.Column>
+                      <TextField name='contactEmail'/>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <TextField name='phoneNumber'/>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row columns={1} textAlign='center'>
+                    <Header as='h3'>Interest Areas</Header>
+                  </Grid.Row>
+                  <Grid.Row columns={2}>
+                    <Grid.Column>
+                      <Header as='h3'>Add Interests</Header>
+                      <Input id='interestInput' list='interestList' name='interest' placeholder='Select'
+                             value={this.state.interest}
+                             onChange={this.handleInterestChange}
+                             action={
+                               <Button icon='plus' color='green' disabled={this.state.disabledAdd}
+                                       onClick={this.onClickAddInterest}
+                               />
+                             }
+                      />
+                      <datalist id='interestList'>
+                        {defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map(
+                            (item) => <option key={item} value={item}/>,
+                        )}
+                      </datalist>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Grid>
+                        <Grid.Row columns={2}>
+                          <Grid.Column>
+                            <Header as='h3'>Your Interests</Header>
+                          </Grid.Column>
+                          <Grid.Column textAlign='right'>
+                            <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
+                          </Grid.Column>
+                        </Grid.Row>
+                      </Grid>
+                      <Grid.Row>
+                        <List>
+                          {this.props.doc.interests.map((item) => <List.Item key={item.toString()}>
+                            {/* <Icon link name='minus circle' color='red' value={item} */}
+                            {/* onClick={this.onClickDeleteInterest}/> {item} */}
+                            <Button inverted compact circular color='red' size='mini' content='X'
+                                    value={item.toString()}
+                                    onClick={this.onClickDeleteInterest}/> {item}
+                          </List.Item>)}
+                        </List>
                       </Grid.Row>
-                    </Grid>
-                    <Grid.Row>
-                      <List>
-                        {this.props.doc.interests.map((item) => <List.Item key={item.toString()}>
-                          {/* <Icon link name='minus circle' color='red' value={item} */}
-                          {/* onClick={this.onClickDeleteInterest}/> {item} */}
-                          <Button inverted compact circular color='red' size='mini' content='X' value={item.toString()}
-                                  onClick={this.onClickDeleteInterest}/> {item}
-                        </List.Item>)}
-                      </List>
-                    </Grid.Row>
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row columns={1}>
-                  <Grid.Column>
-                    <SubmitField value='Submit'/>
-                  </Grid.Column>
-                </Grid.Row>
-                <ErrorsField/>
-              </Grid>
-            </AutoForm>
-          </Grid.Column>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row columns={1}>
+                    <Grid.Column>
+                      <SubmitField value='Submit'/>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <ErrorsField/>
+                </Grid>
+              </AutoForm>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row/>
         </Grid>
     );
   }

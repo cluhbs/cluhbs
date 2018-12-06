@@ -26,7 +26,7 @@ class Landing extends React.Component {
                   <Image centered src='/images/landing-header.png' size='big'/>
                 </div>
                 <div className='landing-subtitle'>
-                  <Header as='h1' textAlign='centered' inverted>
+                  <Header as='h1' textAlign='center' inverted>
                     A DIRECTORY OF CLUBS OFFERED TO THE UH MĀNOA COMMUNITY
                   </Header>
                 </div>

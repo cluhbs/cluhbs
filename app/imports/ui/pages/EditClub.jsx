@@ -182,112 +182,115 @@ class EditClub extends React.Component {
     return (
         <div className='edit-club-background'>
           <Grid container centered>
-            <Grid.Column>
-              {this.props.location.pathname === '/club-add' ? (
-                  <Header as="h1" textAlign="center">Add Club</Header>
-              ) : (
-                  <Header as="h1" textAlign="center">Edit Club Information</Header>
-              )}
-              <AutoForm schema={ClubSchema} onSubmit={this.submit} model={this.props.doc}>
-                <Segment>
-                  <Grid>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Header as='h3'>General Information</Header>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns='equal'>
-                      <Grid.Column>
-                        <TextField name='name'/>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <TextField name='website'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns='equal'>
-                      <Grid.Column width={2}>
-                        {this.props.doc ? (
-                            <Image src={this.props.doc.image} size='small' as='a' href={this.props.doc.image}
-                                   target='_blank'/>
-                        ) : ''}
-                      </Grid.Column>
-                      <Grid.Column verticalAlign='middle'>
-                        <TextField name='image' placeholder='Paste url to image'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns='equal'>
-                      <Grid.Column>
-                        <Header as='h3'>Contact Information</Header>
-                        <TextField name='contactPerson'/>
-                        <TextField name='contactEmail'/>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Header as='h3'>Meeting Information</Header>
-                        <TextField name='meetTime'/>
-                        <TextField name='location'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <LongTextField name='description'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns={2}>
-                      <Grid.Column>
-                        <Header as='h3'>Add Interests</Header>
-                        <Input id='interestInput' list='interestList' name='interest' placeholder='Select'
-                               value={this.state.interest}
-                               onChange={this.handleInterestChange}
-                               action={<Button icon='plus' color='green' disabled={this.state.disabledAdd}
-                                               onClick={this.onClickAddInterest}/>}
-                        />
-                        <datalist id='interestList'>
+            <Grid.Row columns='equal'>
+              <Grid.Column>
+                {this.props.location.pathname === '/club-add' ? (
+                    <Header as="h1" textAlign="center">Add Club</Header>
+                ) : (
+                    <Header as="h1" textAlign="center">Edit Club Information</Header>
+                )}
+                <AutoForm schema={ClubSchema} onSubmit={this.submit} model={this.props.doc}>
+                  <Segment>
+                    <Grid>
+                      <Grid.Row>
+                        <Grid.Column>
+                          <Header as='h3'>General Information</Header>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns='equal'>
+                        <Grid.Column>
+                          <TextField name='name'/>
+                        </Grid.Column>
+                        <Grid.Column>
+                          <TextField name='website'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns='equal'>
+                        <Grid.Column width={2}>
                           {this.props.doc ? (
-                              defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map(
-                                  (item) => <option key={item} value={item}/>,
-                              )
-                          ) : (
-                              defaultInterests.map((item) => <option key={item} value={item}/>))
-                          }
-                        </datalist>
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Grid>
-                          <Grid.Row columns={2}>
-                            <Grid.Column>
-                              <Header as='h3'>Club Interests</Header>
-                            </Grid.Column>
-                            <Grid.Column textAlign='right'>
-                              <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
-                            </Grid.Column>
+                              <Image src={this.props.doc.image} size='small' as='a' href={this.props.doc.image}
+                                     target='_blank'/>
+                          ) : ''}
+                        </Grid.Column>
+                        <Grid.Column verticalAlign='middle'>
+                          <TextField name='image' placeholder='Paste url to image'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns='equal'>
+                        <Grid.Column>
+                          <Header as='h3'>Contact Information</Header>
+                          <TextField name='contactPerson'/>
+                          <TextField name='contactEmail'/>
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Header as='h3'>Meeting Information</Header>
+                          <TextField name='meetTime'/>
+                          <TextField name='location'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row>
+                        <Grid.Column>
+                          <LongTextField name='description'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns={2}>
+                        <Grid.Column>
+                          <Header as='h3'>Add Interests</Header>
+                          <Input id='interestInput' list='interestList' name='interest' placeholder='Select'
+                                 value={this.state.interest}
+                                 onChange={this.handleInterestChange}
+                                 action={<Button icon='plus' color='green' disabled={this.state.disabledAdd}
+                                                 onClick={this.onClickAddInterest}/>}
+                          />
+                          <datalist id='interestList'>
+                            {this.props.doc ? (
+                                defaultInterests.filter((x) => this.props.doc.interests.indexOf(x) === -1).map(
+                                    (item) => <option key={item} value={item}/>,
+                                )
+                            ) : (
+                                defaultInterests.map((item) => <option key={item} value={item}/>))
+                            }
+                          </datalist>
+                        </Grid.Column>
+                        <Grid.Column>
+                          <Grid>
+                            <Grid.Row columns={2}>
+                              <Grid.Column>
+                                <Header as='h3'>Club Interests</Header>
+                              </Grid.Column>
+                              <Grid.Column textAlign='right'>
+                                <Button inverted color='red' content='Clear All' onClick={this.onClickClearInterest}/>
+                              </Grid.Column>
+                            </Grid.Row>
+                          </Grid>
+                          <Grid.Row>
+                            <List>
+                              {this.props.doc ?
+                                  (this.props.doc.interests.map((item) => <List.Item key={item.toString()}>
+                                    <Button inverted compact circular color='red' size='mini' content='X'
+                                            value={item.toString()} onClick={this.onClickDeleteInterest}/> {item}
+                                  </List.Item>)) : ''}
+                            </List>
                           </Grid.Row>
-                        </Grid>
-                        <Grid.Row>
-                          <List>
-                            {this.props.doc ?
-                                (this.props.doc.interests.map((item) => <List.Item key={item.toString()}>
-                                  <Button inverted compact circular color='red' size='mini' content='X'
-                                          value={item.toString()} onClick={this.onClickDeleteInterest}/> {item}
-                                </List.Item>)) : ''}
-                          </List>
-                        </Grid.Row>
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns={1}>
-                      <Grid.Column>
-                        <SubmitField value='Submit'/>
-                      </Grid.Column>
-                    </Grid.Row>
-                  </Grid>
-                  <ErrorsField/>
-                  {this.props.doc ? (
-                      <HiddenField name='owner'/>
-                  ) : (
-                      <HiddenField name='owner' value='fakeuser@foo.com'/>
-                  )}
-                </Segment>
-              </AutoForm>
-            </Grid.Column>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns={1}>
+                        <Grid.Column>
+                          <SubmitField value='Submit'/>
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+                    <ErrorsField/>
+                    {this.props.doc ? (
+                        <HiddenField name='owner'/>
+                    ) : (
+                        <HiddenField name='owner' value='fakeuser@foo.com'/>
+                    )}
+                  </Segment>
+                </AutoForm>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row/>
           </Grid>
         </div>
     );

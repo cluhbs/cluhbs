@@ -75,30 +75,30 @@ class DisplayClub extends React.Component {
     const padding = { paddingBottom: '50px' };
     const contentStyle = { marginBottom: '50px' };
     return (
-      <div style={contentStyle}>
-        <Grid container style={padding}>
-          <Grid.Row>
-            <Grid.Column>
-              <Grid as={Segment}>
-                <Grid.Row columns='equal'>
-                  <Grid.Column width={4}>
-                    <Image src={this.props.doc.image} size='medium'/>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Grid>
-                      <Grid.Row columns='equal'>
-                        <Grid.Column textAlign='center'>
-                          <Header as="h1" textAlign="center">{this.props.doc.name}</Header>
-                          {(this.props.doc.website) ? (
-                              <Header.Subheader><strong>Club Website: </strong>
-                                <a href={this.props.doc.website}>{this.props.doc.website}</a>
-                                <a href={this.props.doc.website} rel='noopener noreferrer'
-                                   target='_blank'>{this.props.doc.website}</a>
-                              </Header.Subheader>) : ''
-                          }
-                          <Grid container>
-                            <Grid.Row/>
-                            <Grid.Row columns='equal'>
+        <div style={contentStyle}>
+          <Grid container style={padding}>
+            <Grid.Row>
+              <Grid.Column>
+                <Grid as={Segment}>
+                  <Grid.Row columns='equal'>
+                    <Grid.Column width={4}>
+                      <Image src={this.props.doc.image} size='medium'/>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Grid>
+                        <Grid.Row columns='equal'>
+                          <Grid.Column textAlign='center'>
+                            <Header as="h1" textAlign="center">{this.props.doc.name}</Header>
+                            {(this.props.doc.website) ? (
+                                <Header.Subheader><strong>Club Website: </strong>
+                                  <a href={this.props.doc.website}>{this.props.doc.website}</a>
+                                  <a href={this.props.doc.website} rel='noopener noreferrer'
+                                     target='_blank'>{this.props.doc.website}</a>
+                                </Header.Subheader>) : ''
+                            }
+                            <Grid container>
+                              <Grid.Row/>
+                              <Grid.Row columns='equal'>
                                 <Grid.Column>
                                   <Header.Subheader><strong>Contact Person: </strong>
                                     {this.props.doc.contactPerson}</Header.Subheader>
@@ -158,8 +158,9 @@ class DisplayClub extends React.Component {
                 </Grid>
               </Grid.Column>
             </Grid.Row>
+            <Grid.Row/>
           </Grid>
-      </div>
+        </div>
     );
   }
 }

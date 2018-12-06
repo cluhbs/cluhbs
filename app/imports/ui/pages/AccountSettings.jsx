@@ -43,11 +43,13 @@ class AccountSettings extends React.Component {
   updateProfile(data) {
     const {
       _id, newClubNotifications, deletedClubNotifications, recommendClubs,
-        contactEmail, phoneNumber, emailNotifications, textNotifications,
+      contactEmail, phoneNumber, emailNotifications, textNotifications,
     } = data;
     Profiles.update(_id, {
-      $set: { newClubNotifications, deletedClubNotifications, recommendClubs,
-      contactEmail, phoneNumber, emailNotifications, textNotifications },
+      $set: {
+        newClubNotifications, deletedClubNotifications, recommendClubs,
+        contactEmail, phoneNumber, emailNotifications, textNotifications
+      },
     }, this.updateCallback(this.error));
   }
 
@@ -117,75 +119,78 @@ class AccountSettings extends React.Component {
   renderPage() {
     return (
         <Grid container centered>
-          <Grid.Column>
-            <Header as="h2" textAlign="center">Account Settings</Header>
-            <AutoForm schema={this.props.isAdmin ? AdminSchema : ProfileSchema}
-                      onSubmit={this.submit} model={this.props.doc}>
-              <Grid stackable>
-                <Grid.Row>
-                  <Header as='h3'>Password</Header>
-                </Grid.Row>
-                <Grid.Row>
-                  <Button basic color='teal' onClick={this.onClickChangePassword}>Change Password</Button>
-                </Grid.Row>
-                <Grid.Row>
-                  <Header as='h3'>Notifications</Header>
-                </Grid.Row>
-                <Grid.Row columns='equal'>
-                  <Grid.Column>
-                    <Header as='h4'>New Club Notifications</Header>
-                    <RadioField name='newClubNotifications'/>
-                  </Grid.Column>
-                  {this.props.isAdmin ? (
-                      <Grid.Column>
-                        <Header as='h4'>Updated Club Notifications</Header>
-                        <RadioField name='updatedClubNotifications'/>
-                      </Grid.Column>
-                  ) : (
-                      <Grid.Column>
-                        <Header as='h4'>Deleted Club Notifications</Header>
-                        <RadioField name='deletedClubNotifications'/>
-                      </Grid.Column>
-                  )}
-                </Grid.Row>
-                <Grid.Row columns='equal'>
-                  {this.props.isAdmin ? (
-                      ''
-                  ) : (
-                      <Grid.Column>
-                        <Header as='h4'>Club Recommendations</Header>
-                        <BoolField name='recommendClubs'/>
-                      </Grid.Column>
-                  )}
-                </Grid.Row>
-                <Grid.Row>
-                  <Header as='h3'>Contact Information</Header>
-                </Grid.Row>
-                <Grid.Row columns={2} verticalAlign='middle'>
-                  <Grid.Column>
-                    <TextField name='contactEmail'/>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <BoolField name='emailNotifications'/>
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row columns={2} verticalAlign='middle'>
-                  <Grid.Column>
-                    <TextField name='phoneNumber'/>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <BoolField name='textNotifications'/>
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row columns={1}>
-                  <Grid.Column>
-                    <SubmitField value='Submit'/>
-                  </Grid.Column>
-                </Grid.Row>
-                <ErrorsField/>
-              </Grid>
-            </AutoForm>
-          </Grid.Column>
+          <Grid.Row columns='equal'>
+            <Grid.Column>
+              <Header as="h2" textAlign="center">Account Settings</Header>
+              <AutoForm schema={this.props.isAdmin ? AdminSchema : ProfileSchema}
+                        onSubmit={this.submit} model={this.props.doc}>
+                <Grid stackable>
+                  <Grid.Row>
+                    <Header as='h3'>Password</Header>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Button basic color='teal' onClick={this.onClickChangePassword}>Change Password</Button>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Header as='h3'>Notifications</Header>
+                  </Grid.Row>
+                  <Grid.Row columns='equal'>
+                    <Grid.Column>
+                      <Header as='h4'>New Club Notifications</Header>
+                      <RadioField name='newClubNotifications'/>
+                    </Grid.Column>
+                    {this.props.isAdmin ? (
+                        <Grid.Column>
+                          <Header as='h4'>Updated Club Notifications</Header>
+                          <RadioField name='updatedClubNotifications'/>
+                        </Grid.Column>
+                    ) : (
+                        <Grid.Column>
+                          <Header as='h4'>Deleted Club Notifications</Header>
+                          <RadioField name='deletedClubNotifications'/>
+                        </Grid.Column>
+                    )}
+                  </Grid.Row>
+                  <Grid.Row columns='equal'>
+                    {this.props.isAdmin ? (
+                        ''
+                    ) : (
+                        <Grid.Column>
+                          <Header as='h4'>Club Recommendations</Header>
+                          <BoolField name='recommendClubs'/>
+                        </Grid.Column>
+                    )}
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Header as='h3'>Contact Information</Header>
+                  </Grid.Row>
+                  <Grid.Row columns={2} verticalAlign='middle'>
+                    <Grid.Column>
+                      <TextField name='contactEmail'/>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <BoolField name='emailNotifications'/>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row columns={2} verticalAlign='middle'>
+                    <Grid.Column>
+                      <TextField name='phoneNumber'/>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <BoolField name='textNotifications'/>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row columns={1}>
+                    <Grid.Column>
+                      <SubmitField value='Submit'/>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <ErrorsField/>
+                </Grid>
+              </AutoForm>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row/>
         </Grid>
     );
   }

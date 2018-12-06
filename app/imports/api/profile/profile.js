@@ -41,8 +41,8 @@ const ProfileSchema = new SimpleSchema({
     type: String, defaultValue: deletedClubNotificationOptions[0],
     allowedValues: deletedClubNotificationOptions, label: '',
   },
-  emailNotifications: { type: Boolean, defaultValue: false, label: 'Send me email notifications' },
-  textNotifications: { type: Boolean, defaultValue: false, label: 'Send me text notifications' },
+  emailNotifications: { type: Boolean, optional: true, defaultValue: false, label: 'Send me email notifications' },
+  textNotifications: { type: Boolean, optional: true, defaultValue: false, label: 'Send me text notifications' },
   recommendClubs: {
     type: Boolean, optional: true, defaultValue: true, label: 'Allow recommended clubs to appear on your homepage',
   },

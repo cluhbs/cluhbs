@@ -168,7 +168,6 @@ class RequestListAdmin extends React.Component {
           {this.renderMessages(admin)}
           {this.renderRequestList()}
         </Container>
-      </div>
     );
   }
 }
