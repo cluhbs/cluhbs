@@ -72,8 +72,11 @@ class DisplayClub extends React.Component {
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   renderPage() {
+    const padding = { paddingBottom: '50px' };
+    const contentStyle = { marginBottom: '50px' };
     return (
-        <Grid container>
+      <div style={contentStyle}>
+        <Grid container style={padding}>
           <Grid.Row>
             <Grid.Column>
               <Grid as={Segment}>
@@ -88,6 +91,7 @@ class DisplayClub extends React.Component {
                           <Header as="h1" textAlign="center">{this.props.doc.name}</Header>
                           {(this.props.doc.website) ? (
                               <Header.Subheader><strong>Club Website: </strong>
+                                <a href={this.props.doc.website}>{this.props.doc.website}</a>
                                 <a href={this.props.doc.website} rel='noopener noreferrer'
                                    target='_blank'>{this.props.doc.website}</a>
                               </Header.Subheader>) : ''
@@ -95,66 +99,67 @@ class DisplayClub extends React.Component {
                           <Grid container>
                             <Grid.Row/>
                             <Grid.Row columns='equal'>
-                              <Grid.Column>
-                                <Header.Subheader><strong>Contact Person: </strong>
-                                  {this.props.doc.contactPerson}</Header.Subheader>
-                                <Header.Subheader><strong>Contact Email: </strong>
-                                  {this.props.doc.contactEmail}</Header.Subheader>
-                              </Grid.Column>
-                              <Grid.Column>
-                                <Header.Subheader><strong>Meeting Times: </strong>{this.props.doc.meetTime}
-                                </Header.Subheader>
-                                <Header.Subheader><strong>Location: </strong>{this.props.doc.location}
-                                </Header.Subheader>
-                              </Grid.Column>
-                            </Grid.Row>
-                          </Grid>
-                        </Grid.Column>
-                        <Grid.Column textAlign='right' width={4}>
-                          {this.props.currentUser ? this.renderButtons() : ''}
-                        </Grid.Column>
-                      </Grid.Row>
-                      <Grid.Row columns={1}>
-                        <Grid.Column>
-                          <Container>{this.props.doc.description}</Container>
-                        </Grid.Column>
-                      </Grid.Row>
-                      <Grid.Row columns={1}>
-                        <Grid.Column>
-                          <Container>
-                            <Grid celled relaxed>
-                              <Grid.Row columns='equal' relaxed='true'>
                                 <Grid.Column>
-                                  <Header as='h4' attached='top' textAlign='center'>Interest Areas</Header>
-                                  <List bulleted>
-                                    {this.props.doc.interests.map((item, index) => <List.Item key={index}
-                                                                                              content={item}/>)}
-                                  </List>
+                                  <Header.Subheader><strong>Contact Person: </strong>
+                                    {this.props.doc.contactPerson}</Header.Subheader>
+                                  <Header.Subheader><strong>Contact Email: </strong>
+                                    {this.props.doc.contactEmail}</Header.Subheader>
                                 </Grid.Column>
                                 <Grid.Column>
-                                  <Header as='h4' attached='top' textAlign='center'>Members</Header>
-                                  <List bulleted>
-                                    {this.props.doc.members.map(
-                                        (memberId,
-                                         index) => <List.Item
-                                            key={index} as={Link} to={`/profile/${this.returnProfile(memberId)._id}`}
-                                            content={`${this.returnProfile(memberId).firstName}
-                                            ${this.returnProfile(memberId).lastName}`}/>,
-                                    )}
-                                  </List>
+                                  <Header.Subheader><strong>Meeting Times: </strong>{this.props.doc.meetTime}
+                                  </Header.Subheader>
+                                  <Header.Subheader><strong>Location: </strong>{this.props.doc.location}
+                                  </Header.Subheader>
                                 </Grid.Column>
                               </Grid.Row>
                             </Grid>
-                          </Container>
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+                          </Grid.Column>
+                          <Grid.Column textAlign='right' width={4}>
+                            {this.props.currentUser ? this.renderButtons() : ''}
+                          </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row columns={1}>
+                          <Grid.Column>
+                            <Container>{this.props.doc.description}</Container>
+                          </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row columns={1}>
+                          <Grid.Column>
+                            <Container>
+                              <Grid celled relaxed>
+                                <Grid.Row columns='equal' relaxed='true'>
+                                  <Grid.Column>
+                                    <Header as='h4' attached='top' textAlign='center'>Interest Areas</Header>
+                                    <List bulleted>
+                                      {this.props.doc.interests.map((item, index) => <List.Item key={index}
+                                                                                                content={item}/>)}
+                                    </List>
+                                  </Grid.Column>
+                                  <Grid.Column>
+                                    <Header as='h4' attached='top' textAlign='center'>Members</Header>
+                                    <List bulleted>
+                                      {this.props.doc.members.map(
+                                          (memberId,
+                                           index) => <List.Item
+                                              key={index} as={Link} to={`/profile/${this.returnProfile(memberId)._id}`}
+                                              content={`${this.returnProfile(memberId).firstName}
+                                            ${this.returnProfile(memberId).lastName}`}/>,
+                                      )}
+                                    </List>
+                                  </Grid.Column>
+                                </Grid.Row>
+                              </Grid>
+                            </Container>
+                          </Grid.Column>
+                        </Grid.Row>
+                      </Grid>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+      </div>
     );
   }
 }

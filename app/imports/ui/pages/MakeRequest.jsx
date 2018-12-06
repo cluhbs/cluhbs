@@ -41,11 +41,13 @@ class MakeRequest extends React.Component {
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   render() {
+    const contentStyle = { marginBottom: '50px' };
     const userRequest = this.props.requests.filter((x) => x.userId === Meteor.userId());
     const userProfile = Profiles.findOne({ owner: this.props.currentUser });
     return (
         <Container>
           {userRequest.length === 0 ? (
+              <div style={contentStyle}>
               <Grid container centered>
                 <Grid.Column>
                   <Header as="h2" textAlign="center">Make Request</Header>
@@ -65,6 +67,7 @@ class MakeRequest extends React.Component {
                   </AutoForm>
                 </Grid.Column>
               </Grid>
+              </div>
           ) : (
               <Header as='h3' textAlign='center' color='grey'>
                 You have already submitted a Club Admin Request.

@@ -19,20 +19,20 @@ class NavBar extends React.Component {
     if (this.props.currentUser === '') {
       return (
           <Menu.Item as={NavLink} activeClassName="" exact to="/">
-            <Image src='/images/logo-text.png' size='tiny'/>
+            <Image src='/images/cluhbs-wg.png' size='tiny'/>
           </Menu.Item>
       );
     }
     if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
           <Menu.Item as={NavLink} activeClassName="active" exact to="/request-admin" key='request-admin'>
-            <Image src='/images/logo-text.png' size='tiny'/>
+            <Image src='/images/cluhbs-wg.png' size='tiny'/>
           </Menu.Item>
       );
     }
     return (
         <Menu.Item as={NavLink} activeClassName="" exact to="/home" key='home'>
-          <Image src='/images/logo-text.png' size='tiny'/>
+          <Image src='/images/cluhbs-wg.png' size='tiny'/>
         </Menu.Item>
     );
   }
@@ -101,9 +101,9 @@ class NavBar extends React.Component {
   }
 
   renderPage() {
-    const menuStyle = { marginBottom: '15px', size: '20px' };
+    const menuStyle = { marginBottom: '12px', size: '20px', color: 'white' };
     return (
-        <Menu style={menuStyle} attached="top" borderless inverted color='green'>
+        <Menu style={menuStyle} attached="top" borderless inverted>
           {this.renderWelcomeNavLink()}
           <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>Club Directory</Menu.Item>
           {Roles.userIsInRole(Meteor.userId(), 'clubAdmin') ? this.renderClubAdminMenu() : ''}

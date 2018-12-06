@@ -15,7 +15,9 @@ class RequestListAdmin extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
+    const contentStyle = { marginBottom: '50px' };
     return (
+      <div style={contentStyle}>
         <Container textAlign='center'>
           <Header as="h2" textAlign="center">Request List</Header>
           {this.props.requests.length === 0 ? (
@@ -26,6 +28,7 @@ class RequestListAdmin extends React.Component {
               </Card.Group>
           )}
         </Container>
+      </div>
     );
   }
 }
