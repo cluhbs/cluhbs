@@ -419,5 +419,9 @@
       "interests": ["Academic", "Professional"],
       "owner": "clubAdminY1@foo.com"
     }
+  ],
+
+  "defaultAdmin": [
+    { "owner": "admin@foo.com" }
   ]
 }

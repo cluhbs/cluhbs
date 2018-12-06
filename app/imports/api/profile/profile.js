@@ -15,6 +15,11 @@ const newClubNotificationOptions = [
   'Notify me of new clubs that match my interests',
   'Do not send me notifications when new clubs are added to the Club Directory',
 ];
+const deletedClubNotificationOptions = [
+  'Notify me when any clubs are removed from the Club Directory',
+  'Notify me only when my Saved Clubs are removed from the Club Directory',
+  'Do not notify me when clubs are deleted from the Club Directory',
+];
 
 /** Create a schema to constrain the structure of documents associated with this collection. */
 const ProfileSchema = new SimpleSchema({
@@ -31,6 +36,10 @@ const ProfileSchema = new SimpleSchema({
   'newClubs.$': { type: String },
   newClubNotifications: {
     type: String, defaultValue: newClubNotificationOptions[0], allowedValues: newClubNotificationOptions, label: '',
+  },
+  deletedClubNotifications: {
+    type: String, defaultValue: deletedClubNotificationOptions[0],
+    allowedValues: deletedClubNotificationOptions, label: '',
   },
   emailNotifications: { type: Boolean, defaultValue: false, label: 'Send me email notifications' },
   textNotifications: { type: Boolean, defaultValue: false, label: 'Send me text notifications' },
@@ -49,4 +58,5 @@ const ProfileSchema = new SimpleSchema({
 Profiles.attachSchema(ProfileSchema);
 
 /** Make the collection and schema available to other code. */
-export { Profiles, ProfileSchema, defaultInterests, defaultImage, newClubNotificationOptions };
+export { Profiles, ProfileSchema, defaultInterests, defaultImage,
+  newClubNotificationOptions, deletedClubNotificationOptions };

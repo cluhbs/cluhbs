@@ -53,7 +53,6 @@ class UserHomePage extends React.Component {
     const _id = userProfile._id;
     if (userProfile.newClubNotifications === newClubNotificationOptions[2]) {
       Profiles.update(_id, { $set: { newClubs: [] } });
-      console.log(newClubNotificationOptions[0]);
     }
     if (userProfile.newClubNotifications === newClubNotificationOptions[1]) {
       const newClubs =
@@ -78,28 +77,29 @@ class UserHomePage extends React.Component {
   }
 
   renderMessages(userProfile) {
+    const totalCount = userProfile.messages.length + userProfile.newClubs.length;
     return (
         <Accordion>
           <Accordion.Title active={this.state.activeIndex === 0} index={0}
                            onClick={(e, titleProps) => this.onClickAccordion(e, titleProps)}>
             <Header as='h2' textAlign='center'>
-              {userProfile.messages.length + userProfile.newClubs.length > 0 ? (
+              {totalCount > 0 ? (
                   <div>
-                    <Icon name='exclamation circle' color='red'/> Messages <Icon name='dropdown'/>
+                    <Icon name='exclamation circle' color='red'/> Messages ({totalCount}) <Icon name='dropdown'/>
                   </div>
               ) : (
                   <div>
-                    Messages <Icon name='dropdown'/>
+                    Messages ({totalCount})<Icon name='dropdown'/>
                   </div>
               )}
             </Header>
           </Accordion.Title>
           <Accordion.Content active={this.state.activeIndex === 0}>
-            {(userProfile.messages.length + userProfile.newClubs.length === 0) ? (
+            {(totalCount === 0) ? (
                 <Header as='h3' textAlign='center' color='grey'>No new messages.</Header>
             ) : (
                 userProfile.messages.map((message, index) => <Message
-                    key={index} content={message} color='teal'
+                    key={index} content={message} color='violet'
                     onDismiss={(e, data) => this.dismissMessage(e, data, userProfile)}/>)
             )}
             {userProfile.newClubs.length === 0 ? ('') : (this.renderNewClubs(userProfile))}

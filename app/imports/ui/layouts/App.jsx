@@ -10,6 +10,7 @@ import Landing from '../pages/Landing';
 import UserHomePage from '../pages/UserHomePage';
 import EditProfile from '../pages/EditProfile';
 import DisplayProfile from '../pages/DisplayProfile';
+import ChangePassword from '../pages/ChangePassword';
 import ClubDirectory from '../pages/ClubDirectory';
 import RequestListAdmin from '../pages/RequestListAdmin';
 import AccountSettings from '../pages/AccountSettings';
@@ -33,6 +34,7 @@ class App extends React.Component {
                 <Route exact path="/" component={Landing}/>
                 <Route path="/signin" component={Signin}/>
                 <Route path="/signup" component={Signup}/>
+                <ProtectedRoute path="/change-password" component={ChangePassword}/>
                 <ProtectedRoute path="/account-settings/:_id" component={AccountSettings}/>
                 <ProtectedRoute path="/profile/:_id" component={DisplayProfile}/>
                 <ProtectedRoute path="/profile-edit/:_id" component={EditProfile}/>
